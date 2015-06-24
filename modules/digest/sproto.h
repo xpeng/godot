@@ -41,7 +41,7 @@ class Sproto : public Resource {
 
 	sproto* proto;
 
-	Dictionary _decode(struct sproto_type *p_st, const String& p_type, const ByteArray& p_stream, bool p_use_default);
+	Array _decode(struct sproto_type *p_st, const String& p_type, const ByteArray& p_stream, bool p_use_default);
 
 protected:
 	static void _bind_methods();
@@ -55,7 +55,7 @@ public:
 	void dump();
 	Dictionary get_default(const String& p_type);
 	ByteArray encode(const String& p_type, const Dictionary& p_dict);
-	Dictionary decode(const String& p_type, const ByteArray& p_stream, bool p_use_default = false);
+	Array decode(const String& p_type, const ByteArray& p_stream, bool p_use_default = false);
 
 	enum Proto {
 		REQUEST,
@@ -64,9 +64,10 @@ public:
 
 	int proto_tag(const String& p_type);
 	String proto_name(int p_tag);
+	bool proto_has(const String& p_type, Proto p_what);
 	Dictionary proto_get_default(const String& p_type, Proto p_what);
 	ByteArray proto_encode(const String& p_type, Proto p_what, const Dictionary& p_dict);
-	Dictionary proto_decode(const String& p_type, Proto p_what, const ByteArray& p_stream, bool p_use_default = false);
+	Array proto_decode(const String& p_type, Proto p_what, const ByteArray& p_stream, bool p_use_default = false);
 };
 
 VARIANT_ENUM_CAST(Sproto::Proto);

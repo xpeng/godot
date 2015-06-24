@@ -49,6 +49,15 @@ String Sproto::proto_name(int p_tag) {
 	return sproto_protoname(proto, p_tag);
 }
 
+bool Sproto::proto_has(const String& p_type, Proto p_what) {
+
+	ERR_FAIL_COND_V(proto == NULL, false);
+	int tag = sproto_prototag(proto, p_type.utf8().get_data());
+	ERR_FAIL_COND_V(tag == -1, false);
+	struct sproto_type *st = sproto_protoquery(proto, tag, p_what);
+	return st != NULL;
+}
+
 void Sproto::_bind_methods() {
 
 	ObjectTypeDB::bind_method(_MD("dump"),&Sproto::dump);
@@ -58,6 +67,7 @@ void Sproto::_bind_methods() {
 
 	ObjectTypeDB::bind_method(_MD("proto_tag","type"),&Sproto::proto_tag);
 	ObjectTypeDB::bind_method(_MD("proto_name","tag"),&Sproto::proto_name);
+	ObjectTypeDB::bind_method(_MD("proto_has","type","what"),&Sproto::proto_has);
 	ObjectTypeDB::bind_method(_MD("proto_get_default","type","what"),&Sproto::proto_get_default);
 	ObjectTypeDB::bind_method(_MD("proto_encode","type","what","dict"),&Sproto::proto_encode);
 	ObjectTypeDB::bind_method(_MD("proto_decode","type","what","stream","use_default"),&Sproto::proto_decode,false);

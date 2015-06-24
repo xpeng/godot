@@ -147,7 +147,7 @@ static int decode_callback(const struct sproto_arg *args) {
 	return 0;
 }
 
-Dictionary Sproto::_decode(struct sproto_type *p_st, const String& p_type, const ByteArray& p_stream, bool p_use_default) {
+Array Sproto::_decode(struct sproto_type *p_st, const String& p_type, const ByteArray& p_stream, bool p_use_default) {
 
 	Dictionary o(true);
 	if(p_use_default)
@@ -164,10 +164,14 @@ Dictionary Sproto::_decode(struct sproto_type *p_st, const String& p_type, const
 	int rt = sproto_decode(p_st, r.ptr(), p_stream.size(), decode_callback, &self);
 	ERR_EXPLAIN("decode error");
 	ERR_FAIL_COND_V(rt < 0, Variant());
-	return o;
+
+	Array a(true);
+	a.push_back(rt);
+	a.push_back(o);
+	return a;
 }
 
-Dictionary Sproto::decode(const String& p_type, const ByteArray& p_stream, bool p_use_default) {
+Array Sproto::decode(const String& p_type, const ByteArray& p_stream, bool p_use_default) {
 
 	ERR_FAIL_COND_V(proto == NULL, Variant());
 	struct sproto_type *st = sproto_type(proto, p_type.utf8().get_data());
@@ -175,7 +179,7 @@ Dictionary Sproto::decode(const String& p_type, const ByteArray& p_stream, bool 
 	return _decode(st, p_type, p_stream, p_use_default);
 }
 
-Dictionary Sproto::proto_decode(const String& p_type, Proto p_what, const ByteArray& p_stream, bool p_use_default) {
+Array Sproto::proto_decode(const String& p_type, Proto p_what, const ByteArray& p_stream, bool p_use_default) {
 
 	ERR_FAIL_COND_V(proto == NULL, Variant());
 	int tag = sproto_prototag(proto, p_type.utf8().get_data());

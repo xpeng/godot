@@ -564,6 +564,6 @@ void Crypt::_bind_methods() {
 	ObjectTypeDB::bind_method(_MD("base64encode","raw"),&Crypt::base64encode);
 	ObjectTypeDB::bind_method(_MD("base64decode","base64"),&Crypt::base64decode);
 	ObjectTypeDB::bind_method(_MD("sha1","raw"),&Crypt::sha1);
-	ObjectTypeDB::bind_method(_MD("hmac_sha1","key","raw"),&Crypt::hmac_sha1);
-	ObjectTypeDB::bind_method(_MD("hmac_hash","raw"),&Crypt::hmac_hash);
+	ObjectTypeDB::bind_method(_MD("hmac_sha1","key","text"),&Crypt::hmac_sha1);
+	ObjectTypeDB::bind_method(_MD("hmac_hash","key","text"),&Crypt::hmac_hash);
 }
