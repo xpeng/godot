@@ -460,6 +460,8 @@ public:
 
 	void set_value_evaluator(ValueEvaluator *p_evaluator);
 
+	VScrollBar *get_vscroll_bar() { return v_scroll; }
+
 	Tree();
 	~Tree();	
 

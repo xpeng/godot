@@ -452,6 +452,8 @@ protected:
 	String _dump(const String& p_filter="") const;
 	Array _get_method_list_bind() const;
 
+	void _clear_internal_resource_paths(const Variant &p_var);
+
 public: //should be protected, but bug in clang++
 	static void initialize_type();
 	_FORCE_INLINE_ static void register_custom_data_to_otdb() {};
@@ -600,6 +602,9 @@ public:
 
 	_FORCE_INLINE_ void set_message_translation(bool p_enable) { _can_translate=p_enable; }
 	_FORCE_INLINE_ bool can_translate_messages() const { return _can_translate; }
+
+	void clear_internal_resource_paths();
+
 	Object();	
 	virtual ~Object();
 
@@ -651,6 +656,8 @@ public:
 	_FORCE_INLINE_ static bool instance_validate(Object* p_ptr) { return true; }
 
 #endif
+
+
 
 };
 

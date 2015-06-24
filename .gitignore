@@ -291,3 +291,5 @@ cscope.out
 cscope.in.out
 cscope.po.out
 godot.creator.*
+
+projects/
