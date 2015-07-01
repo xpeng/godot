@@ -259,12 +259,15 @@ bool Object::_predelete() {
 	
 	_predelete_ok=1;
 	notification(NOTIFICATION_PREDELETE,true);
+	if (_predelete_ok) {
+		_type_ptr=NULL; //must restore so destructors can access type ptr correctly
+	}
 	return _predelete_ok;
 
 }
 
 void Object::_postinitialize() {
-	
+	_type_ptr=_get_type_namev();
 	_initialize_typev();
 	notification(NOTIFICATION_POSTINITIALIZE);
 	
@@ -1442,6 +1445,10 @@ Array Object::_get_signal_connection_list(const String& p_signal) const{
 
 void Object::get_signal_list(List<MethodInfo> *p_signals ) const {
 
+	if (!script.is_null()) {
+		Ref<Script>(script)->get_script_signal_list(p_signals);
+	}
+
 	ObjectTypeDB::get_signal_list(get_type_name(),p_signals);
 	//find maybe usersignals?
 	const StringName *S=NULL;
@@ -1453,6 +1460,7 @@ void Object::get_signal_list(List<MethodInfo> *p_signals ) const {
 			p_signals->push_back(signal_map[*S].user);
 		}
 	}
+
 }
 
 
@@ -1491,6 +1499,10 @@ Error Object::connect(const StringName& p_signal, Object *p_to_object, const Str
 	Signal *s = signal_map.getptr(p_signal);
 	if (!s) {
 		bool signal_is_valid = ObjectTypeDB::has_signal(get_type_name(),p_signal);
+		//check in script
+		if (!signal_is_valid && !script.is_null() && Ref<Script>(script)->has_script_signal(p_signal))
+			signal_is_valid=true;
+
 		if (!signal_is_valid) {
 			ERR_EXPLAIN("Attempt to connect nonexistent signal '"+p_signal+"' to method '"+p_to_method+"'");
 			ERR_FAIL_COND_V(!signal_is_valid,ERR_INVALID_PARAMETER);
@@ -1840,7 +1852,7 @@ bool Object::is_edited() const {
 
 Object::Object() {
 	
-
+	_type_ptr=NULL;
 	_block_signals=false;
 	_predelete_ok=0;
 	_instance_ID=0;

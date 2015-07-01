@@ -1858,6 +1858,7 @@ void _Thread::_start_func(void *ud) {
 	memdelete(tud);
 	Variant::CallError ce;
 	const Variant* arg[1]={&t->userdata};
+
 	t->ret=t->target_instance->call(t->target_method,arg,1,ce);
 	if (ce.error!=Variant::CallError::CALL_OK) {
 
@@ -1881,6 +1882,7 @@ void _Thread::_start_func(void *ud) {
 			} break;
 			default: {}
 		}
+
 
 		ERR_EXPLAIN("Could not call function '"+t->target_method.operator String()+"'' starting thread ID: "+t->get_id()+" Reason: "+reason);
 		ERR_FAIL();

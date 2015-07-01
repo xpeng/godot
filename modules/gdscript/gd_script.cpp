@@ -1787,6 +1787,12 @@ bool GDScript::_update_exports() {
 				//print_line("found "+c->variables[i]._export.name);
 				member_default_values_cache[c->variables[i].identifier]=c->variables[i].default_value;
 			}
+
+			_signals.clear();
+
+			for(int i=0;i<c->_signals.size();i++) {
+				_signals[c->_signals[i].name]=c->_signals[i].arguments;
+			}
 		}
 	} else {
 		//print_line("unchaged is "+get_path());
@@ -2002,8 +2008,16 @@ void GDScript::_bind_methods() {
 
 	ObjectTypeDB::bind_native_method(METHOD_FLAGS_DEFAULT,"new",&GDScript::_new,MethodInfo("new"));	
 
+	ObjectTypeDB::bind_method(_MD("get_as_byte_code"),&GDScript::get_as_byte_code);
+
 }
 
+
+Vector<uint8_t> GDScript::get_as_byte_code() const {
+
+	GDTokenizerBuffer tokenizer;
+	return tokenizer.parse_code_string(source);
+};
 
 
 Error GDScript::load_byte_code(const String& p_path) {
@@ -2130,6 +2144,47 @@ Ref<GDScript> GDScript::get_base() const {
 
 	return base;
 }
+
+bool GDScript::has_script_signal(const StringName& p_signal) const {
+	if (_signals.has(p_signal))
+		return true;
+	if (base.is_valid()) {
+		return base->has_script_signal(p_signal);
+	}
+#ifdef TOOLS_ENABLED
+	else if (base_cache.is_valid()){
+		return base_cache->has_script_signal(p_signal);
+	}
+
+#endif
+	return false;
+}
+void GDScript::get_script_signal_list(List<MethodInfo> *r_signals) const {
+
+	for(const Map<StringName,Vector<StringName> >::Element *E=_signals.front();E;E=E->next()) {
+
+		MethodInfo mi;
+		mi.name=E->key();
+		for(int i=0;i<E->get().size();i++) {
+			PropertyInfo arg;
+			arg.name=E->get()[i];
+			mi.arguments.push_back(arg);
+		}
+		r_signals->push_back(mi);
+	}
+
+	if (base.is_valid()) {
+		base->get_script_signal_list(r_signals);
+	}
+#ifdef TOOLS_ENABLED
+	else if (base_cache.is_valid()){
+		base_cache->get_script_signal_list(r_signals);
+	}
+
+#endif
+
+}
+
 
 GDScript::GDScript() {
 
@@ -2554,9 +2609,9 @@ void GDScriptLanguage::init() {
 
 	//populate native classes
 
-	List<String> class_list;
+	List<StringName> class_list;
 	ObjectTypeDB::get_type_list(&class_list);
-	for(List<String>::Element *E=class_list.front();E;E=E->next()) {
+	for(List<StringName>::Element *E=class_list.front();E;E=E->next()) {
 
 		StringName n = E->get();
 		String s = String(n);
@@ -2639,6 +2694,7 @@ void GDScriptLanguage::get_reserved_words(List<String> *p_words) const  {
 		"static",
 		"float",
 		"int",
+		"signal",
 	0};
 
 

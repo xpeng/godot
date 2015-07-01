@@ -99,7 +99,7 @@ void ScriptDebuggerLocal::debug(ScriptLanguage *p_script,bool p_can_continue) {
 			if (line.get_slice_count(" ")==1) {
 				print_source(p_script,current_frame,true);
 			} else {
-				int frame = line.get_slice(" ",1).to_int();
+				int frame = line.get_slicec(' ',1).to_int();
 				if (frame<0 || frame >=total_frames) {
 					print_line("Error: Invalid frame.");
 				} else {
@@ -147,7 +147,7 @@ void ScriptDebuggerLocal::debug(ScriptLanguage *p_script,bool p_can_continue) {
 				print_line("Usage: print <expre>");
 			} else {
 
-				String expr = line.substr(line.find(" "), line.length());
+				String expr = line.get_slicec(' ',2);
 				String res = p_script->debug_parse_stack_level_expression(current_frame,expr);
 				print_line(res);
 			}
@@ -181,9 +181,9 @@ void ScriptDebuggerLocal::debug(ScriptLanguage *p_script,bool p_can_continue) {
 			} else {
 
 
-				String bppos=line.get_slice(" ",1);
-				String source=bppos.get_slice(":",0).strip_edges();
-				int line=bppos.get_slice(":",1).strip_edges().to_int();
+				String bppos=line.get_slicec(' ',1);
+				String source=bppos.get_slicec(':',0).strip_edges();
+				int line=bppos.get_slicec(':',1).strip_edges().to_int();
 
 				source = breakpoint_find_source(source);
 
@@ -198,9 +198,9 @@ void ScriptDebuggerLocal::debug(ScriptLanguage *p_script,bool p_can_continue) {
 				clear_breakpoints();
 			} else {
 
-				String bppos=line.get_slice(" ",1);
-				String source=bppos.get_slice(":",0).strip_edges();
-				int line=bppos.get_slice(":",1).strip_edges().to_int();
+				String bppos=line.get_slicec(' ',1);
+				String source=bppos.get_slicec(':',0).strip_edges();
+				int line=bppos.get_slicec(':',1).strip_edges().to_int();
 
 				source = breakpoint_find_source(source);
 
