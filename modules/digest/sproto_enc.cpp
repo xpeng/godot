@@ -213,6 +213,53 @@ static int encode_callback(const struct sproto_arg *args) {
 		//printf("%s -> %d bytes\n", args->tagname, sz + 1);
 		return sz + 1;	// The length of empty string is 1.
 	}
+	case SPROTO_TVARIANT: {
+		switch(source.get_type()) {
+		case Variant::INT:
+		case Variant::REAL: {
+			real_t v = source;
+			size_t sz = sizeof(real_t) + 1;
+			if(sz > args->length)
+				return -1;
+			char *buf = (char *) args->value;
+			*buf++ = SPROTO_TREAL;
+			*(real_t *) buf = v;
+			return sz;
+		}
+		case Variant::STRING: {
+			String v = source;
+			CharString utf8 = v.utf8();
+			size_t sz = utf8.length();
+			if(sz + 1 > args->length)
+				return -1;
+			char *buf = (char *) args->value;
+			*buf++ = SPROTO_TSTRING;
+			memcpy(buf, utf8.get_data(), sz);
+			//printf("%s -> %d bytes\n", args->tagname, sz + 1);
+			return sz + 1 + 1;	// The length of empty string is 1.
+		}
+		case Variant::BOOL: {
+			bool v = source;
+			size_t sz = sizeof(bool) + 1;
+			if(sz > args->length)
+				return -1;
+			char *buf = (char *) args->value;
+			*buf++ = SPROTO_TREAL;
+			*(bool *) buf = v;
+			return sz;
+		}
+		default: {
+			ERR_EXPLAIN(String(args->tagname)
+				+ "("
+				+ String::num(args->tagid)
+				+ ") should be a int/real/string/bool (Is a "
+				+ source.get_type_name(source.get_type())
+				+ ")"
+			);
+			ERR_FAIL_V(0);
+		}
+		}
+	}
 	case SPROTO_TSTRUCT: {
 		struct encode_ud sub;
 		sub.value = source;

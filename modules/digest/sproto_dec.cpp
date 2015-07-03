@@ -81,9 +81,31 @@ static int decode_callback(const struct sproto_arg *args) {
 		break;
 	}
 	case SPROTO_TSTRING: {
-		String s = (const char *) args->value;
+		String s;
 		s.parse_utf8((const char *) args->value, args->length);
 		value = s;
+		break;
+	}
+	case SPROTO_TVARIANT: {
+		char *buf = (char *) args->value;
+		int type = *buf++;
+		switch(type) {
+		case SPROTO_TREAL:
+			value = *(real_t*) buf;
+			break;
+		case SPROTO_TSTRING: {
+			String s;
+			s.parse_utf8((const char *) buf, args->length - 1);
+			value = s;
+		}
+			break;
+		case SPROTO_TBOOLEAN:
+			value = *(bool*) buf;
+			break;
+		default:
+			ERR_EXPLAIN("Unknown variant type: " + String::num(type));
+			ERR_FAIL_V(0);
+		}
 		break;
 	}
 	case SPROTO_TSTRUCT: {

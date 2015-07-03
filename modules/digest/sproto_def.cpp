@@ -54,6 +54,9 @@ static int encode_default(const struct sproto_arg *args) {
 		case SPROTO_TSTRING:
 			value = "";
 			break;
+		case SPROTO_TVARIANT:
+			value = Variant();
+			break;
 		case SPROTO_TSTRUCT:
 			Dictionary sub(true);
 			sub["__type"] = sproto_name(args->subtype);
