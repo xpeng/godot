@@ -58,12 +58,71 @@ bool Sproto::proto_has(const String& p_type, Proto p_what) {
 	return st != NULL;
 }
 
+#define ENCODE_BUFFERSIZE 2050
+#define ENCODE_MAXSIZE 0x1000000
+
+void Sproto::_expand_buffer(int sz) {
+
+	if(wbuffer.size() < sz)
+		wbuffer.resize(sz);
+}
+
+ByteArray Sproto::pack(const ByteArray& p_stream) {
+
+	//int sproto_pack(const void * src, int srcsz, void * buffer, int bufsz);
+	int sz = p_stream.size();
+	ByteArray::Read r = p_stream.read();
+	const void *buffer = r.ptr();
+	// the worst-case space overhead of packing is 2 bytes per 2 KiB of input (256 words = 2KiB).
+	int maxsz = (sz + 2047) / 2048 * 2 + sz;
+	_expand_buffer(maxsz);
+
+	ByteArray::Write w = wbuffer.write();
+	void *output = w.ptr();
+
+	int bytes = sproto_pack(buffer, sz, output, maxsz);
+	ERR_EXPLAIN("packing error, return size = " + String::num(bytes));
+	ERR_FAIL_COND_V(bytes > maxsz, ByteArray());
+
+	w = ByteArray::Write();
+	wbuffer.resize(bytes);
+	return wbuffer;
+}
+
+ByteArray Sproto::unpack(const ByteArray& p_stream) {
+
+	int sz = p_stream.size();
+	ByteArray::Read r = p_stream.read();
+	const void *buffer = r.ptr();
+	ByteArray::Write w = wbuffer.write();
+	void *output = w.ptr();
+	int osz = wbuffer.size();
+	int ret = sproto_unpack(buffer, sz, output, osz);
+	ERR_EXPLAIN("Invalid unpack stream");
+	ERR_FAIL_COND_V(ret < 0, ByteArray());
+	if (ret > osz) {
+		w = ByteArray::Write();
+		_expand_buffer(ret);
+		w = wbuffer.write();
+		output = w.ptr();
+	}
+	ret = sproto_unpack(buffer, sz, output, ret);
+	ERR_EXPLAIN("Invalid unpack stream");
+	ERR_FAIL_COND_V(ret < 0, ByteArray());
+
+	w = ByteArray::Write();
+	wbuffer.resize(ret);
+	return wbuffer;
+}
+
 void Sproto::_bind_methods() {
 
 	ObjectTypeDB::bind_method(_MD("dump"),&Sproto::dump);
 	ObjectTypeDB::bind_method(_MD("get_default","type"),&Sproto::get_default);
 	ObjectTypeDB::bind_method(_MD("encode","type","dict"),&Sproto::encode);
 	ObjectTypeDB::bind_method(_MD("decode","type","stream","use_default"),&Sproto::decode,false);
+	ObjectTypeDB::bind_method(_MD("pack","stream"),&Sproto::pack);
+	ObjectTypeDB::bind_method(_MD("unpack","stream"),&Sproto::unpack);
 
 	ObjectTypeDB::bind_method(_MD("proto_tag","type"),&Sproto::proto_tag);
 	ObjectTypeDB::bind_method(_MD("proto_name","tag"),&Sproto::proto_name);
@@ -79,6 +138,7 @@ void Sproto::_bind_methods() {
 Sproto::Sproto()
 	: proto(NULL)
 {
+	wbuffer.resize(ENCODE_BUFFERSIZE);
 }
 
 Sproto::~Sproto() {

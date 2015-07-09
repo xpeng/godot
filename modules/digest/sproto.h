@@ -40,8 +40,10 @@ class Sproto : public Resource {
 	OBJ_TYPE(Sproto,Resource);
 
 	sproto* proto;
+	ByteArray wbuffer;
 
 	Array _decode(struct sproto_type *p_st, const String& p_type, const ByteArray& p_stream, bool p_use_default);
+	void _expand_buffer(int sz);
 
 protected:
 	static void _bind_methods();
@@ -56,6 +58,9 @@ public:
 	Dictionary get_default(const String& p_type);
 	ByteArray encode(const String& p_type, const Dictionary& p_dict);
 	Array decode(const String& p_type, const ByteArray& p_stream, bool p_use_default = false);
+
+	ByteArray pack(const ByteArray& p_stream);
+	ByteArray unpack(const ByteArray& p_stream);
 
 	enum Proto {
 		REQUEST,
