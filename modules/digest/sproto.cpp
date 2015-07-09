@@ -27,6 +27,8 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 #include "sproto.h"
+#include <memory.h>
+
 extern "C" {
 #include "sproto/sproto.h"
 };
@@ -84,9 +86,12 @@ ByteArray Sproto::pack(const ByteArray& p_stream) {
 	ERR_EXPLAIN("packing error, return size = " + String::num(bytes));
 	ERR_FAIL_COND_V(bytes > maxsz, ByteArray());
 
-	w = ByteArray::Write();
-	wbuffer.resize(bytes);
-	return wbuffer;
+	r = wbuffer.read();
+	ByteArray result;
+	result.resize(bytes);
+	w = result.write();
+	memcpy(w.ptr(), r.ptr(), bytes);
+	return result;
 }
 
 ByteArray Sproto::unpack(const ByteArray& p_stream) {
@@ -105,14 +110,16 @@ ByteArray Sproto::unpack(const ByteArray& p_stream) {
 		_expand_buffer(ret);
 		w = wbuffer.write();
 		output = w.ptr();
+		ret = sproto_unpack(buffer, sz, output, ret);
+		ERR_EXPLAIN("Invalid unpack stream");
+		ERR_FAIL_COND_V(ret < 0, ByteArray());
 	}
-	ret = sproto_unpack(buffer, sz, output, ret);
-	ERR_EXPLAIN("Invalid unpack stream");
-	ERR_FAIL_COND_V(ret < 0, ByteArray());
-
-	w = ByteArray::Write();
-	wbuffer.resize(ret);
-	return wbuffer;
+	r = wbuffer.read();
+	ByteArray result;
+	result.resize(ret);
+	w = result.write();
+	memcpy(w.ptr(), r.ptr(), ret);
+	return result;
 }
 
 void Sproto::_bind_methods() {
