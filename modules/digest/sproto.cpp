@@ -27,7 +27,7 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 #include "sproto.h"
-#include <memory.h>
+#include <string.h>
 
 extern "C" {
 #include "sproto/sproto.h"
