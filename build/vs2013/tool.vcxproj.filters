@@ -621,6 +621,9 @@
     <ClCompile Include="..\..\tools\editor\plugins\color_ramp_editor_plugin.cpp">
       <Filter>tools\editor\plugins</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\tools\editor\plugins\collision_shape_2d_editor_plugin.cpp">
+      <Filter>tools\editor\plugins</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\tools\collada\collada.h">

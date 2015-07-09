@@ -263,9 +263,9 @@ Error PackedScene::_parse_node(Node *p_owner,Node *p_node,int p_parent_idx, Map<
 			continue;
 		}
 
-		print_line("PASSED!");
-		print_line("at: "+String(p_node->get_name())+"::"+name+": -  nz: "+itos(E->get().usage&PROPERTY_USAGE_STORE_IF_NONZERO)+" no: "+itos(E->get().usage&PROPERTY_USAGE_STORE_IF_NONONE));
-		print_line("value: "+String(value)+" is zero: "+itos(value.is_zero())+" is one" +itos(value.is_one()));
+		//print_line("PASSED!");
+		//print_line("at: "+String(p_node->get_name())+"::"+name+": -  nz: "+itos(E->get().usage&PROPERTY_USAGE_STORE_IF_NONZERO)+" no: "+itos(E->get().usage&PROPERTY_USAGE_STORE_IF_NONONE));
+		//print_line("value: "+String(value)+" is zero: "+itos(value.is_zero())+" is one" +itos(value.is_one()));
 
 		if (nd.instance>=0) {
 			//only save changed properties in instance

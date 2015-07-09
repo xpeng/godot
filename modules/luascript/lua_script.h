@@ -161,6 +161,9 @@ public:
 	virtual void set_source_code(const String& p_code);
 	virtual Error reload();
 
+	virtual bool has_script_signal(const StringName &) const { return false; }
+	virtual void get_script_signal_list(List<MethodInfo,DefaultAllocator> *) const {}
+
 	virtual String get_node_type() const;
 	void set_script_path(const String& p_path) { path=p_path; } //because subclasses need a path too...
 	Error load_source_code(const String& p_path);
