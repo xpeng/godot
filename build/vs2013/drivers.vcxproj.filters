@@ -16,9 +16,6 @@
     <Filter Include="drivers\theora">
       <UniqueIdentifier>{b2ee7a50-ad4c-48d5-8872-709216a8da96}</UniqueIdentifier>
     </Filter>
-    <Filter Include="drivers\trex">
-      <UniqueIdentifier>{0f86b5a9-d16a-418b-981c-1d1ba7af6cbb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="drivers\unix">
       <UniqueIdentifier>{5f16d93f-410c-4cb7-b9a7-dcaf76870d19}</UniqueIdentifier>
     </Filter>
@@ -343,6 +340,9 @@
     <Filter Include="drivers\theoraplayer\src\YUV\libyuv\src">
       <UniqueIdentifier>{53f5b037-5de1-4a52-af7f-684d7bbc93a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="drivers\nrex">
+      <UniqueIdentifier>{0f86b5a9-d16a-418b-981c-1d1ba7af6cbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\drivers\register_driver_types.cpp">
@@ -467,12 +467,6 @@
     </ClCompile>
     <ClCompile Include="..\..\drivers\theora\video_stream_theora.cpp">
       <Filter>drivers\theora</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\trex\regex.cpp">
-      <Filter>drivers\trex</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\trex\trex.c">
-      <Filter>drivers\trex</Filter>
     </ClCompile>
     <ClCompile Include="..\..\drivers\unix\dir_access_unix.cpp">
       <Filter>drivers\unix</Filter>
@@ -3339,6 +3333,12 @@
     <ClCompile Include="..\..\drivers\pvr\PvrTcPacket.cpp">
       <Filter>drivers\pvr</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\drivers\nrex\nrex.cpp">
+      <Filter>drivers\nrex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\nrex\regex.cpp">
+      <Filter>drivers\nrex</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\drivers\register_driver_types.h">
@@ -3466,15 +3466,6 @@
     </ClInclude>
     <ClInclude Include="..\..\drivers\theora\yuv2rgb.h">
       <Filter>drivers\theora</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\trex\regex.h">
-      <Filter>drivers\trex</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\trex\trex.h">
-      <Filter>drivers\trex</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\trex\TRexpp.h">
-      <Filter>drivers\trex</Filter>
     </ClInclude>
     <ClInclude Include="..\..\drivers\unix\dir_access_unix.h">
       <Filter>drivers\unix</Filter>
@@ -5035,6 +5026,15 @@
     </ClInclude>
     <ClInclude Include="..\..\drivers\pvr\RgbaBitmap.h">
       <Filter>drivers\pvr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\nrex\nrex.hpp">
+      <Filter>drivers\nrex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\nrex\nrex_config.h">
+      <Filter>drivers\nrex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\nrex\regex.h">
+      <Filter>drivers\nrex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
