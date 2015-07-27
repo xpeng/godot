@@ -136,12 +136,17 @@ Vector<uint8_t> EditorExportResources::custom_export(String& p_path,const Ref<Ed
 		Dictionary dict;
 		Array arr;
 
-		if(dict.parse_json(text) == OK)
-			var = dict;
-		else if(arr.parse_json(text) == OK)
-			var = arr;
-		else
-			return Vector<uint8_t>();
+		if(text[0] == '[') {
+			if(arr.parse_json(text) == OK)
+				var = arr;
+			else
+				return Vector<uint8_t>();
+		} else {
+			if(dict.parse_json(text) == OK)
+				var = dict;
+			else
+				return Vector<uint8_t>();
+		}
 
 		int len;
 		Error err = encode_variant(var,NULL,len);

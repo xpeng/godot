@@ -100,6 +100,7 @@
 #include "tools/editor/io_plugins/editor_sample_import_plugin.h"
 #include "tools/editor/io_plugins/editor_translation_import_plugin.h"
 #include "tools/editor/io_plugins/editor_mesh_import_plugin.h"
+#include "tools/editor/io_plugins/editor_export_res.h"
 
 #include "plugins/editor_preview_plugins.h"
 
@@ -5017,6 +5018,7 @@ EditorNode::EditorNode() {
 	editor_import_export->add_import_plugin( Ref<EditorTranslationImportPlugin>( memnew(EditorTranslationImportPlugin(this))));
 
 	editor_import_export->add_export_plugin( Ref<EditorTextureExportPlugin>( memnew(EditorTextureExportPlugin)));
+	editor_import_export->add_export_plugin( Ref<EditorExportResources>( memnew(EditorExportResources)));
 
 	add_editor_plugin( memnew( CanvasItemEditorPlugin(this) ) );
 	add_editor_plugin( memnew( SpatialEditorPlugin(this) ) );
