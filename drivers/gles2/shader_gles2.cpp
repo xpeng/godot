@@ -485,10 +485,11 @@ ShaderGLES2::Version* ShaderGLES2::get_current_version() {
 			glGetShaderInfoLog(v.frag_id, iloglen, &iloglen, ilogmem); 	
 			
 			String err_string=get_shader_name()+": Fragment Program Compilation Failed:\n";
-			
 			err_string+=ilogmem;
 			err_string=_fix_error_code_line(err_string,fragment_code_start,define_line_ofs);
 			ERR_PRINT(err_string.ascii().get_data());
+			for(int i = 0; i < strings.size(); i++)
+				ERR_PRINT(strings[i]);
 			Memory::free_static(ilogmem);
 			glDeleteShader(v.frag_id);
 			glDeleteShader(v.vert_id);
