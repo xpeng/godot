@@ -56,7 +56,7 @@ static int decode_callback(const struct sproto_arg *args) {
 			self->array_tag = args->tagname;
 			Dictionary object = result.operator Dictionary();
 			if(!object.has(args->tagname)) {
-				if(args->mainindex > 0)
+				if(args->mainindex >= 0)
 					array = Dictionary(true);
 				else
 					array = Array(true);
