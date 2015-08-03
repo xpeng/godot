@@ -871,6 +871,8 @@
     <ClCompile Include="..\..\drivers\mpc\synth_filter.c" />
     <ClCompile Include="..\..\drivers\nedmalloc\memory_pool_static_nedmalloc.cpp" />
     <ClCompile Include="..\..\drivers\nedmalloc\nedmalloc.cpp" />
+    <ClCompile Include="..\..\drivers\nrex\nrex.cpp" />
+    <ClCompile Include="..\..\drivers\nrex\regex.cpp" />
     <ClCompile Include="..\..\drivers\ogg\bitwise.c" />
     <ClCompile Include="..\..\drivers\ogg\framing.c" />
     <ClCompile Include="..\..\drivers\openssl\curl_hostcheck.c" />
@@ -1046,8 +1048,6 @@
     <ClCompile Include="..\..\drivers\theora\state.c" />
     <ClCompile Include="..\..\drivers\theora\tokenize.c" />
     <ClCompile Include="..\..\drivers\theora\video_stream_theora.cpp" />
-    <ClCompile Include="..\..\drivers\trex\regex.cpp" />
-    <ClCompile Include="..\..\drivers\trex\trex.c" />
     <ClCompile Include="..\..\drivers\unix\dir_access_unix.cpp" />
     <ClCompile Include="..\..\drivers\unix\file_access_unix.cpp" />
     <ClCompile Include="..\..\drivers\unix\ip_unix.cpp" />
@@ -1532,6 +1532,9 @@
     <ClInclude Include="..\..\drivers\nedmalloc\malloc.c.h" />
     <ClInclude Include="..\..\drivers\nedmalloc\memory_pool_static_nedmalloc.h" />
     <ClInclude Include="..\..\drivers\nedmalloc\nedmalloc.h" />
+    <ClInclude Include="..\..\drivers\nrex\nrex.hpp" />
+    <ClInclude Include="..\..\drivers\nrex\nrex_config.h" />
+    <ClInclude Include="..\..\drivers\nrex\regex.h" />
     <ClInclude Include="..\..\drivers\ogg\config_types.h" />
     <ClInclude Include="..\..\drivers\ogg\ogg.h" />
     <ClInclude Include="..\..\drivers\ogg\os_types.h" />
@@ -1701,9 +1704,6 @@
     <ClInclude Include="..\..\drivers\theora\theoraenc.h" />
     <ClInclude Include="..\..\drivers\theora\video_stream_theora.h" />
     <ClInclude Include="..\..\drivers\theora\yuv2rgb.h" />
-    <ClInclude Include="..\..\drivers\trex\regex.h" />
-    <ClInclude Include="..\..\drivers\trex\trex.h" />
-    <ClInclude Include="..\..\drivers\trex\TRexpp.h" />
     <ClInclude Include="..\..\drivers\unix\dir_access_unix.h" />
     <ClInclude Include="..\..\drivers\unix\file_access_unix.h" />
     <ClInclude Include="..\..\drivers\unix\ip_unix.h" />
