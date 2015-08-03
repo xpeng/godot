@@ -130,7 +130,7 @@ void ScriptDebuggerRemote::debug(ScriptLanguage *p_script,bool p_can_continue) {
 			ERR_CONTINUE( cmd[0].get_type()!=Variant::STRING );
 
 			String command = cmd[0];
-			cmd.remove(0);
+
 
 
 			if (command=="get_stack_dump") {
@@ -153,7 +153,7 @@ void ScriptDebuggerRemote::debug(ScriptLanguage *p_script,bool p_can_continue) {
 
 			} else if (command=="get_stack_frame_vars") {
 
-
+				cmd.remove(0);
 				ERR_CONTINUE( cmd.size()!=1 );
 				int lv = cmd[0];
 
@@ -247,7 +247,7 @@ void ScriptDebuggerRemote::debug(ScriptLanguage *p_script,bool p_can_continue) {
 				if (request_scene_tree)
 					request_scene_tree(request_scene_tree_ud);
 			} else if (command=="set_breakpoint") {
-
+				cmd.remove(0);
 			    ERR_CONTINUE( cmd.size()!=3 );
 			    String path = cmd[0];
 			    int line = cmd[1];
@@ -257,7 +257,11 @@ void ScriptDebuggerRemote::debug(ScriptLanguage *p_script,bool p_can_continue) {
                     insert_breakpoint(line, path);
                 else
                     remove_breakpoint(line, path);
-            }
+
+			} else {
+				_parse_live_edit(cmd);
+			}
+
 
 		} else {
 			OS::get_singleton()->delay_usec(10000);
@@ -313,6 +317,105 @@ void ScriptDebuggerRemote::line_poll() {
 }
 
 
+bool ScriptDebuggerRemote::_parse_live_edit(const Array& cmd) {
+
+	String cmdstr = cmd[0];
+	if (!live_edit_funcs || !cmdstr.begins_with("live_"))
+		return false;
+
+
+	//print_line(Variant(cmd).get_construct_string());
+	if (cmdstr=="live_set_root") {
+
+		if (!live_edit_funcs->root_func)
+			return true;
+		//print_line("root: "+Variant(cmd).get_construct_string());
+		live_edit_funcs->root_func(live_edit_funcs->udata,cmd[1],cmd[2]);
+
+	} else if (cmdstr=="live_node_path") {
+
+		if (!live_edit_funcs->node_path_func)
+			return true;
+		//print_line("path: "+Variant(cmd).get_construct_string());
+
+		live_edit_funcs->node_path_func(live_edit_funcs->udata,cmd[1],cmd[2]);
+
+	} else if (cmdstr=="live_res_path") {
+
+		if (!live_edit_funcs->res_path_func)
+			return true;
+		live_edit_funcs->res_path_func(live_edit_funcs->udata,cmd[1],cmd[2]);
+
+	} else if (cmdstr=="live_node_prop_res") {
+		if (!live_edit_funcs->node_set_res_func)
+			return true;
+
+		live_edit_funcs->node_set_res_func(live_edit_funcs->udata,cmd[1],cmd[2],cmd[3]);
+
+	} else if (cmdstr=="live_node_prop") {
+
+		if (!live_edit_funcs->node_set_func)
+			return true;
+		live_edit_funcs->node_set_func(live_edit_funcs->udata,cmd[1],cmd[2],cmd[3]);
+
+	} else if (cmdstr=="live_res_prop_res") {
+
+		if (!live_edit_funcs->res_set_res_func)
+			return true;
+		live_edit_funcs->res_set_res_func(live_edit_funcs->udata,cmd[1],cmd[2],cmd[3]);
+
+	} else if (cmdstr=="live_res_prop") {
+
+		if (!live_edit_funcs->res_set_func)
+			return true;
+		live_edit_funcs->res_set_func(live_edit_funcs->udata,cmd[1],cmd[2],cmd[3]);
+
+	} else if (cmdstr=="live_node_call") {
+
+		if (!live_edit_funcs->node_call_func)
+			return true;
+		live_edit_funcs->node_call_func(live_edit_funcs->udata,cmd[1],cmd[2],  cmd[3],cmd[4],cmd[5],cmd[6],cmd[7]);
+
+	} else if (cmdstr=="live_res_call") {
+
+		if (!live_edit_funcs->res_call_func)
+			return true;
+		live_edit_funcs->res_call_func(live_edit_funcs->udata,cmd[1],cmd[2],  cmd[3],cmd[4],cmd[5],cmd[6],cmd[7]);
+
+	} else if (cmdstr=="live_create_node") {
+
+		live_edit_funcs->tree_create_node_func(live_edit_funcs->udata,cmd[1],cmd[2],cmd[3]);
+
+	} else if (cmdstr=="live_instance_node") {
+
+		live_edit_funcs->tree_instance_node_func(live_edit_funcs->udata,cmd[1],cmd[2],cmd[3]);
+
+	} else if (cmdstr=="live_remove_node") {
+
+		live_edit_funcs->tree_remove_node_func(live_edit_funcs->udata,cmd[1]);
+
+	} else if (cmdstr=="live_remove_and_keep_node") {
+
+		live_edit_funcs->tree_remove_and_keep_node_func(live_edit_funcs->udata,cmd[1],cmd[2]);
+	} else if (cmdstr=="live_restore_node") {
+
+		live_edit_funcs->tree_restore_node_func(live_edit_funcs->udata,cmd[1],cmd[2],cmd[3]);
+
+	} else if (cmdstr=="live_duplicate_node") {
+
+		live_edit_funcs->tree_duplicate_node_func(live_edit_funcs->udata,cmd[1],cmd[2]);
+	} else if (cmdstr=="live_reparent_node") {
+
+		live_edit_funcs->tree_reparent_node_func(live_edit_funcs->udata,cmd[1],cmd[2],cmd[3],cmd[4]);
+
+	} else {
+
+		return false;
+	}
+
+	return true;
+}
+
 void ScriptDebuggerRemote::_poll_events() {
 
 	while(packet_peer_stream->get_available_packet_count()>0) {
@@ -333,7 +436,7 @@ void ScriptDebuggerRemote::_poll_events() {
 		ERR_CONTINUE( cmd[0].get_type()!=Variant::STRING );
 
 		String command = cmd[0];
-		cmd.remove(0);
+		//cmd.remove(0);
 
 		if (command=="break") {
 
@@ -344,7 +447,7 @@ void ScriptDebuggerRemote::_poll_events() {
 			if (request_scene_tree)
 				request_scene_tree(request_scene_tree_ud);
         } else if (command=="set_breakpoint") {
-
+			cmd.remove(0);
 			ERR_CONTINUE( cmd.size()!=3 );
 			String path = cmd[0];
 			int line = cmd[1];
@@ -354,7 +457,10 @@ void ScriptDebuggerRemote::_poll_events() {
                 insert_breakpoint(line, path);
             else
                 remove_breakpoint(line, path);
-        }
+
+		} else {
+			_parse_live_edit(cmd);
+		}
 
 	}
 
@@ -436,6 +542,11 @@ void ScriptDebuggerRemote::set_request_scene_tree_message_func(RequestSceneTreeM
 	request_scene_tree_ud=p_udata;
 }
 
+void ScriptDebuggerRemote::set_live_edit_funcs(LiveEditFuncs *p_funcs) {
+
+	live_edit_funcs=p_funcs;
+}
+
 ScriptDebuggerRemote::ScriptDebuggerRemote() {
 
 	tcp_client  = StreamPeerTCP::create_ref();
@@ -452,6 +563,7 @@ ScriptDebuggerRemote::ScriptDebuggerRemote() {
 	last_perf_time=0;
 	poll_every=0;
 	request_scene_tree=NULL;
+	live_edit_funcs=NULL;
 
 }
 
