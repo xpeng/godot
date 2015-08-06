@@ -310,9 +310,9 @@ int Label::get_longest_line_width() const {
 	int max_line_width=0;
 	int line_width=0;
 	
-	for (int i=0;i<text.size()+1;i++) {
+	for (int i=0;i<text.size();i++) {
 		
-		CharType current=i<text.length()?text[i]:' '; //always a space at the end, so the algo works
+		CharType current=text[i];
 		if (uppercase)
 			current=String::char_uppercase(current);
 
