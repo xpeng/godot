@@ -177,6 +177,13 @@ public:
 	virtual String debug_parse_stack_level_expression(int p_level,const String& p_expression,int p_max_subitems=-1,int p_max_depth=-1,bool p_return=true)=0;
     virtual void debug_status_changed() = 0;
 
+	struct StackInfo {
+		Ref<Script> script;
+		int line;
+	};
+
+	virtual Vector<StackInfo> debug_get_current_stack_info() { return Vector<StackInfo>(); }
+
 	/* LOADER FUNCTIONS */
 
 	virtual void get_recognized_extensions(List<String> *p_extensions) const=0;
