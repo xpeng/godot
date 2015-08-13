@@ -99,7 +99,7 @@ void SpineBatcher::add(Ref<Texture> p_texture,
 	}
 }
 
-void SpineBatcher::add_set_blender_mode(bool p_mode) {
+void SpineBatcher::add_set_blender_mode(int p_mode) {
 
 	push_elements();
 	element_list.push_back(memnew(SetBlendMode(p_mode)));

@@ -87,7 +87,7 @@ public:
 		const int* p_indies, int p_indies_count,
 		Color *p_color, bool flip_x, bool flip_y);
 
-	void add_set_blender_mode(bool p_mode);
+	void add_set_blender_mode(int p_mode);
 
 	void flush();
 

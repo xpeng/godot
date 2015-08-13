@@ -32,7 +32,7 @@
 #define SPINE_EXTENSION_H_
 
 /* All allocation uses these. */
-#define MALLOC(TYPE,COUNT) ((TYPE*)_malloc(sizeof(TYPE) * COUNT, __FILE__, __LINE__))
+#define MALLOC(TYPE,COUNT) ((TYPE*)_malloc(sizeof(TYPE) * (COUNT), __FILE__, __LINE__))
 #define CALLOC(TYPE,COUNT) ((TYPE*)_calloc(COUNT, sizeof(TYPE), __FILE__, __LINE__))
 #define NEW(TYPE) CALLOC(TYPE,1)
 
@@ -130,6 +130,15 @@ typedef struct _spAnimationState {
 
 	spTrackEntry* (*createTrackEntry) (spAnimationState* self);
 	void (*disposeTrackEntry) (spTrackEntry* entry);
+
+#ifdef __cplusplus
+	_spAnimationState() :
+		super(),
+		events(0),
+		createTrackEntry(0),
+		disposeTrackEntry(0) {
+	}
+#endif
 } _spAnimationState;
 
 spTrackEntry* _spTrackEntry_create (spAnimationState* self);

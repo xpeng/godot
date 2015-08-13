@@ -1,25 +1,26 @@
 /******************************************************************************
  * Spine Runtimes Software License
- * Version 2.1
+ * Version 2.3
  * 
- * Copyright (c) 2013, Esoteric Software
+ * Copyright (c) 2013-2015, Esoteric Software
  * All rights reserved.
  * 
  * You are granted a perpetual, non-exclusive, non-sublicensable and
- * non-transferable license to install, execute and perform the Spine Runtimes
- * Software (the "Software") solely for internal use. Without the written
- * permission of Esoteric Software (typically granted by licensing Spine), you
- * may not (a) modify, translate, adapt or otherwise create derivative works,
- * improvements of the Software or develop new applications using the Software
- * or (b) remove, delete, alter or obscure any trademarks or any copyright,
- * trademark, patent or other intellectual property or proprietary rights
- * notices on or in the Software, including any copy thereof. Redistributions
- * in binary or source form must include this license and terms.
+ * non-transferable license to use, install, execute and perform the Spine
+ * Runtimes Software (the "Software") and derivative works solely for personal
+ * or internal use. Without the written permission of Esoteric Software (see
+ * Section 2 of the Spine Software License Agreement), you may not (a) modify,
+ * translate, adapt or otherwise create derivative works, improvements of the
+ * Software or develop new applications using the Software or (b) remove,
+ * delete, alter or obscure any trademarks or any copyright, trademark, patent
+ * or other intellectual property or proprietary rights notices on or in the
+ * Software, including any copy thereof. Redistributions in binary or source
+ * form must include this license and terms.
  * 
  * THIS SOFTWARE IS PROVIDED BY ESOTERIC SOFTWARE "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
- * EVENT SHALL ESOTERIC SOFTARE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * EVENT SHALL ESOTERIC SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
  * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
  * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
@@ -47,6 +48,15 @@ typedef struct spAnimation {
 
 	int timelinesCount;
 	spTimeline** timelines;
+
+#ifdef __cplusplus
+	spAnimation() :
+		name(0),
+		duration(0),
+		timelinesCount(0),
+		timelines(0) {
+	}
+#endif
 } spAnimation;
 
 spAnimation* spAnimation_create (const char* name, int timelinesCount);
@@ -91,8 +101,14 @@ typedef enum {
 
 struct spTimeline {
 	const spTimelineType type;
-
 	const void* const vtable;
+
+#ifdef __cplusplus
+	spTimeline() :
+		type(SP_TIMELINE_SCALE),
+		vtable(0) {
+	}
+#endif
 };
 
 void spTimeline_dispose (spTimeline* self);
@@ -117,6 +133,13 @@ typedef spTimeline Timeline;
 typedef struct spCurveTimeline {
 	spTimeline super;
 	float* curves; /* type, x, y, ... */
+
+#ifdef __cplusplus
+	spCurveTimeline() :
+		super(),
+		curves(0) {
+	}
+#endif
 } spCurveTimeline;
 
 void spCurveTimeline_setLinear (spCurveTimeline* self, int frameIndex);
@@ -143,6 +166,15 @@ typedef struct spBaseTimeline {
 	int const framesCount;
 	float* const frames; /* time, angle, ... for rotate. time, x, y, ... for translate and scale. */
 	int boneIndex;
+
+#ifdef __cplusplus
+	spBaseTimeline() :
+		super(),
+		framesCount(0),
+		frames(0),
+		boneIndex(0) {
+	}
+#endif
 } spBaseTimeline;
 
 /**/
@@ -194,6 +226,15 @@ typedef struct spColorTimeline {
 	int const framesCount;
 	float* const frames; /* time, r, g, b, a, ... */
 	int slotIndex;
+
+#ifdef __cplusplus
+	spColorTimeline() :
+		super(),
+		framesCount(0),
+		frames(0),
+		slotIndex(0) {
+	}
+#endif
 } spColorTimeline;
 
 spColorTimeline* spColorTimeline_create (int framesCount);
@@ -214,6 +255,16 @@ typedef struct spAttachmentTimeline {
 	float* const frames; /* time, ... */
 	int slotIndex;
 	const char** const attachmentNames;
+
+#ifdef __cplusplus
+	spAttachmentTimeline() :
+		super(),
+		framesCount(0),
+		frames(0),
+		slotIndex(0),
+		attachmentNames(0) {
+	}
+#endif
 } spAttachmentTimeline;
 
 spAttachmentTimeline* spAttachmentTimeline_create (int framesCount);
@@ -234,6 +285,15 @@ typedef struct spEventTimeline {
 	int const framesCount;
 	float* const frames; /* time, ... */
 	spEvent** const events;
+
+#ifdef __cplusplus
+	spEventTimeline() :
+		super(),
+		framesCount(0),
+		frames(0),
+		events(0) {
+	}
+#endif
 } spEventTimeline;
 
 spEventTimeline* spEventTimeline_create (int framesCount);
@@ -254,6 +314,16 @@ typedef struct spDrawOrderTimeline {
 	float* const frames; /* time, ... */
 	const int** const drawOrders;
 	int const slotsCount;
+
+#ifdef __cplusplus
+	spDrawOrderTimeline() :
+		super(),
+		framesCount(0),
+		frames(0),
+		drawOrders(0),
+		slotsCount(0) {
+	}
+#endif
 } spDrawOrderTimeline;
 
 spDrawOrderTimeline* spDrawOrderTimeline_create (int framesCount, int slotsCount);
@@ -276,6 +346,17 @@ typedef struct spFFDTimeline {
 	const float** const frameVertices;
 	int slotIndex;
 	spAttachment* attachment;
+
+#ifdef __cplusplus
+	spFFDTimeline() :
+		super(),
+		framesCount(0),
+		frames(0),
+		frameVerticesCount(0),
+		frameVertices(0),
+		slotIndex(0) {
+	}
+#endif
 } spFFDTimeline;
 
 spFFDTimeline* spFFDTimeline_create (int framesCount, int frameVerticesCount);
@@ -295,6 +376,15 @@ typedef struct spIkConstraintTimeline {
 	int const framesCount;
 	float* const frames; /* time, mix, bendDirection, ... */
 	int ikConstraintIndex;
+
+#ifdef __cplusplus
+	spIkConstraintTimeline() :
+		super(),
+		framesCount(0),
+		frames(0),
+		ikConstraintIndex(0) {
+	}
+#endif
 } spIkConstraintTimeline;
 
 spIkConstraintTimeline* spIkConstraintTimeline_create (int framesCount);
@@ -316,6 +406,16 @@ typedef struct spFlipTimeline {
 	int const framesCount;
 	float* const frames; /* time, flip, ... */
 	int boneIndex;
+
+#ifdef __cplusplus
+	spFlipTimeline() :
+		super(),
+		x(0),
+		framesCount(0),
+		frames(0),
+		boneIndex(0) {
+	}
+#endif
 } spFlipTimeline;
 
 spFlipTimeline* spFlipTimeline_create (int framesCount, int/*bool*/x);

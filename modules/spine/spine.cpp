@@ -156,8 +156,8 @@ void Spine::_animation_draw() {
 	skeleton->b = modulate.b;
 	skeleton->a = modulate.a;
 
-	int additive = 0;
-	int fx_additive = 0;
+	spBlendMode blend_mode = SP_BLEND_MODE_NORMAL;
+	spBlendMode fx_blend_mode = SP_BLEND_MODE_NORMAL;
 	Color color;
 	const float *uvs = NULL;
 	int verties_count = 0;
@@ -237,21 +237,30 @@ void Spine::_animation_draw() {
 		if (texture.is_null())
 			continue;
 
-		if (is_fx && slot->data->additiveBlending != fx_additive) {
-
-			fx_batcher.add_set_blender_mode(slot->data->additiveBlending
-				? VisualServer::MATERIAL_BLEND_MODE_ADD
-				: get_blend_mode()
-			);
-			fx_additive = slot->data->additiveBlending;
+		BlendMode bm = get_blend_mode();
+		switch(slot->data->blendMode) {
+		case SP_BLEND_MODE_NORMAL:
+			break;
+		case SP_BLEND_MODE_ADDITIVE:
+			bm = BLEND_MODE_ADD;
+			break;
+		case SP_BLEND_MODE_MULTIPLY:
+			bm = BLEND_MODE_MUL;
+			break;
+		case SP_BLEND_MODE_SCREEN:
+			bm = BLEND_MODE_PREMULT_ALPHA;
+			break;
 		}
-		else if (slot->data->additiveBlending != additive) {
 
-			batcher.add_set_blender_mode(slot->data->additiveBlending
-				? VisualServer::MATERIAL_BLEND_MODE_ADD
-				: fx_node->get_blend_mode()
-			);
-			additive = slot->data->additiveBlending;
+		if (is_fx && slot->data->blendMode != blend_mode) {
+
+			fx_batcher.add_set_blender_mode(bm);
+			blend_mode = slot->data->blendMode;
+		}
+		else if (!is_fx && slot->data->blendMode != blend_mode) {
+
+			batcher.add_set_blender_mode(bm);
+			blend_mode = slot->data->blendMode;
 		}
 
 		color.a = skeleton->a * slot->a * a * get_opacity();
