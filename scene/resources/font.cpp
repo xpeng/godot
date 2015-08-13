@@ -343,6 +343,7 @@ Font::Character Font::get_character(CharType p_char) const {
 const Font::Character *Font::get_character_p(CharType p_char) const {
 
 	if (!char_map.has(p_char)) {
+		ERR_EXPLAIN("Unknown character: " + String::num(p_char));
 		ERR_FAIL_COND_V(!(const_cast<Font *>(this))->create_character(p_char),NULL);
 	};
 
