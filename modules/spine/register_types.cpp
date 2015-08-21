@@ -44,6 +44,11 @@ typedef Ref<Texture> TextureRef;
 
 void _spAtlasPage_createTexture(spAtlasPage* self, const char* path) {
 
+	if(strstr(path, "res:/") && !strstr(path, "res://")) {
+		String s = path;
+		s = s.replace("res:/", "res://");
+		return _spAtlasPage_createTexture(self, s.utf8().get_data());
+	}
 	TextureRef *ref = memnew(TextureRef);
 	*ref = ResourceLoader::load(path, "Texture");
 	ERR_FAIL_COND(ref->is_null());

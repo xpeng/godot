@@ -31,6 +31,7 @@
 #include "core/io/resource_loader.h"
 #include "scene/2d/collision_object_2d.h"
 #include "scene/resources/convex_polygon_shape_2d.h"
+#include "scene/main/resource_preloader.h"
 #include "method_bind_ext.inc"
 
 #include "spine.h"
@@ -102,7 +103,7 @@ void Spine::_spine_dispose() {
 	skeleton = NULL;
 	res = RES();
 
-	for (AttachmentNodes::Element *E = attachment_nodes.front(); E; E = E->next()) {
+	for(AttachmentNodes::Element *E = attachment_nodes.front(); E; E = E->next()) {
 		
 		AttachmentNode& node = E->get();
 		memdelete(node.ref);
@@ -146,6 +147,106 @@ void Spine::_on_fx_draw() {
 	fx_batcher.flush();
 }
 
+const float * spine_calc_avatar_uvs(spAttachment *p_attachment, spAtlasRegion *p_region) {
+	static float uvs[1024];
+
+	float u = float(p_region->offsetX) / p_region->originalWidth;
+	float u2 = u + float(p_region->width) / p_region->originalWidth;
+	float v = 1 - float(p_region->offsetY + p_region->height) / p_region->originalHeight;
+	float v2 = 1 - float(p_region->offsetY) / p_region->originalHeight;
+
+	float width = u2 - u, height = v2 - v;
+
+	switch(p_attachment->type) {
+	case SP_ATTACHMENT_REGION: {
+			if(p_region->rotate) {
+				uvs[SP_VERTEX_X2] = u;
+				uvs[SP_VERTEX_Y2] = v2;
+				uvs[SP_VERTEX_X3] = u;
+				uvs[SP_VERTEX_Y3] = v;
+				uvs[SP_VERTEX_X4] = u2;
+				uvs[SP_VERTEX_Y4] = v;
+				uvs[SP_VERTEX_X1] = u2;
+				uvs[SP_VERTEX_Y1] = v2;
+			} else {
+				uvs[SP_VERTEX_X1] = u;
+				uvs[SP_VERTEX_Y1] = v2;
+				uvs[SP_VERTEX_X2] = u;
+				uvs[SP_VERTEX_Y2] = v;
+				uvs[SP_VERTEX_X3] = u2;
+				uvs[SP_VERTEX_Y3] = v;
+				uvs[SP_VERTEX_X4] = u2;
+				uvs[SP_VERTEX_Y4] = v2;
+			}
+		} break;
+	case SP_ATTACHMENT_MESH: {
+			spMeshAttachment* self = (spMeshAttachment*) p_attachment;
+			for(int i = 0; i < self->verticesCount; i += 2) {
+				uvs[i] = u + self->regionUVs[i] * width;
+				uvs[i + 1] = v + self->regionUVs[i + 1] * height;
+			}
+		} break;
+	case SP_ATTACHMENT_SKINNED_MESH: {
+			spSkinnedMeshAttachment* self = (spSkinnedMeshAttachment*) p_attachment;
+			for(int i = 0; i < self->uvsCount; i += 2) {
+				uvs[i] = u + self->regionUVs[i] * width;
+				uvs[i + 1] = v + self->regionUVs[i + 1] * height;
+			}
+		} break;
+	}
+	return uvs;
+}
+
+void Spine::_spine_get_texture_uvs(spSlot* p_slot, Ref<Texture>& p_texture, const float *&p_uvs) {
+
+	if(!avatar_path.is_empty() && has_node(avatar_path)) {
+		Node *n = get_node(avatar_path);
+		ResourcePreloader *preloader = n ? n->cast_to<ResourcePreloader>() : NULL;
+		if(preloader) {
+			char avatar_path[256];
+			sprintf(avatar_path, "%s.%s", p_slot->data->name, p_slot->attachment->name);
+			if(preloader->has_resource(avatar_path))
+				p_texture = preloader->get_resource(avatar_path);
+		}
+	}
+
+	switch (p_slot->attachment->type) {
+		case SP_ATTACHMENT_REGION: {
+
+			spRegionAttachment* attachment = (spRegionAttachment*)p_slot->attachment;
+			if(!p_texture.is_null()) {
+				spAtlasRegion *atlas = (spAtlasRegion *) attachment->rendererObject;
+				p_uvs = spine_calc_avatar_uvs(p_slot->attachment, atlas);
+			} else {
+				p_uvs = attachment->uvs;
+				p_texture = spine_get_texture(attachment);
+			}
+		} break;
+		case SP_ATTACHMENT_MESH: {
+
+			spMeshAttachment* attachment = (spMeshAttachment*)p_slot->attachment;
+			if(!p_texture.is_null()) {
+				spAtlasRegion *atlas = (spAtlasRegion *) attachment->rendererObject;
+				p_uvs = spine_calc_avatar_uvs(p_slot->attachment, atlas);
+			} else {
+				p_uvs = attachment->uvs;
+				p_texture = spine_get_texture(attachment);
+			}
+		} break;
+		case SP_ATTACHMENT_SKINNED_MESH: {
+
+			spSkinnedMeshAttachment* attachment = (spSkinnedMeshAttachment*)p_slot->attachment;
+			if(!p_texture.is_null()) {
+				spAtlasRegion *atlas = (spAtlasRegion *) attachment->rendererObject;
+				p_uvs = spine_calc_avatar_uvs(p_slot->attachment, atlas);
+			} else {
+				p_uvs = attachment->uvs;
+				p_texture = spine_get_texture(attachment);
+			}
+		} break;
+	}
+}
+
 void Spine::_animation_draw() {
 
 	if (skeleton == NULL)
@@ -171,12 +272,13 @@ void Spine::_animation_draw() {
 
 	const char *fx_prefix = fx_slot_prefix.get_data();
 
-	for (int i = 0, n = skeleton->slotsCount; i < n; i++) {
+	for(int i = 0, n = skeleton->slotsCount; i < n; i++) {
 
 		spSlot* slot = skeleton->drawOrder[i];
 		if (!slot->attachment) continue;
 		bool is_fx = false;
 		Ref<Texture> texture;
+
 		switch (slot->attachment->type) {
 
 			case SP_ATTACHMENT_REGION: {
@@ -184,8 +286,7 @@ void Spine::_animation_draw() {
 				spRegionAttachment* attachment = (spRegionAttachment*)slot->attachment;
 				is_fx = strstr(attachment->path, fx_prefix) != NULL;					
 				spRegionAttachment_computeWorldVertices(attachment, slot->bone, world_verts.ptr());
-				texture = spine_get_texture(attachment);
-				uvs = attachment->uvs;
+				_spine_get_texture_uvs(slot, texture, uvs);
 				verties_count = 8;
 				static const int quadTriangles[6] = { 0, 1, 2, 2, 3, 0 };
 				triangles = quadTriangles;
@@ -201,8 +302,7 @@ void Spine::_animation_draw() {
 				spMeshAttachment* attachment = (spMeshAttachment*)slot->attachment;
 				is_fx = strstr(attachment->path, fx_prefix) != NULL;					
 				spMeshAttachment_computeWorldVertices(attachment, slot, world_verts.ptr());
-				texture = spine_get_texture(attachment);
-				uvs = attachment->uvs;
+				_spine_get_texture_uvs(slot, texture, uvs);
 				verties_count = attachment->verticesCount;
 				triangles = attachment->triangles;
 				triangles_count = attachment->trianglesCount;
@@ -217,8 +317,7 @@ void Spine::_animation_draw() {
 				spSkinnedMeshAttachment* attachment = (spSkinnedMeshAttachment*)slot->attachment;
 				is_fx = strstr(attachment->path, fx_prefix) != NULL;					
 				spSkinnedMeshAttachment_computeWorldVertices(attachment, slot, world_verts.ptr());
-				texture = spine_get_texture(attachment);
-				uvs = attachment->uvs;
+				_spine_get_texture_uvs(slot, texture, uvs);
 				verties_count = attachment->uvsCount;
 				triangles = attachment->triangles;
 				triangles_count = attachment->trianglesCount;
@@ -234,6 +333,7 @@ void Spine::_animation_draw() {
 				continue;
 			}
 		}
+
 		if (texture.is_null())
 			continue;
 
@@ -280,7 +380,7 @@ void Spine::_animation_draw() {
 	if (debug_attachment_region || debug_attachment_mesh || debug_attachment_skinned_mesh || debug_attachment_bounding_box) {
 
 		Color color(0, 0, 1, 1);
-		for (int i = 0, n = skeleton->slotsCount; i < n; i++) {
+		for(int i = 0, n = skeleton->slotsCount; i < n; i++) {
 
 			spSlot* slot = skeleton->drawOrder[i];
 			if (!slot->attachment)
@@ -340,7 +440,7 @@ void Spine::_animation_draw() {
 			Point2 *points = (Point2 *)world_verts.ptr();
 			int points_size = verties_count / 2;
 
-			for (int idx = 0; idx < points_size; idx++) {
+			for(int idx = 0; idx < points_size; idx++) {
 
 				Point2& pt = points[idx];
 				if (flip_x)
@@ -351,7 +451,7 @@ void Spine::_animation_draw() {
 
 			if (triangles == NULL || triangles_count == 0) {
 
-				for (int idx = 0; idx < points_size; idx++) {
+				for(int idx = 0; idx < points_size; idx++) {
 
 					if (idx == points_size - 1)
 						draw_line(points[idx], points[0], color);
@@ -360,7 +460,7 @@ void Spine::_animation_draw() {
 				}
 			} else {
 
-				for (int idx = 0; idx < triangles_count - 2; idx += 3) {
+				for(int idx = 0; idx < triangles_count - 2; idx += 3) {
 
 					int a = triangles[idx];
 					int b = triangles[idx + 1];
@@ -376,7 +476,7 @@ void Spine::_animation_draw() {
 
 	if (debug_bones) {
 		// Bone lengths.
-		for (int i = 0; i < skeleton->bonesCount; i++) {
+		for(int i = 0; i < skeleton->bonesCount; i++) {
 			spBone *bone = skeleton->bones[i];
 			float x = bone->data->length * bone->m00 + bone->worldX;
 			float y = bone->data->length * bone->m10 + bone->worldY;
@@ -388,7 +488,7 @@ void Spine::_animation_draw() {
 			);
 		}
 		// Bone origins.
-		for (int i = 0, n = skeleton->bonesCount; i < n; i++) {
+		for(int i = 0, n = skeleton->bonesCount; i < n; i++) {
 			spBone *bone = skeleton->bones[i];
 			Rect2 rt = Rect2(flip_x ? -bone->worldX - 1 : bone->worldX - 1,
 				flip_y ? bone->worldY - 1 : -bone->worldY - 1,
@@ -410,7 +510,7 @@ void Spine::_animation_process(float p_delta) {
 	spAnimationState_apply(state, skeleton);
 	spSkeleton_updateWorldTransform(skeleton);
 
-	for (AttachmentNodes::Element *E = attachment_nodes.front(); E; E = E->next()) {
+	for(AttachmentNodes::Element *E = attachment_nodes.front(); E; E = E->next()) {
 
 		AttachmentNode& info = E->get();
 		WeakRef *ref = info.ref;
@@ -525,7 +625,7 @@ void Spine::_get_property_list(List<PropertyInfo> *p_list) const {
 
 	if (state != NULL) {
 
-		for (int i = 0; i < state->data->skeletonData->animationsCount; i++) {
+		for(int i = 0; i < state->data->skeletonData->animationsCount; i++) {
 
 			names.push_back(state->data->skeletonData->animations[i]->name);
 		}
@@ -534,7 +634,7 @@ void Spine::_get_property_list(List<PropertyInfo> *p_list) const {
 		names.sort();
 		names.push_front("[stop]");
 		String hint;
-		for (List<String>::Element *E = names.front(); E; E = E->next()) {
+		for(List<String>::Element *E = names.front(); E; E = E->next()) {
 
 			if (E != names.front())
 				hint += ",";
@@ -550,14 +650,14 @@ void Spine::_get_property_list(List<PropertyInfo> *p_list) const {
 	{
 		if (state != NULL) {
 
-			for (int i = 0; i < state->data->skeletonData->skinsCount; i++) {
+			for(int i = 0; i < state->data->skeletonData->skinsCount; i++) {
 
 				names.push_back(state->data->skeletonData->skins[i]->name);
 			}
 		}
 
 		String hint;
-		for (List<String>::Element *E = names.front(); E; E = E->next()) {
+		for(List<String>::Element *E = names.front(); E; E = E->next()) {
 
 			if (E != names.front())
 				hint += ",";
@@ -834,6 +934,21 @@ bool Spine::is_flip_y() const {
 	return flip_y;
 }
 
+bool Spine::set_avatar_path(NodePath p_path) {
+
+	if(avatar_path == p_path)
+		return true;
+	avatar_path = p_path;
+
+	update();
+	return true;
+}
+
+NodePath Spine::get_avatar_path() const {
+
+	return avatar_path;
+}
+
 bool Spine::set_skin(const String& p_name) {
 
 	ERR_FAIL_COND_V(skeleton == NULL, false);
@@ -884,7 +999,7 @@ Dictionary Spine::get_attachment(const String& p_slot_name, const String& p_atta
 			dict["region_original_size"] = Size2(info->regionOriginalWidth, info->regionOriginalHeight);
 
 			Vector2Array offset, uvs;
-			for (int idx = 0; idx < 4; idx++) {
+			for(int idx = 0; idx < 4; idx++) {
 				offset.push_back(Vector2(info->offset[idx * 2], info->offset[idx * 2 + 1]));
 				uvs.push_back(Vector2(info->uvs[idx * 2], info->uvs[idx * 2 + 1]));
 			}
@@ -899,7 +1014,7 @@ Dictionary Spine::get_attachment(const String& p_slot_name, const String& p_atta
 			dict["type"] = "bounding_box";
 
 			Vector2Array vertices;
-			for (int idx = 0; idx < info->verticesCount / 2; idx++)
+			for(int idx = 0; idx < info->verticesCount / 2; idx++)
 				vertices.append(Vector2(info->vertices[idx * 2], -info->vertices[idx * 2 + 1]));
 			dict["vertices"] = vertices;
 		} break;
@@ -1046,7 +1161,7 @@ Ref<Shape2D> Spine::get_bounding_box(const String& p_slot_name, const String& p_
 
 	Vector<Vector2> points;
 	points.resize(info->verticesCount / 2);
-	for (int idx = 0; idx < info->verticesCount / 2; idx++)
+	for(int idx = 0; idx < info->verticesCount / 2; idx++)
 		points[idx] = Vector2(info->vertices[idx * 2], -info->vertices[idx * 2 + 1]);
 
 	ConvexPolygonShape2D *shape = memnew(ConvexPolygonShape2D);
@@ -1203,6 +1318,9 @@ void Spine::_bind_methods() {
 	ObjectTypeDB::bind_method(_MD("set_debug_attachment", "mode", "enable"), &Spine::set_debug_attachment);
 	ObjectTypeDB::bind_method(_MD("is_debug_attachment", "mode"), &Spine::is_debug_attachment);
 
+	ObjectTypeDB::bind_method(_MD("set_avatar_path", "path"), &Spine::set_avatar_path);
+	ObjectTypeDB::bind_method(_MD("get_avatar_path"), &Spine::get_avatar_path);
+
 	ObjectTypeDB::bind_method(_MD("_on_fx_draw"), &Spine::_on_fx_draw);
 
 	ADD_PROPERTY( PropertyInfo( Variant::INT, "playback/process_mode", PROPERTY_HINT_ENUM, "Fixed,Idle"), _SCS("set_animation_process_mode"), _SCS("get_animation_process_mode"));
@@ -1217,6 +1335,8 @@ void Spine::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "flip_y"), _SCS("set_flip_y"), _SCS("is_flip_y"));
 	ADD_PROPERTY(PropertyInfo(Variant::STRING, "fx_prefix"), _SCS("set_fx_slot_prefix"), _SCS("get_fx_slot_prefix"));
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "resource", PROPERTY_HINT_RESOURCE_TYPE, "SpineResource"), _SCS("set_resource"), _SCS("get_resource")); //, PROPERTY_USAGE_NOEDITOR));
+
+	ADD_PROPERTYNZ(PropertyInfo(Variant::NODE_PATH, "avatar_path"), _SCS("set_avatar_path"),_SCS("get_avatar_path"));
 
 	ADD_SIGNAL(MethodInfo("animation_start", PropertyInfo(Variant::INT, "track")));
 	ADD_SIGNAL(MethodInfo("animation_complete", PropertyInfo(Variant::INT, "track"), PropertyInfo(Variant::INT, "loop_count")));
@@ -1239,7 +1359,7 @@ Rect2 Spine::get_item_rect() const {
 
 	float minX = 65535, minY = 65535, maxX = -65535, maxY = -65535;
 	bool attached = false;
-	for (int i = 0; i < skeleton->slotsCount; ++i) {
+	for(int i = 0; i < skeleton->slotsCount; ++i) {
 
 		spSlot* slot = skeleton->slots[i];
 		if (!slot->attachment) continue;
@@ -1264,7 +1384,7 @@ Rect2 Spine::get_item_rect() const {
 
 		attached = true;
 
-		for (int ii = 0; ii < verticesCount; ii += 2) {
+		for(int ii = 0; ii < verticesCount; ii += 2) {
 			float x = world_verts[ii] * 1, y = world_verts[ii + 1] * 1;
 			minX = MIN(minX, x);
 			minY = MIN(minY, y);
@@ -1307,6 +1427,7 @@ Spine::Spine()
 	current_animation = "[stop]";
 	loop = true;
 	fx_slot_prefix = String("fx/").utf8();
+	avatar_path = NodePath();
 
 	modulate = Color(1, 1, 1, 1);
 	flip_x = false;

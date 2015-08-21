@@ -94,6 +94,8 @@ private:
 	bool flip_x, flip_y;
 	SpineBatcher batcher;
 
+	NodePath avatar_path;
+
 	// fx slots (always show on top)
 	Node2D *fx_node;
 	SpineBatcher fx_batcher;
@@ -120,6 +122,8 @@ private:
 	void _animation_draw();
 	void _set_process(bool p_process, bool p_force = false);
 	void _on_fx_draw();
+
+	void _spine_get_texture_uvs(spSlot* p_slot, Ref<Texture>& p_texture, const float *&p_uvs);
 
 protected:
 	bool _set(const StringName& p_name, const Variant& p_value);
@@ -170,6 +174,10 @@ public:
 
 	void set_animation_process_mode(AnimationProcessMode p_mode);
 	AnimationProcessMode get_animation_process_mode() const;
+
+	// Use engine ResourcePreloader to sim avatar skin/weapon change system
+	bool set_avatar_path(NodePath p_path);
+	NodePath get_avatar_path() const;
 
 	/* Sets the skin used to look up attachments not found in the SkeletonData defaultSkin. Attachments from the new skin are
 	* attached if the corresponding attachment from the old skin was attached. If there was no old skin, each slot's setup mode
