@@ -315,8 +315,6 @@ public:
 			break;
 		}
 
-        p_list->push_back(PropertyInfo(Variant::INT,"extra_space/char",PROPERTY_HINT_RANGE,"-64,64,1"));
-
 		p_list->push_back(PropertyInfo(Variant::INT,"mode/mode",PROPERTY_HINT_ENUM,"Bitmap,Distance Field"));
 
 		p_list->push_back(PropertyInfo(Variant::INT,"extra_space/char",PROPERTY_HINT_RANGE,"-64,64,1"));
