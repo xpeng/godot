@@ -96,11 +96,6 @@ private:
 
 	NodePath avatar_path;
 
-	// fx slots (always show on top)
-	Node2D *fx_node;
-	SpineBatcher fx_batcher;
-	CharString fx_slot_prefix;
-
 	float current_pos;
 
 	typedef struct AttachmentNode {
@@ -121,7 +116,6 @@ private:
 	void _animation_process(float p_delta);
 	void _animation_draw();
 	void _set_process(bool p_process, bool p_force = false);
-	void _on_fx_draw();
 
 	void _spine_get_texture_uvs(spSlot* p_slot, Ref<Texture>& p_texture, const float *&p_uvs);
 
@@ -204,9 +198,6 @@ public:
 	// bind collision object 2d to spine bounding box
 	bool add_bounding_box(const String& p_bone_name, const String& p_slot_name, const String& p_attachment_name, const Variant& p_node, const Vector2& p_ofs = Vector2(0, 0), const Vector2& p_scale = Vector2(1, 1), const real_t p_rot = 0);
 	bool remove_bounding_box(const String& p_bone_name, const Variant& p_node);
-
-	void set_fx_slot_prefix(const String& p_prefix);
-	String get_fx_slot_prefix() const;
 
 	void set_debug_bones(bool p_enable);
 	bool is_debug_bones() const;

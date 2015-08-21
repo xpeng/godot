@@ -137,16 +137,6 @@ static Ref<Texture> spine_get_texture(spSkinnedMeshAttachment* attachment) {
 	return *ref;
 }
 
-void Spine::_on_fx_draw() {
-
-	if (skeleton == NULL)
-		return;
-	fx_batcher.reset();
-	RID eci = fx_node->get_canvas_item();
-	VisualServer::get_singleton()->canvas_item_add_set_blend_mode(eci, VS::MaterialBlendMode(fx_node->get_blend_mode()));
-	fx_batcher.flush();
-}
-
 const float * spine_calc_avatar_uvs(spAttachment *p_attachment, spAtlasRegion *p_region) {
 	static float uvs[1024];
 
@@ -258,7 +248,6 @@ void Spine::_animation_draw() {
 	skeleton->a = modulate.a;
 
 	spBlendMode blend_mode = SP_BLEND_MODE_NORMAL;
-	spBlendMode fx_blend_mode = SP_BLEND_MODE_NORMAL;
 	Color color;
 	const float *uvs = NULL;
 	int verties_count = 0;
@@ -270,13 +259,10 @@ void Spine::_animation_draw() {
 	batcher.reset();
 	VisualServer::get_singleton()->canvas_item_add_set_blend_mode(ci, VS::MaterialBlendMode(get_blend_mode()));
 
-	const char *fx_prefix = fx_slot_prefix.get_data();
-
 	for(int i = 0, n = skeleton->slotsCount; i < n; i++) {
 
 		spSlot* slot = skeleton->drawOrder[i];
 		if (!slot->attachment) continue;
-		bool is_fx = false;
 		Ref<Texture> texture;
 
 		switch (slot->attachment->type) {
@@ -284,7 +270,6 @@ void Spine::_animation_draw() {
 			case SP_ATTACHMENT_REGION: {
 
 				spRegionAttachment* attachment = (spRegionAttachment*)slot->attachment;
-				is_fx = strstr(attachment->path, fx_prefix) != NULL;					
 				spRegionAttachment_computeWorldVertices(attachment, slot->bone, world_verts.ptr());
 				_spine_get_texture_uvs(slot, texture, uvs);
 				verties_count = 8;
@@ -300,7 +285,6 @@ void Spine::_animation_draw() {
 			case SP_ATTACHMENT_MESH: {
 
 				spMeshAttachment* attachment = (spMeshAttachment*)slot->attachment;
-				is_fx = strstr(attachment->path, fx_prefix) != NULL;					
 				spMeshAttachment_computeWorldVertices(attachment, slot, world_verts.ptr());
 				_spine_get_texture_uvs(slot, texture, uvs);
 				verties_count = attachment->verticesCount;
@@ -315,7 +299,6 @@ void Spine::_animation_draw() {
 			case SP_ATTACHMENT_SKINNED_MESH: {
 
 				spSkinnedMeshAttachment* attachment = (spSkinnedMeshAttachment*)slot->attachment;
-				is_fx = strstr(attachment->path, fx_prefix) != NULL;					
 				spSkinnedMeshAttachment_computeWorldVertices(attachment, slot, world_verts.ptr());
 				_spine_get_texture_uvs(slot, texture, uvs);
 				verties_count = attachment->uvsCount;
@@ -352,12 +335,7 @@ void Spine::_animation_draw() {
 			break;
 		}
 
-		if (is_fx && slot->data->blendMode != blend_mode) {
-
-			fx_batcher.add_set_blender_mode(bm);
-			blend_mode = slot->data->blendMode;
-		}
-		else if (!is_fx && slot->data->blendMode != blend_mode) {
+		if (slot->data->blendMode != blend_mode) {
 
 			batcher.add_set_blender_mode(bm);
 			blend_mode = slot->data->blendMode;
@@ -368,13 +346,9 @@ void Spine::_animation_draw() {
 		color.g = skeleton->g * slot->g * g;
 		color.b = skeleton->b * slot->b * b;
 
-		if (is_fx)
-			fx_batcher.add(texture, world_verts.ptr(), uvs, verties_count, triangles, triangles_count, &color, flip_x, flip_y);
-		else
-			batcher.add(texture, world_verts.ptr(), uvs, verties_count, triangles, triangles_count, &color, flip_x, flip_y);
+		batcher.add(texture, world_verts.ptr(), uvs, verties_count, triangles, triangles_count, &color, flip_x, flip_y);
 	}
 	batcher.flush();
-	fx_node->update();
 
 	// Slots.
 	if (debug_attachment_region || debug_attachment_mesh || debug_attachment_skinned_mesh || debug_attachment_bounding_box) {
@@ -686,12 +660,6 @@ void Spine::_notification(int p_what) {
 		}
 	} break;
 	case NOTIFICATION_READY: {
-
-		// add fx node as child
-		fx_node->connect("draw", this, "_on_fx_draw");
-		fx_node->set_z(1);
-		fx_node->set_z_as_relative(false);
-		add_child(fx_node);
 
 		if (!get_tree()->is_editor_hint() && has(autoplay)) {
 			play(autoplay);
@@ -1208,19 +1176,6 @@ Spine::AnimationProcessMode Spine::get_animation_process_mode() const {
 	return animation_process_mode;
 }
 
-void Spine::set_fx_slot_prefix(const String& p_prefix) {
-
-	fx_slot_prefix = p_prefix.utf8();
-	update();
-}
-
-String Spine::get_fx_slot_prefix() const {
-
-	String s;
-	s.parse_utf8(fx_slot_prefix.get_data());
-	return s;
-}
-
 void Spine::set_debug_bones(bool p_enable) {
 
 	debug_bones = p_enable;
@@ -1310,9 +1265,7 @@ void Spine::_bind_methods() {
 	ObjectTypeDB::bind_method(_MD("add_bounding_box", "bone_name", "slot_name", "attachment_name", "collision_object_2d", "ofs", "scale", "rot"), &Spine::add_bounding_box, Vector2(0, 0), Vector2(1, 1), 0);
 	ObjectTypeDB::bind_method(_MD("remove_bounding_box", "bone_name", "collision_object_2d"), &Spine::remove_bounding_box);
 
-	ObjectTypeDB::bind_method(_MD("set_fx_slot_prefix", "prefix"), &Spine::set_fx_slot_prefix);
-	ObjectTypeDB::bind_method(_MD("get_fx_slot_prefix"), &Spine::get_fx_slot_prefix);
-	
+
 	ObjectTypeDB::bind_method(_MD("set_debug_bones", "enable"), &Spine::set_debug_bones);
 	ObjectTypeDB::bind_method(_MD("is_debug_bones"), &Spine::is_debug_bones);
 	ObjectTypeDB::bind_method(_MD("set_debug_attachment", "mode", "enable"), &Spine::set_debug_attachment);
@@ -1320,8 +1273,6 @@ void Spine::_bind_methods() {
 
 	ObjectTypeDB::bind_method(_MD("set_avatar_path", "path"), &Spine::set_avatar_path);
 	ObjectTypeDB::bind_method(_MD("get_avatar_path"), &Spine::get_avatar_path);
-
-	ObjectTypeDB::bind_method(_MD("_on_fx_draw"), &Spine::_on_fx_draw);
 
 	ADD_PROPERTY( PropertyInfo( Variant::INT, "playback/process_mode", PROPERTY_HINT_ENUM, "Fixed,Idle"), _SCS("set_animation_process_mode"), _SCS("get_animation_process_mode"));
 	ADD_PROPERTY(PropertyInfo(Variant::REAL, "playback/speed", PROPERTY_HINT_RANGE, "-64,64,0.01"), _SCS("set_speed"), _SCS("get_speed"));
@@ -1333,7 +1284,6 @@ void Spine::_bind_methods() {
 	ADD_PROPERTY(PropertyInfo(Variant::COLOR, "modulate"), _SCS("set_modulate"), _SCS("get_modulate"));
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "flip_x"), _SCS("set_flip_x"), _SCS("is_flip_x"));
 	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "flip_y"), _SCS("set_flip_y"), _SCS("is_flip_y"));
-	ADD_PROPERTY(PropertyInfo(Variant::STRING, "fx_prefix"), _SCS("set_fx_slot_prefix"), _SCS("get_fx_slot_prefix"));
 	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "resource", PROPERTY_HINT_RESOURCE_TYPE, "SpineResource"), _SCS("set_resource"), _SCS("get_resource")); //, PROPERTY_USAGE_NOEDITOR));
 
 	ADD_PROPERTYNZ(PropertyInfo(Variant::NODE_PATH, "avatar_path"), _SCS("set_avatar_path"),_SCS("get_avatar_path"));
@@ -1399,8 +1349,6 @@ Rect2 Spine::get_item_rect() const {
 
 Spine::Spine()
 	: batcher(this)
-	, fx_node(memnew(Node2D))
-	, fx_batcher(fx_node)
 {
 
 	skeleton = NULL;
@@ -1426,7 +1374,6 @@ Spine::Spine()
 	skin = "";
 	current_animation = "[stop]";
 	loop = true;
-	fx_slot_prefix = String("fx/").utf8();
 	avatar_path = NodePath();
 
 	modulate = Color(1, 1, 1, 1);
