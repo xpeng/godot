@@ -39,8 +39,7 @@ func _on_button_pressed(what):
 			["sword", preload("res://spine/hero/skin/sword.png")],
 		]
 		var preloader = get_node("script_set")
-		for name in preloader.get_resource_list():
-			preloader.remove_resource(name)
+		preloader.remove_all()
 		
 		for set in sets:
 			if rand_range(0, 99) < 50:

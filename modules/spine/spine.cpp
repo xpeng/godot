@@ -90,6 +90,13 @@ void Spine::_spine_dispose() {
 		stop();
 	}
 
+	size_t k = 0;
+	while(avatar_uvmap.next(&k)) {
+		float *uvs = avatar_uvmap[k];
+		memdelete_arr(uvs);
+	}
+	avatar_uvmap.clear();
+
 	if (state) {
 
 		spAnimationStateData_dispose(state->data);
@@ -137,8 +144,10 @@ static Ref<Texture> spine_get_texture(spSkinnedMeshAttachment* attachment) {
 	return *ref;
 }
 
-const float * spine_calc_avatar_uvs(spAttachment *p_attachment, spAtlasRegion *p_region) {
-	static float uvs[1024];
+const float * Spine::_spine_calc_avatar_uvs(spAttachment *p_attachment, spAtlasRegion *p_region) {
+
+	if(avatar_uvmap.has(size_t(p_attachment)))
+		return avatar_uvmap[size_t(p_attachment)];
 
 	float u = float(p_region->offsetX) / p_region->originalWidth;
 	float u2 = u + float(p_region->width) / p_region->originalWidth;
@@ -147,8 +156,10 @@ const float * spine_calc_avatar_uvs(spAttachment *p_attachment, spAtlasRegion *p
 
 	float width = u2 - u, height = v2 - v;
 
+	float *uvs = NULL;
 	switch(p_attachment->type) {
 	case SP_ATTACHMENT_REGION: {
+			uvs = memnew_arr(float, 8);
 			if(p_region->rotate) {
 				uvs[SP_VERTEX_X2] = u;
 				uvs[SP_VERTEX_Y2] = v2;
@@ -171,6 +182,7 @@ const float * spine_calc_avatar_uvs(spAttachment *p_attachment, spAtlasRegion *p
 		} break;
 	case SP_ATTACHMENT_MESH: {
 			spMeshAttachment* self = (spMeshAttachment*) p_attachment;
+			uvs = memnew_arr(float, self->verticesCount);
 			for(int i = 0; i < self->verticesCount; i += 2) {
 				uvs[i] = u + self->regionUVs[i] * width;
 				uvs[i + 1] = v + self->regionUVs[i + 1] * height;
@@ -178,12 +190,14 @@ const float * spine_calc_avatar_uvs(spAttachment *p_attachment, spAtlasRegion *p
 		} break;
 	case SP_ATTACHMENT_SKINNED_MESH: {
 			spSkinnedMeshAttachment* self = (spSkinnedMeshAttachment*) p_attachment;
+			uvs = memnew_arr(float, self->uvsCount);
 			for(int i = 0; i < self->uvsCount; i += 2) {
 				uvs[i] = u + self->regionUVs[i] * width;
 				uvs[i + 1] = v + self->regionUVs[i + 1] * height;
 			}
 		} break;
 	}
+	avatar_uvmap[size_t(p_attachment)] = uvs;
 	return uvs;
 }
 
@@ -206,7 +220,7 @@ void Spine::_spine_get_texture_uvs(spSlot* p_slot, Ref<Texture>& p_texture, cons
 			spRegionAttachment* attachment = (spRegionAttachment*)p_slot->attachment;
 			if(!p_texture.is_null()) {
 				spAtlasRegion *atlas = (spAtlasRegion *) attachment->rendererObject;
-				p_uvs = spine_calc_avatar_uvs(p_slot->attachment, atlas);
+				p_uvs = _spine_calc_avatar_uvs(p_slot->attachment, atlas);
 			} else {
 				p_uvs = attachment->uvs;
 				p_texture = spine_get_texture(attachment);
@@ -217,7 +231,7 @@ void Spine::_spine_get_texture_uvs(spSlot* p_slot, Ref<Texture>& p_texture, cons
 			spMeshAttachment* attachment = (spMeshAttachment*)p_slot->attachment;
 			if(!p_texture.is_null()) {
 				spAtlasRegion *atlas = (spAtlasRegion *) attachment->rendererObject;
-				p_uvs = spine_calc_avatar_uvs(p_slot->attachment, atlas);
+				p_uvs = _spine_calc_avatar_uvs(p_slot->attachment, atlas);
 			} else {
 				p_uvs = attachment->uvs;
 				p_texture = spine_get_texture(attachment);
@@ -228,7 +242,7 @@ void Spine::_spine_get_texture_uvs(spSlot* p_slot, Ref<Texture>& p_texture, cons
 			spSkinnedMeshAttachment* attachment = (spSkinnedMeshAttachment*)p_slot->attachment;
 			if(!p_texture.is_null()) {
 				spAtlasRegion *atlas = (spAtlasRegion *) attachment->rendererObject;
-				p_uvs = spine_calc_avatar_uvs(p_slot->attachment, atlas);
+				p_uvs = _spine_calc_avatar_uvs(p_slot->attachment, atlas);
 			} else {
 				p_uvs = attachment->uvs;
 				p_texture = spine_get_texture(attachment);

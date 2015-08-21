@@ -95,6 +95,7 @@ private:
 	SpineBatcher batcher;
 
 	NodePath avatar_path;
+	HashMap<size_t, float *> avatar_uvmap;
 
 	float current_pos;
 
@@ -117,6 +118,7 @@ private:
 	void _animation_draw();
 	void _set_process(bool p_process, bool p_force = false);
 
+	const float * _spine_calc_avatar_uvs(spAttachment *p_attachment, spAtlasRegion *p_region);
 	void _spine_get_texture_uvs(spSlot* p_slot, Ref<Texture>& p_texture, const float *&p_uvs);
 
 protected:
