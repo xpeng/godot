@@ -116,6 +116,12 @@ void ResourcePreloader::remove_resource(const StringName& p_name) {
 	resources.erase(p_name);
 
 }
+
+void ResourcePreloader::remove_all() {
+
+	resources.clear();
+}
+
 void ResourcePreloader::rename_resource(const StringName& p_from_name,const StringName& p_to_name) {
 
 	ERR_FAIL_COND( !resources.has(p_from_name) );
@@ -168,6 +174,7 @@ void ResourcePreloader::_bind_methods() {
 
 	ObjectTypeDB::bind_method(_MD("add_resource","name","resource"),&ResourcePreloader::add_resource);
 	ObjectTypeDB::bind_method(_MD("remove_resource","name"),&ResourcePreloader::remove_resource);
+	ObjectTypeDB::bind_method(_MD("remove_all"),&ResourcePreloader::remove_all);
 	ObjectTypeDB::bind_method(_MD("rename_resource","name","newname"),&ResourcePreloader::rename_resource);
 	ObjectTypeDB::bind_method(_MD("has_resource","name"),&ResourcePreloader::has_resource);
 	ObjectTypeDB::bind_method(_MD("get_resource","name"),&ResourcePreloader::get_resource);

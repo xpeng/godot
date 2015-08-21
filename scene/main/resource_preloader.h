@@ -51,6 +51,7 @@ public:
 
 	void add_resource(const StringName& p_name,const RES& p_resource);
 	void remove_resource(const StringName& p_name);
+	void remove_all();
 	void rename_resource(const StringName& p_from_name,const StringName& p_to_name);
 	bool has_resource(const StringName& p_name) const;
 	RES get_resource(const StringName& p_name) const;
