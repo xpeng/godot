@@ -194,7 +194,7 @@ void Spine::_spine_get_texture_uvs(spSlot* p_slot, Ref<Texture>& p_texture, cons
 		ResourcePreloader *preloader = n ? n->cast_to<ResourcePreloader>() : NULL;
 		if(preloader) {
 			char avatar_path[256];
-			sprintf(avatar_path, "%s.%s", p_slot->data->name, p_slot->attachment->name);
+			sprintf(avatar_path, "%s", p_slot->attachment->name);
 			if(preloader->has_resource(avatar_path))
 				p_texture = preloader->get_resource(avatar_path);
 		}
@@ -923,6 +923,16 @@ bool Spine::set_skin(const String& p_name) {
 	return spSkeleton_setSkinByName(skeleton, p_name.utf8().get_data()) ? true : false;
 }
 
+Array Spine::get_animation_names() const {
+
+	ERR_FAIL_COND_V(skeleton == NULL, Array());
+
+	Array names;
+	for(int i = 0; i < state->data->skeletonData->animationsCount; i++)
+		names.push_back(state->data->skeletonData->animations[i]->name);
+	return names;
+}
+
 Dictionary Spine::get_skeleton() const {
 
 	ERR_FAIL_COND_V(skeleton == NULL, Variant());
@@ -1254,6 +1264,7 @@ void Spine::_bind_methods() {
 	ObjectTypeDB::bind_method(_MD("set_animation_process_mode","mode"),&Spine::set_animation_process_mode);
 	ObjectTypeDB::bind_method(_MD("get_animation_process_mode"),&Spine::get_animation_process_mode);
 	ObjectTypeDB::bind_method(_MD("get_skeleton"), &Spine::get_skeleton);
+	ObjectTypeDB::bind_method(_MD("get_animation_names"), &Spine::get_animation_names);
 	ObjectTypeDB::bind_method(_MD("get_attachment", "slot_name", "attachment_name"), &Spine::get_attachment);
 	ObjectTypeDB::bind_method(_MD("get_bone", "bone_name"), &Spine::get_bone);
 	ObjectTypeDB::bind_method(_MD("get_slot", "slot_name"), &Spine::get_slot);

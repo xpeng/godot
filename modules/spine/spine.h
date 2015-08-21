@@ -179,6 +179,8 @@ public:
 	* @param skin May be 0.*/
 	bool set_skin(const String& p_name);
 
+	Array get_animation_names() const;
+
 	//spAttachment* get_attachment(const char* slotName, const char* attachmentName) const;
 	Dictionary get_skeleton() const;
 	/* Returns null if the slot or attachment was not found. */
