@@ -92,7 +92,10 @@ static void spine_free(void *ptr) {
 class ResourceFormatLoaderSpine : public ResourceFormatLoader {
 public:
 
-	virtual RES load(const String &p_path, const String& p_original_path = "") {
+	virtual RES load(const String &p_path, const String& p_original_path = "", Error *r_error=NULL) {
+
+		if (r_error)
+			*r_error=ERR_CANT_OPEN;
 
 		Spine::SpineResource *res = memnew(Spine::SpineResource);
 		Ref<Spine::SpineResource> ref(res);

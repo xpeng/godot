@@ -627,6 +627,9 @@
     <ClCompile Include="..\..\scene\resources\color_ramp.cpp">
       <Filter>scene\resources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scene\gui\patch_9_frame.cpp">
+      <Filter>scene\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\scene\register_scene_types.h">
@@ -1222,6 +1225,9 @@
     </ClInclude>
     <ClInclude Include="..\..\scene\resources\color_ramp.h">
       <Filter>scene\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scene\gui\patch_9_frame.h">
+      <Filter>scene\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

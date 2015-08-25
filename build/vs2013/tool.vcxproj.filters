@@ -624,6 +624,9 @@
     <ClCompile Include="..\..\tools\editor\plugins\collision_shape_2d_editor_plugin.cpp">
       <Filter>tools\editor\plugins</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\tools\editor\dependency_editor.cpp">
+      <Filter>tools\editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\tools\collada\collada.h">
@@ -1258,6 +1261,9 @@
     </ClInclude>
     <ClInclude Include="..\..\tools\editor\plugins\color_ramp_editor_plugin.h">
       <Filter>tools\editor\plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tools\editor\dependency_editor.h">
+      <Filter>tools\editor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -232,6 +232,7 @@
     <ClCompile Include="..\..\scene\gui\option_button.cpp" />
     <ClCompile Include="..\..\scene\gui\panel.cpp" />
     <ClCompile Include="..\..\scene\gui\panel_container.cpp" />
+    <ClCompile Include="..\..\scene\gui\patch_9_frame.cpp" />
     <ClCompile Include="..\..\scene\gui\popup.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">Disabled</Optimization>
     </ClCompile>
@@ -435,6 +436,7 @@
     <ClInclude Include="..\..\scene\gui\option_button.h" />
     <ClInclude Include="..\..\scene\gui\panel.h" />
     <ClInclude Include="..\..\scene\gui\panel_container.h" />
+    <ClInclude Include="..\..\scene\gui\patch_9_frame.h" />
     <ClInclude Include="..\..\scene\gui\popup.h" />
     <ClInclude Include="..\..\scene\gui\popup_menu.h" />
     <ClInclude Include="..\..\scene\gui\progress_bar.h" />

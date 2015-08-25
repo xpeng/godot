@@ -1178,7 +1178,10 @@ LuaScriptLanguage::~LuaScriptLanguage() {
 
 /*************** RESOURCE ***************/
 
-RES ResourceFormatLoaderLuaScript::load(const String &p_path,const String& p_original_path) {
+RES ResourceFormatLoaderLuaScript::load(const String &p_path,const String& p_original_path, Error *r_error) {
+
+	if (r_error)
+		*r_error=ERR_CANT_OPEN;
 
 	LuaScript *script = memnew( LuaScript );
 
