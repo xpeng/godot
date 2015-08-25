@@ -484,7 +484,9 @@ TtfFont::~TtfFont() {
     }
 }
 
-RES ResourceFormatLoaderTtfFont::load(const String &p_path,const String& p_original_path) {
+RES ResourceFormatLoaderTtfFont::load(const String &p_path,const String& p_original_path, Error *r_error) {
+	if (r_error)
+		*r_error=ERR_CANT_OPEN;
     if (p_path.ends_with(".ttf") || p_path.ends_with(".ttc")) {
         TtfFont *font=memnew( TtfFont );
         Ref<TtfFont> fontres(font);

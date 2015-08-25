@@ -24,7 +24,10 @@ extern "C" {
 class ResourceFormatLoaderSproto : public ResourceFormatLoader {
 public:
 
-	virtual RES load(const String &p_path, const String& p_original_path = "") {
+	virtual RES load(const String &p_path, const String& p_original_path = "", Error *r_error=NULL) {
+
+		if (r_error)
+			*r_error=ERR_CANT_OPEN;
 
 		Sproto *res = memnew(Sproto);
 		Ref<Sproto> ref(res);
