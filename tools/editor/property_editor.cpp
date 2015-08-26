@@ -39,6 +39,9 @@
 #include "editor_settings.h"
 #include "editor_import_export.h"
 #include "editor_node.h"
+#include "multi_node_edit.h"
+#include "array_property_edit.h"
+#include "editor_help.h"
 
 #include "core/translation.h"
 
@@ -2273,6 +2276,23 @@ void PropertyEditor::update_tree() {
 			sep->set_selectable(1,false);
 			sep->set_custom_bg_color(0,get_color("prop_category","Editor"));
 			sep->set_custom_bg_color(1,get_color("prop_category","Editor"));
+
+			if (use_doc_hints) {
+				StringName type=p.name;
+				if (!class_descr_cache.has(type)) {
+
+					String descr;
+					DocData *dd=EditorHelp::get_doc_data();
+					Map<String,DocData::ClassDoc>::Element *E=dd->class_list.find(type);
+					if (E) {
+						descr=E->get().brief_description;
+					}
+					class_descr_cache[type]=descr.world_wrap(80);
+
+				}
+
+				sep->set_tooltip(0,"Class: "+p.name+":\n\n"+class_descr_cache[type]);
+			}
 			//sep->set_custom_color(0,Color(1,1,1));
 
 
@@ -2325,6 +2345,42 @@ void PropertyEditor::update_tree() {
 			item->set_text( 0, name );
 
 		item->set_tooltip(0, p.name);
+
+		if (use_doc_hints) {
+			StringName setter;
+			StringName type;
+			if (ObjectTypeDB::get_setter_and_type_for_property(obj->get_type_name(),p.name,type,setter)) {
+
+				String descr;
+				bool found=false;
+				Map<StringName,Map<StringName,String> >::Element *E=descr_cache.find(type);
+				if (E) {
+
+					Map<StringName,String>::Element *F=E->get().find(setter);
+					if (F) {
+						found=true;
+						descr=F->get();
+					}
+				}
+				if (!found) {
+
+					DocData *dd=EditorHelp::get_doc_data();
+					Map<String,DocData::ClassDoc>::Element *E=dd->class_list.find(type);
+					if (E) {
+						for(int i=0;i<E->get().methods.size();i++) {
+							if (E->get().methods[i].name==setter.operator String()) {
+								descr=E->get().methods[i].description.strip_edges().world_wrap(80);
+							}
+						}
+					}
+
+					descr_cache[type][setter]=descr;
+				}
+
+				item->set_tooltip(0, "Property: "+p.name+"\n\n"+descr);
+			}
+		}
+		//EditorHelp::get_doc_data();
 
 		Dictionary d;
 		d["name"]=p.name;
@@ -2512,11 +2568,32 @@ void PropertyEditor::update_tree() {
 				}
 
 			} break;
+			case Variant::ARRAY: {
+
+				item->set_cell_mode( 1, TreeItem::CELL_MODE_CUSTOM );
+				item->add_button(1,get_icon("EditResource","EditorIcons"));
+
+
+				Variant v = obj->get(p.name);
+				if (v.is_array())
+					item->set_text(1,"Array["+itos(v.call("size"))+"]");
+				else
+					item->set_text(1,"Array[]");
+				item->set_icon( 0, get_icon("ArrayData","EditorIcons") );
+
+
+			} break;
+
 			case Variant::INT_ARRAY: {
 
 				item->set_cell_mode( 1, TreeItem::CELL_MODE_CUSTOM );
-				item->set_editable( 1, !read_only );
-				item->set_text(1,"[IntArray]");
+				item->add_button(1,get_icon("EditResource","EditorIcons"));
+
+				Variant v = obj->get(p.name);
+				if (v.is_array())
+					item->set_text(1,"IntArray["+itos(v.call("size"))+"]");
+				else
+					item->set_text(1,"IntArray[]");
 				item->set_icon( 0, get_icon("ArrayInt","EditorIcons") );
 
 
@@ -2524,25 +2601,85 @@ void PropertyEditor::update_tree() {
 			case Variant::REAL_ARRAY: {
 
 				item->set_cell_mode( 1, TreeItem::CELL_MODE_CUSTOM );
-				item->set_editable( 1, !read_only );
-				item->set_text(1,"[RealArray]");
+				item->add_button(1,get_icon("EditResource","EditorIcons"));
+
+				Variant v = obj->get(p.name);
+				if (v.is_array())
+					item->set_text(1,"FloatArray["+itos(v.call("size"))+"]");
+				else
+					item->set_text(1,"FloatArray[]");
 				item->set_icon( 0, get_icon("ArrayReal","EditorIcons") );
+
 
 			} break;
 			case Variant::STRING_ARRAY: {
 
 				item->set_cell_mode( 1, TreeItem::CELL_MODE_CUSTOM );
-				item->set_editable( 1, !read_only );
-				item->set_text(1,"[StringArray]");
+				item->add_button(1,get_icon("EditResource","EditorIcons"));
+
+				Variant v = obj->get(p.name);
+				if (v.is_array())
+					item->set_text(1,"String["+itos(v.call("size"))+"]");
+				else
+					item->set_text(1,"String[]");
 				item->set_icon( 0, get_icon("ArrayString","EditorIcons") );
+
 
 			} break;
 			case Variant::RAW_ARRAY: {
 
 				item->set_cell_mode( 1, TreeItem::CELL_MODE_CUSTOM );
-				item->set_editable( 1, !read_only );
-				item->set_text(1,"[Raw Data]");
+				item->add_button(1,get_icon("EditResource","EditorIcons"));
+
+				Variant v = obj->get(p.name);
+				if (v.is_array())
+					item->set_text(1,"Byte["+itos(v.call("size"))+"]");
+				else
+					item->set_text(1,"Byte[]");
 				item->set_icon( 0, get_icon("ArrayData","EditorIcons") );
+
+
+			} break;
+			case Variant::VECTOR2_ARRAY: {
+
+				item->set_cell_mode( 1, TreeItem::CELL_MODE_CUSTOM );
+				item->add_button(1,get_icon("EditResource","EditorIcons"));
+
+				Variant v = obj->get(p.name);
+				if (v.is_array())
+					item->set_text(1,"Vector2["+itos(v.call("size"))+"]");
+				else
+					item->set_text(1,"Vector2[]");
+				item->set_icon( 0, get_icon("Vector2","EditorIcons") );
+
+
+			} break;
+			case Variant::VECTOR3_ARRAY: {
+
+				item->set_cell_mode( 1, TreeItem::CELL_MODE_CUSTOM );
+				item->add_button(1,get_icon("EditResource","EditorIcons"));
+
+				Variant v = obj->get(p.name);
+				if (v.is_array())
+					item->set_text(1,"Vector3["+itos(v.call("size"))+"]");
+				else
+					item->set_text(1,"Vector3[]");
+				item->set_icon( 0, get_icon("Vector","EditorIcons") );
+
+
+			} break;
+			case Variant::COLOR_ARRAY: {
+
+				item->set_cell_mode( 1, TreeItem::CELL_MODE_CUSTOM );
+				item->add_button(1,get_icon("EditResource","EditorIcons"));
+
+				Variant v = obj->get(p.name);
+				if (v.is_array())
+					item->set_text(1,"Color["+itos(v.call("size"))+"]");
+				else
+					item->set_text(1,"Color[]");
+				item->set_icon( 0, get_icon("Color","EditorIcons") );
+
 
 			} break;
 			case Variant::VECTOR2: {
@@ -2739,7 +2876,7 @@ void PropertyEditor::_edit_set(const String& p_name, const Variant& p_value) {
 		}
 	}
 
-	if (!undo_redo) {
+	if (!undo_redo || obj->cast_to<MultiNodeEdit>() || obj->cast_to<ArrayPropertyEdit>()) { //kind of hacky
 
 		obj->set(p_name,p_value);
 		_changed_callbacks(obj,p_name);
@@ -3061,6 +3198,19 @@ void PropertyEditor::_edit_button(Object *p_item, int p_column, int p_button) {
 
 				emit_signal("resource_selected",r,n);
 			}
+		} else if (t==Variant::ARRAY || t==Variant::INT_ARRAY || t==Variant::REAL_ARRAY || t==Variant::STRING_ARRAY || t==Variant::VECTOR2_ARRAY || t==Variant::VECTOR3_ARRAY || t==Variant::COLOR_ARRAY || t==Variant::RAW_ARRAY) {
+
+			Variant v = obj->get(n);
+
+			if (v.get_type()!=t) {
+				Variant::CallError ce;
+				v=Variant::construct(Variant::Type(t),NULL,0,ce);
+			}
+
+			Ref<ArrayPropertyEdit> ape = memnew( ArrayPropertyEdit );
+			ape->edit(obj,n,Variant::Type(t));
+
+			EditorNode::get_singleton()->push_item(ape.ptr());
 		}
 	}
 }
@@ -3251,6 +3401,7 @@ PropertyEditor::PropertyEditor() {
 	read_only=false;
 	show_categories=false;
 	refresh_countdown=0;
+	use_doc_hints=false;
 	
 }
 

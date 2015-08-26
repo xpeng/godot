@@ -38,7 +38,7 @@
 #include "tools/editor/plugins/canvas_item_editor_plugin.h"
 #include "script_editor_debugger.h"
 #include "tools/editor/plugins/script_editor_plugin.h"
-
+#include "multi_node_edit.h"
 #include "core/translation.h"
 
 void SceneTreeDock::_unhandled_key_input(InputEvent p_event) {
@@ -662,6 +662,19 @@ void SceneTreeDock::_tool_selected(int p_tool, bool p_confirm_override) {
 			scene_tree->focus_selected();
 
 		} break;
+		case TOOL_MULTI_EDIT: {
+
+			Node*root=EditorNode::get_singleton()->get_edited_scene();
+			if (!root)
+				break;
+			Ref<MultiNodeEdit> mne = memnew( MultiNodeEdit );
+			for (const Map<Node*,Object*>::Element *E=EditorNode::get_singleton()->get_editor_selection()->get_selection().front();E;E=E->next()) {
+				mne->add_node(root->get_path_to(E->key()));
+			}
+
+			EditorNode::get_singleton()->push_item(mne.ptr());
+
+		} break;
 		case TOOL_ERASE: {
 
 			List<Node*> remove_list = editor_selection->get_selected_node_list();
@@ -719,6 +732,7 @@ void SceneTreeDock::_notification(int p_what) {
 				"Duplicate",
 				"Reparent",
 				"Focus",
+				"MultiNodeEdit",
 				"Remove",
 			};
 
@@ -726,6 +740,8 @@ void SceneTreeDock::_notification(int p_what) {
 
 			for(int i=0;i<TOOL_BUTTON_MAX;i++)
 				tool_buttons[i]->set_icon(get_icon(button_names[i],"EditorIcons"));
+
+			EditorNode::get_singleton()->get_editor_selection()->connect("selection_changed",this,"_selection_changed");
 
 		} break;
 	}
@@ -1288,8 +1304,18 @@ void SceneTreeDock::_update_tool_buttons() {
 	tool_buttons[TOOL_REPARENT]->set_disabled(disable_root);
 	tool_buttons[TOOL_FOCUS]->set_disabled(disable_root);
 	tool_buttons[TOOL_ERASE]->set_disabled(disable);
+	tool_buttons[TOOL_MULTI_EDIT]->set_disabled(EditorNode::get_singleton()->get_editor_selection()->get_selection().size()<2);
+
 
 }
+
+
+void SceneTreeDock::_selection_changed() {
+
+	tool_buttons[TOOL_MULTI_EDIT]->set_disabled(EditorNode::get_singleton()->get_editor_selection()->get_selection().size()<2);
+
+}
+
 
 void SceneTreeDock::_create() {
 
@@ -1485,6 +1511,7 @@ void SceneTreeDock::_bind_methods() {
 	ObjectTypeDB::bind_method(_MD("_delete_confirm"),&SceneTreeDock::_delete_confirm);
 	ObjectTypeDB::bind_method(_MD("_node_prerenamed"),&SceneTreeDock::_node_prerenamed);
 	ObjectTypeDB::bind_method(_MD("_import_subscene"),&SceneTreeDock::_import_subscene);
+	ObjectTypeDB::bind_method(_MD("_selection_changed"),&SceneTreeDock::_selection_changed);
 
 	ObjectTypeDB::bind_method(_MD("new_instance"),&SceneTreeDock::new_instance);
 	ObjectTypeDB::bind_method(_MD("replace_instance"),&SceneTreeDock::replace_instance);
@@ -1595,6 +1622,12 @@ SceneTreeDock::SceneTreeDock(EditorNode *p_editor,Node *p_scene_root,EditorSelec
 	tool_buttons[TOOL_FOCUS]=tb;
 
 	hbc_bottom->add_spacer();
+
+	tb = memnew( ToolButton );
+	tb->connect("pressed",this,"_tool_selected",make_binds(TOOL_MULTI_EDIT, false));
+	tb->set_tooltip("Multi-Edit Selected Nodes");
+	hbc_bottom->add_child(tb);
+	tool_buttons[TOOL_MULTI_EDIT]=tb;
 
 	tb = memnew( ToolButton );
 	tb->connect("pressed",this,"_tool_selected",make_binds(TOOL_ERASE, false));
