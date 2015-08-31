@@ -93,7 +93,7 @@
 #include "plugins/light_occluder_2d_editor_plugin.h"
 #include "plugins/color_ramp_editor_plugin.h"
 #include "plugins/collision_shape_2d_editor_plugin.h"
-
+#include "os/input.h"
 // end
 #include "tools/editor/io_plugins/editor_texture_import_plugin.h"
 #include "tools/editor/io_plugins/editor_scene_import_plugin.h"
@@ -1766,6 +1766,7 @@ void EditorNode::_menu_option_confirm(int p_option,bool p_confirmed) {
 
 			int idx = editor_data.add_edited_scene(-1);
 			_scene_tab_changed(idx);
+			editor_data.clear_editor_states();
 
 			//_cleanup_scene();
 
@@ -4164,6 +4165,14 @@ void EditorNode::_scene_tab_changed(int p_tab) {
 EditorNode::EditorNode() {
 
 	EditorHelp::generate_doc(); //before any editor classes are crated
+
+	if (!OS::get_singleton()->has_touchscreen_ui_hint() && Input::get_singleton()) {
+		//only if no touchscreen ui hint, set emulation
+		InputDefault *id = Input::get_singleton()->cast_to<InputDefault>();
+		if (id)
+			id->set_emulate_touch(false); //just disable just in case
+	}
+
 
 	singleton=this;
 	last_checked_version=0;

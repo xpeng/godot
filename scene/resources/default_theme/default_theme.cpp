@@ -424,7 +424,7 @@ void make_default_theme() {
 	t->set_constant("shadow_as_outline","MenuButton", 0 );
 	t->set_stylebox("focus","OptionButton", Ref<StyleBox>( memnew( StyleBoxEmpty )) );
 
-	t->set_constant("hseparation","MenuButton", 0 );
+	t->set_constant("hseparation","MenuButton", 3 );
 
     // CheckBox
 

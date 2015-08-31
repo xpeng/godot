@@ -31,7 +31,7 @@
 #include <stdarg.h>
 #include "dir_access.h"
 #include "globals.h"
-
+#include "input.h"
 
 OS* OS::singleton=NULL;
 
@@ -382,7 +382,7 @@ bool OS::has_touchscreen_ui_hint() const {
 
 	if (is_editor_hint())
 		return false;
-	return GLOBAL_DEF("display/emulate_touchscreen",false);
+	return Input::get_singleton() && Input::get_singleton()->is_emulating_touchscreen();
 }
 
 bool OS::is_editor_hint() const {
