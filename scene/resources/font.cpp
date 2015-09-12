@@ -28,6 +28,8 @@
 /*************************************************************************/
 #include "font.h"
 
+#define min(a,b) ((a)<(b) ? (a):(b))
+
 #include "core/os/file_access.h"
 #include "core/io/resource_loader.h"
 
@@ -527,8 +529,17 @@ void Font::draw(RID p_canvas_item, const Point2& p_pos, const String& p_text, co
             else
 		        ERR_CONTINUE( c->texture_idx<-1 || c->texture_idx>=textures.size());
         }
-		if (c->texture_idx!=-1)
-			textures[c->texture_idx]->draw_rect_region( p_canvas_item, Rect2( cpos, c->rect.size ), c->rect, p_modulate );
+		if (c->texture_idx!=-1) {
+			Ref<Texture> tex = textures[c->texture_idx];
+			Rect2 region = tex->get_region();
+			Size2 size = Size2(
+				min(region.size.x, c->rect.size.x),
+				min(region.size.y, c->rect.size.y)
+			);
+			Rect2 src_rect = Rect2(c->rect.pos + region.pos, size);
+			VisualServer::get_singleton()->canvas_item_add_texture_rect_region( p_canvas_item, Rect2( cpos, size ), tex->get_rid(),src_rect, p_modulate );
+		}
+		//textures[c->texture_idx]->draw_rect_region( p_canvas_item, Rect2( cpos, c->rect.size ), c->rect, p_modulate );
 		
 		ofs+=get_char_size(p_text[i],p_text[i+1]).width;
 	}
@@ -558,8 +569,13 @@ float Font::draw_char(RID p_canvas_item, const Point2& p_pos, const CharType& p_
 	if (c->texture_idx != -1) {
 
 		Ref<Texture> tex = textures[c->texture_idx];
-		Rect2 src_rect = Rect2(c->rect.pos + tex->get_region().pos, c->rect.size);
-		VisualServer::get_singleton()->canvas_item_add_texture_rect_region( p_canvas_item, Rect2( cpos, c->rect.size ), tex->get_rid(),src_rect, p_modulate );
+		Rect2 region = tex->get_region();
+		Size2 size = Size2(
+			min(region.size.x, c->rect.size.x),
+			min(region.size.y, c->rect.size.y)
+		);
+		Rect2 src_rect = Rect2(c->rect.pos + region.pos, size);
+		VisualServer::get_singleton()->canvas_item_add_texture_rect_region( p_canvas_item, Rect2( cpos, size ), tex->get_rid(),src_rect, p_modulate );
 	}
 	
 	return get_char_size(p_char,p_next).width;
