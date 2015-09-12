@@ -343,6 +343,7 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 
 				init_custom_pos=Point2(x,y);
 				init_use_custom_pos=true;
+				//force_res=true;
 
 				N=I->next()->next();
 			} else {
@@ -878,7 +879,7 @@ Error Main::setup2() {
 		if (boot_logo_path!=String() /*&& FileAccess::exists(boot_logo_path)*/) {
 			Error err = boot_logo.load(boot_logo_path);
 			if (err!=OK) {
-				print_line("ËRROR LOADING BOOT LOGO SPLASH :"+boot_logo_path);
+				print_line("?RROR LOADING BOOT LOGO SPLASH :"+boot_logo_path);
 			} else {
 				print_line("BOOT SPLASH OK!");
 
@@ -918,14 +919,14 @@ Error Main::setup2() {
 	GLOBAL_DEF("application/icon",String());
 	Globals::get_singleton()->set_custom_property_info("application/icon",PropertyInfo(Variant::STRING,"application/icon",PROPERTY_HINT_FILE,"*.png,*.webp"));
 
-	if (bool(GLOBAL_DEF("display/emulate_touchscreen",false))) {
-		if (!OS::get_singleton()->has_touchscreen_ui_hint() && Input::get_singleton()) {
-			//only if no touchscreen ui hint, set emulation
-			InputDefault *id = Input::get_singleton()->cast_to<InputDefault>();
-			if (id)
-				id->set_emulate_touch(true);
-		}
-	}
+	//if (bool(GLOBAL_DEF("display/emulate_touchscreen",false))) {
+	//	if (!OS::get_singleton()->has_touchscreen_ui_hint() && Input::get_singleton()) {
+	//		//only if no touchscreen ui hint, set emulation
+	//		InputDefault *id = Input::get_singleton()->cast_to<InputDefault>();
+	//		if (id)
+	//			id->set_emulate_touch(true);
+	//	}
+	//}
 	MAIN_PRINT("Main: Load Remaps");
 
 	MAIN_PRINT("Main: Load Scene Types");
@@ -1386,6 +1387,15 @@ bool Main::start() {
 		}
 
 #endif
+	}
+
+	if (bool(GLOBAL_DEF("display/emulate_touchscreen",false))) {
+		if (!OS::get_singleton()->has_touchscreen_ui_hint() && Input::get_singleton()) {
+			//only if no touchscreen ui hint, set emulation
+			InputDefault *id = Input::get_singleton()->cast_to<InputDefault>();
+			if (id)
+				id->set_emulate_touch(true);
+		}
 	}
 
 	return true;

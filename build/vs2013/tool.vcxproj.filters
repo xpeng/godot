@@ -627,6 +627,12 @@
     <ClCompile Include="..\..\tools\editor\dependency_editor.cpp">
       <Filter>tools\editor</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\tools\editor\array_property_edit.cpp">
+      <Filter>tools\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tools\editor\multi_node_edit.cpp">
+      <Filter>tools\editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\tools\collada\collada.h">
@@ -1263,6 +1269,12 @@
       <Filter>tools\editor\plugins</Filter>
     </ClInclude>
     <ClInclude Include="..\..\tools\editor\dependency_editor.h">
+      <Filter>tools\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tools\editor\array_property_edit.h">
+      <Filter>tools\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tools\editor\multi_node_edit.h">
       <Filter>tools\editor</Filter>
     </ClInclude>
   </ItemGroup>
