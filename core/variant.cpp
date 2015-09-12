@@ -1617,27 +1617,16 @@ Variant::operator String() const {
 		case OBJECT: {
 
 			if (_get_obj().obj) {
-				Object *obj = _get_obj().obj;
-				return "["+obj->get_type()+":"+itos(obj->get_instance_ID())+"]";
-
-				//String str = "["+obj->get_type()+":"+itos(obj->get_instance_ID())+"]";
-				//List<PropertyInfo> p_list;
-				//obj->get_property_list(&p_list);
-				//Dictionary d;
-				//for(List<PropertyInfo>::Element *E=p_list.front();E;E=E->next()) {
-
-				//	PropertyInfo& prop=E->get();
-				//	bool valid = false;
-				//	Variant value = obj->get(prop.name, &valid);
-				//	if(!valid)
-				//		continue;
-				//	d[prop.name]=value;
-				//}
-				//if(d.empty())
-				//	return str;
-				//return str+" : "+Variant(d);
-			}
-			else
+				#ifdef DEBUG_ENABLED
+					if (ScriptDebugger::get_singleton() && _get_obj().ref.is_null()) {
+						//only if debugging!
+						if (!ObjectDB::instance_validate(_get_obj().obj)) {
+							return "[Deleted Object]";
+						};
+					};
+				#endif
+				return "["+_get_obj().obj->get_type()+":"+itos(_get_obj().obj->get_instance_ID())+"]";
+			} else
 				return "[Object:null]";
 
 		} break;

@@ -297,6 +297,7 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 				
 				if (vm.find("x")==-1) { // invalid parameter format
 				
+					OS::get_singleton()->print("Invalid -r argument: %s\n",vm.utf8().get_data());
 					goto error;
 					
 				
@@ -307,6 +308,7 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 				
 				if (w==0 || h==0) {
 				
+					OS::get_singleton()->print("Invalid -r resolution, x and y must be >0\n");
 					goto error;
 					
 				}
@@ -317,6 +319,7 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 				
 				N=I->next()->next();
 			} else {
+				OS::get_singleton()->print("Invalid -p argument, needs resolution\n");
 				goto error;
 				
 			
@@ -329,6 +332,7 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 
 				if (vm.find("x")==-1) { // invalid parameter format
 
+					OS::get_singleton()->print("Invalid -p argument: %s\n",vm.utf8().get_data());
 					goto error;
 
 
@@ -339,10 +343,10 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 
 				init_custom_pos=Point2(x,y);
 				init_use_custom_pos=true;
-				force_res=true;
 
 				N=I->next()->next();
 			} else {
+				OS::get_singleton()->print("Invalid -r argument, needs position\n");
 				goto error;
 
 
@@ -359,6 +363,7 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 				video_driver=I->next()->get();
 				N=I->next()->next();
 			} else {
+				OS::get_singleton()->print("Invalid -cd argument, needs driver name\n");
 				goto error;
 				
 			}
@@ -369,6 +374,7 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 				locale=I->next()->get();
 				N=I->next()->next();
 			} else {
+				OS::get_singleton()->print("Invalid -lang argument, needs language code\n");
 				goto error;
 
 			}
@@ -447,7 +453,6 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 				} else {
 					game_path=I->next()->get(); //use game_path instead
 				}
-
 				N=I->next()->next();
 			} else {
 				goto error;
@@ -528,8 +533,10 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 
 				debug_mode="remote";
 				debug_host=I->next()->get();
-				if (debug_host.find(":")==-1) //wrong host
+				if (debug_host.find(":")==-1) { //wrong host
+					OS::get_singleton()->print("Invalid debug host string\n");
 					goto error;
+				}
 				N=I->next()->next();
 			} else {
 				goto error;
@@ -775,6 +782,7 @@ Error Main::setup(const char *execpath,int argc, char *argv[],bool p_second_phas
 	if (p_second_phase)
 		return setup2();
 
+
 	return OK;
 
 	error:
@@ -852,17 +860,29 @@ Error Main::setup2() {
 	if (init_maximized) {
 		OS::get_singleton()->set_window_maximized(true);
 	}
+	MAIN_PRINT("Main: Load Remaps");
+
+	path_remap->load_remaps();
 
 	if (show_logo) { //boot logo!
 		String boot_logo_path=GLOBAL_DEF("application/boot_splash",String());
 		bool boot_logo_scale=GLOBAL_DEF("application/boot_splash_fullsize",true);
 		Globals::get_singleton()->set_custom_property_info("application/boot_splash",PropertyInfo(Variant::STRING,"application/boot_splash",PROPERTY_HINT_FILE,"*.png"));
-
+		print_line("BOOT SPLASH: "+boot_logo_path);
 
 		Image boot_logo;
 
-		if (boot_logo_path.strip_edges()!="" && FileAccess::exists(boot_logo_path)) {
-			boot_logo.load(boot_logo_path);
+		boot_logo_path = boot_logo_path.strip_edges();
+		print_line("BOOT SPLASH IS : "+boot_logo_path);
+
+		if (boot_logo_path!=String() /*&& FileAccess::exists(boot_logo_path)*/) {
+			Error err = boot_logo.load(boot_logo_path);
+			if (err!=OK) {
+				print_line("ËRROR LOADING BOOT LOGO SPLASH :"+boot_logo_path);
+			} else {
+				print_line("BOOT SPLASH OK!");
+
+			}
 		}
 
 		if (!boot_logo.empty()) {
@@ -873,7 +893,7 @@ Error Main::setup2() {
 			VisualServer::get_singleton()->set_boot_image(boot_logo, boot_bg,boot_logo_scale);
 #ifndef TOOLS_ENABLED
 			//no tools, so free the boot logo (no longer needed)
-			Globals::get_singleton()->set("application/boot_logo",Image());
+		//	Globals::get_singleton()->set("application/boot_logo",Image());
 #endif
 
 		} else {
@@ -907,8 +927,6 @@ Error Main::setup2() {
 		}
 	}
 	MAIN_PRINT("Main: Load Remaps");
-
-	path_remap->load_remaps();
 
 	MAIN_PRINT("Main: Load Scene Types");
 

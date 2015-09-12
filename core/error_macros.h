@@ -105,7 +105,7 @@ void _set_err_error_exists(bool p_exists);
 
 #define ERR_FAIL_INDEX(m_index,m_size) \
 	 do {if ((m_index)<0 || (m_index)>=(m_size)) { \
-		_err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Index "_STR(m_index)" out of size ("_STR(m_size)").");	\
+        _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Index " _STR(m_index)" out of size (" _STR(m_size)").");	\
 		return;	\
 	} else _set_err_error_exists(false); } while(0);	\
 
@@ -116,7 +116,7 @@ void _set_err_error_exists(bool p_exists);
 
 #define ERR_FAIL_INDEX_V(m_index,m_size,m_retval) \
 	 do {if ((m_index)<0 || (m_index)>=(m_size)) { \
-		_err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Index "_STR(m_index)" out of size ("_STR(m_size)").");	\
+        _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Index " _STR(m_index)" out of size (" _STR(m_size)").");	\
 		return m_retval;	 \
 	} else _set_err_error_exists(false);} while (0);
 
@@ -126,14 +126,14 @@ void _set_err_error_exists(bool p_exists);
 
  #define ERR_FAIL_NULL(m_param) \
 	 { if ( !m_param ) {	\
-		 _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Parameter ' "_STR(m_param)" ' is null.");	\
+         _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Parameter ' " _STR(m_param)" ' is null.");	\
 		 return;	 \
 	 }else _set_err_error_exists(false); }	\
 
 
 #define ERR_FAIL_NULL_V(m_param,m_retval) \
 	{ if ( !m_param ) {	\
-		_err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Parameter ' "_STR(m_param)" ' is null.");	\
+        _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Parameter ' " _STR(m_param)" ' is null.");	\
 		return m_retval;	 \
 	}else _set_err_error_exists(false); }	\
 
@@ -143,7 +143,7 @@ void _set_err_error_exists(bool p_exists);
 
 #define ERR_FAIL_COND(m_cond) \
 	{ if ( m_cond ) {	\
-		_err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Condition ' "_STR(m_cond)" ' is true.");	\
+        _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Condition ' " _STR(m_cond)" ' is true.");	\
 		return;	 \
 	}else _set_err_error_exists(false); }	\
 
@@ -155,7 +155,7 @@ void _set_err_error_exists(bool p_exists);
 
 #define ERR_FAIL_COND_V(m_cond,m_retval) \
 	{ if ( m_cond ) {	\
-		_err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Condition ' "_STR(m_cond)" ' is true. returned: "_STR(m_retval));	\
+        _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Condition ' " _STR(m_cond)" ' is true. returned: " _STR(m_retval));	\
 		return m_retval;	 \
 	}else _set_err_error_exists(false); }	\
 
@@ -165,7 +165,7 @@ void _set_err_error_exists(bool p_exists);
 
 #define ERR_CONTINUE(m_cond) \
 	{ if ( m_cond ) {	\
-		_err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Condition ' "_STR(m_cond)" ' is true. Continuing..:");	\
+        _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Condition ' " _STR(m_cond)" ' is true. Continuing..:");	\
 		continue;\
 	} else _set_err_error_exists(false);}	\
 
@@ -175,7 +175,7 @@ void _set_err_error_exists(bool p_exists);
 
 #define ERR_BREAK(m_cond) \
 	{ if ( m_cond ) {	\
-		_err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Condition ' "_STR(m_cond)" ' is true. Breaking..:");	\
+        _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Condition ' " _STR(m_cond)" ' is true. Breaking..:");	\
 		break;\
 	} else _set_err_error_exists(false);}	\
 
@@ -194,7 +194,7 @@ void _set_err_error_exists(bool p_exists);
 
 #define ERR_FAIL_V(m_value) \
 { \
-		_err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Method/Function Failed, returning: "__STR(m_value));	\
+        _err_print_error(FUNCTION_STR,__FILE__,__LINE__,"Method/Function Failed, returning: " __STR(m_value));	\
 		_set_err_error_exists(false);	\
 		return m_value;\
 } \
