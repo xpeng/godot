@@ -125,6 +125,7 @@
     <ClCompile Include="..\..\servers\audio\audio_driver_dummy.cpp" />
     <ClCompile Include="..\..\servers\audio\audio_filter_sw.cpp" />
     <ClCompile Include="..\..\servers\audio\audio_mixer_sw.cpp" />
+    <ClCompile Include="..\..\servers\audio\audio_rb_resampler.cpp" />
     <ClCompile Include="..\..\servers\audio\audio_server_sw.cpp" />
     <ClCompile Include="..\..\servers\audio\reverb_buffers_sw.cpp" />
     <ClCompile Include="..\..\servers\audio\reverb_sw.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="..\..\servers\audio\audio_driver_dummy.h" />
     <ClInclude Include="..\..\servers\audio\audio_filter_sw.h" />
     <ClInclude Include="..\..\servers\audio\audio_mixer_sw.h" />
+    <ClInclude Include="..\..\servers\audio\audio_rb_resampler.h" />
     <ClInclude Include="..\..\servers\audio\audio_server_sw.h" />
     <ClInclude Include="..\..\servers\audio\reverb_buffers_sw.h" />
     <ClInclude Include="..\..\servers\audio\reverb_sw.h" />

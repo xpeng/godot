@@ -222,6 +222,9 @@
     <ClCompile Include="..\..\servers\physics_2d\physics_2d_server_wrap_mt.cpp">
       <Filter>server\physics_2d</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\servers\audio\audio_rb_resampler.cpp">
+      <Filter>server\audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\servers\audio_server.h">
@@ -421,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="..\..\servers\physics_2d\physics_2d_server_wrap_mt.h">
       <Filter>server\physics_2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\servers\audio\audio_rb_resampler.h">
+      <Filter>server\audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
