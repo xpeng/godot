@@ -77,8 +77,14 @@ ByteArray Crypt::randomkey() {
 	ByteArray tmp;
 	tmp.resize(8);
 	ByteArray::Write w = tmp.write();
-	for(int i = 0; i < 8; i++)
-		w[i] = rand() % 0xff;
+	char x = 0;
+	for (int i = 0; i < 8; i++) {
+		w[i] = rand() & 0xff;
+		x ^= w[i];
+	}
+	if (x==0) {
+		w[0] |= 1;	// avoid 0
+	}
 
 	return tmp;
 }
@@ -339,7 +345,10 @@ ByteArray Crypt::dhexchange(const ByteArray& p_raw) {
 	xx[0] = x[0] | x[1]<<8 | x[2]<<16 | x[3]<<24;
 	xx[1] = x[4] | x[5]<<8 | x[6]<<16 | x[7]<<24;
 
-	uint64_t r = powmodp(5,	(uint64_t)xx[0] | (uint64_t)xx[1]<<32);
+	uint64_t x64 = (uint64_t)xx[0] | (uint64_t)xx[1]<<32;
+	ERR_FAIL_COND_V((x64 == 0), ByteArray());
+
+	uint64_t r = powmodp(5,	x64);
 	return push64(r);
 }
 
@@ -348,8 +357,10 @@ ByteArray Crypt::dhsecret(const ByteArray& p_x, const ByteArray& p_y) {
 	uint32_t x[2], y[2];
 	ERR_FAIL_COND_V(!read64(p_x, p_y, x, y), ByteArray());
 
-	uint64_t r = powmodp((uint64_t)x[0] | (uint64_t)x[1]<<32,
-		(uint64_t)y[0] | (uint64_t)y[1]<<32);
+	uint64_t xx = (uint64_t)x[0] | (uint64_t)x[1]<<32;
+	uint64_t yy = (uint64_t)y[0] | (uint64_t)y[1]<<32;
+	ERR_FAIL_COND_V(xx == 0 || yy == 0, ByteArray());
+	uint64_t r = powmodp(xx, yy);
 
 	return push64(r);
 }
