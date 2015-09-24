@@ -1104,11 +1104,6 @@ Error EditorTextureImportPlugin::import2(const String& p_path, const Ref<Resourc
 			from->remove_source(removes[i]);
 		}
 		ep.step(_TR("Converting Images"),sources.size());
-
-		for(int i=0;i<sources.size();i++) {
-		int base_index=0;
-
-
 		Map<uint64_t,int> source_md5;
 		Map<int,List<int> > source_map;
 

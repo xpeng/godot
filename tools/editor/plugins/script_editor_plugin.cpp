@@ -587,8 +587,6 @@ void ScriptEditor::_close_current_tab() {
 
 	// remove opened script resource
 	Ref<Script> script = current->get_edited_script();
-	ResourcesDock *resource_dock = EditorNode::get_singleton()->get_resources_dock();
-	resource_dock->call_deferred("remove_resource", script);
 
 	int idx = tab_container->get_current_tab();
 	memdelete(current);
