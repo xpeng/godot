@@ -69,7 +69,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\drivers\webp;..\..\core;..\..\core\math;..\..\tools;..\..\drivers;..\..;..\..\platform\windows;..\..\platform\windows\include;..\..\tools\freetype;..\..\tools\freetype\freetype\include;..\..\drivers\builtin_openssl2;..\..\drivers\builtin_openssl2\crypto;..\..\drivers\builtin_openssl2\crypto\evp;..\..\drivers\builtin_openssl2\crypto\asn1;..\..\drivers\builtin_openssl2\crypto\modes;..\..\drivers\builtin_zlib\zlib;..\..\platform\windows\vorbis;..\..\drivers/theoraplayer/include/theoraplayer;..\..\drivers/theoraplayer/src/YUV;..\..\drivers/theoraplayer/src/YUV/libyuv/include;..\..\drivers/theoraplayer/src/Theora;..\..\drivers/theoraplayer/src/AVFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;DEBUG_MEMORY_ENABLED;FREETYPE_ENABLED;DEBUG_ENABLED;D3D_DEBUG_INFO;WINDOWS_ENABLED;RTAUDIO_ENABLED;TYPED_METHOD_BIND;GLES2_ENABLED;GLES1_ENABLED;GLEW_ENABLED;SCI_NAMESPACE;MSVC;MUSEPACK_ENABLED;OLD_SCENE_FORMAT_ENABLED;SQUISH_ENABLED;VORBIS_ENABLED;THEORA_ENABLED;PNG_ENABLED;DDS_ENABLED;PVR_ENABLED;JPG_ENABLED;WEBP_ENABLED;SPEEX_ENABLED;TOOLS_ENABLED;GDSCRIPT_ENABLED;MINIZIP_ENABLED;XML_ENABLED;REAL_T_IS_DOUBLE;OPENSSL_ENABLED;OPENSSL_NO_ASM;OPENSSL_THREADS;L_ENDIAN;_YUV_C;__THEORA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;DEBUG_MEMORY_ENABLED;FREETYPE_ENABLED;DEBUG_ENABLED;D3D_DEBUG_INFO;WINDOWS_ENABLED;RTAUDIO_ENABLED;TYPED_METHOD_BIND;GLES2_ENABLED;GLES1_ENABLED;GLEW_ENABLED;SCI_NAMESPACE;MSVC;MUSEPACK_ENABLED;OLD_SCENE_FORMAT_ENABLED;SQUISH_ENABLED;VORBIS_ENABLED;PNG_ENABLED;DDS_ENABLED;PVR_ENABLED;JPG_ENABLED;WEBP_ENABLED;SPEEX_ENABLED;TOOLS_ENABLED;GDSCRIPT_ENABLED;MINIZIP_ENABLED;XML_ENABLED;REAL_T_IS_DOUBLE;OPENSSL_ENABLED;OPENSSL_NO_ASM;OPENSSL_THREADS;L_ENDIAN;_YUV_C;__THEORA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>StackFrameRuntimeCheck</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -89,7 +89,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>..\..\drivers\webp;..\..\core;..\..\core\math;..\..\tools;..\..\drivers;..\..;..\..\platform\windows;..\..\platform\windows\include;..\..\tools\freetype;..\..\tools\freetype\freetype\include;..\..\drivers\builtin_openssl2;..\..\drivers\builtin_openssl2\crypto;..\..\drivers\builtin_openssl2\crypto\evp;..\..\drivers\builtin_openssl2\crypto\asn1;..\..\drivers\builtin_openssl2\crypto\modes;..\..\drivers\builtin_zlib\zlib;..\..\platform\windows\vorbis;..\..\drivers/theoraplayer/include/theoraplayer;..\..\drivers/theoraplayer/src/YUV;..\..\drivers/theoraplayer/src/YUV/libyuv/include;..\..\drivers/theoraplayer/src/Theora;..\..\drivers/theoraplayer/src/AVFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;DEBUG_MEMORY_ENABLED;FREETYPE_ENABLED;DEBUG_ENABLED;D3D_DEBUG_INFO;WINDOWS_ENABLED;RTAUDIO_ENABLED;TYPED_METHOD_BIND;GLES2_ENABLED;GLES1_ENABLED;GLEW_ENABLED;MSVC;MUSEPACK_ENABLED;OLD_SCENE_FORMAT_ENABLED;SQUISH_ENABLED;VORBIS_ENABLED;THEORA_ENABLED;PNG_ENABLED;DDS_ENABLED;PVR_ENABLED;JPG_ENABLED;WEBP_ENABLED;SPEEX_ENABLED;TOOLS_ENABLED;GDSCRIPT_ENABLED;MINIZIP_ENABLED;XML_ENABLED;REAL_T_IS_DOUBLE;OPENSSL_ENABLED;OPENSSL_NO_ASM;OPENSSL_THREADS;L_ENDIAN;_YUV_C;__THEORA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;DEBUG_MEMORY_ENABLED;FREETYPE_ENABLED;DEBUG_ENABLED;D3D_DEBUG_INFO;WINDOWS_ENABLED;RTAUDIO_ENABLED;TYPED_METHOD_BIND;GLES2_ENABLED;GLES1_ENABLED;GLEW_ENABLED;MSVC;MUSEPACK_ENABLED;OLD_SCENE_FORMAT_ENABLED;SQUISH_ENABLED;VORBIS_ENABLED;PNG_ENABLED;DDS_ENABLED;PVR_ENABLED;JPG_ENABLED;WEBP_ENABLED;SPEEX_ENABLED;TOOLS_ENABLED;GDSCRIPT_ENABLED;MINIZIP_ENABLED;XML_ENABLED;REAL_T_IS_DOUBLE;OPENSSL_ENABLED;OPENSSL_NO_ASM;OPENSSL_THREADS;L_ENDIAN;_YUV_C;__THEORA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader />
@@ -108,7 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>..\..\drivers\webp;..\..\core;..\..\core\math;..\..\tools;..\..\drivers;..\..;..\..\platform\windows;..\..\platform\windows\include;..\..\tools\freetype;..\..\tools\freetype\freetype\include;..\..\drivers\builtin_openssl2;..\..\drivers\builtin_openssl2\crypto;..\..\drivers\builtin_openssl2\crypto\evp;..\..\drivers\builtin_openssl2\crypto\asn1;..\..\drivers\builtin_openssl2\crypto\modes;..\..\drivers\builtin_zlib\zlib;..\..\platform\windows\vorbis;..\..\drivers/theoraplayer/include/theoraplayer;..\..\drivers/theoraplayer/src/YUV;..\..\drivers/theoraplayer/src/YUV/libyuv/include;..\..\drivers/theoraplayer/src/Theora;..\..\drivers/theoraplayer/src/AVFoundation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;FREETYPE_ENABLED;DEBUG_ENABLED;D3D_DEBUG_INFO;WINDOWS_ENABLED;RTAUDIO_ENABLED;TYPED_METHOD_BIND;GLES2_ENABLED;GLES1_ENABLED;GLEW_ENABLED;MSVC;MUSEPACK_ENABLED;OLD_SCENE_FORMAT_ENABLED;SQUISH_ENABLED;VORBIS_ENABLED;THEORA_ENABLED;PNG_ENABLED;DDS_ENABLED;PVR_ENABLED;JPG_ENABLED;WEBP_ENABLED;SPEEX_ENABLED;TOOLS_ENABLED;GDSCRIPT_ENABLED;MINIZIP_ENABLED;XML_ENABLED;REAL_T_IS_DOUBLE;OPENSSL_ENABLED;OPENSSL_NO_ASM;OPENSSL_THREADS;L_ENDIAN;_YUV_C;__THEORA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;FREETYPE_ENABLED;DEBUG_ENABLED;D3D_DEBUG_INFO;WINDOWS_ENABLED;RTAUDIO_ENABLED;TYPED_METHOD_BIND;GLES2_ENABLED;GLES1_ENABLED;GLEW_ENABLED;MSVC;MUSEPACK_ENABLED;OLD_SCENE_FORMAT_ENABLED;SQUISH_ENABLED;VORBIS_ENABLED;PNG_ENABLED;DDS_ENABLED;PVR_ENABLED;JPG_ENABLED;WEBP_ENABLED;SPEEX_ENABLED;TOOLS_ENABLED;GDSCRIPT_ENABLED;MINIZIP_ENABLED;XML_ENABLED;REAL_T_IS_DOUBLE;OPENSSL_ENABLED;OPENSSL_NO_ASM;OPENSSL_THREADS;L_ENDIAN;_YUV_C;__THEORA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader />
@@ -961,93 +961,420 @@
     <ClCompile Include="..\..\drivers\squish\rangefit.cpp" />
     <ClCompile Include="..\..\drivers\squish\singlecolourfit.cpp" />
     <ClCompile Include="..\..\drivers\squish\squish.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\FFmpeg\TheoraVideoClip_FFmpeg.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraAsync.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraAudioInterface.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraAudioPacketQueue.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraDataSource.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraException.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraFrameQueue.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraTimer.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraUtil.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraVideoClip.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraVideoFrame.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraVideoManager.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraWorkerThread.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\Theora\TheoraVideoClip_Theora.cpp" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\android\cpu-features.c" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\C\yuv420_grey_c.c" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\C\yuv420_rgb_c.c" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\C\yuv420_yuv_c.c" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_common.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_neon.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_posix.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_win.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_argb.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_from.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_from_argb.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_jpeg.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_to_argb.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_to_i420.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\cpu_id.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\format_conversion.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\mjpeg_decoder.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\mjpeg_validate.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\planar_functions.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate_argb.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate_mips.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate_neon.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_any.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_common.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_mips.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_neon.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_posix.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_win.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_argb.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_argb_neon.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_common.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_mips.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_neon.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_posix.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_win.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\video_common.cc" />
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\yuv_util.c" />
-    <ClCompile Include="..\..\drivers\theoraplayer\video_stream_theoraplayer.cpp" />
-    <ClCompile Include="..\..\drivers\theora\analyze.c" />
-    <ClCompile Include="..\..\drivers\theora\apiwrapper.c" />
-    <ClCompile Include="..\..\drivers\theora\bitpack.c" />
-    <ClCompile Include="..\..\drivers\theora\cpu.c" />
-    <ClCompile Include="..\..\drivers\theora\decapiwrapper.c" />
-    <ClCompile Include="..\..\drivers\theora\decinfo.c" />
-    <ClCompile Include="..\..\drivers\theora\decode.c" />
-    <ClCompile Include="..\..\drivers\theora\dequant.c" />
-    <ClCompile Include="..\..\drivers\theora\encapiwrapper.c" />
-    <ClCompile Include="..\..\drivers\theora\encfrag.c" />
-    <ClCompile Include="..\..\drivers\theora\encinfo.c" />
+    <ClCompile Include="..\..\drivers\theoraplayer\src\FFmpeg\TheoraVideoClip_FFmpeg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraAsync.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraAudioInterface.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraAudioPacketQueue.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraDataSource.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraException.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraFrameQueue.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraTimer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraUtil.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraVideoClip.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraVideoFrame.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraVideoManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraWorkerThread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\Theora\TheoraVideoClip_Theora.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\android\cpu-features.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\C\yuv420_grey_c.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\C\yuv420_rgb_c.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\C\yuv420_yuv_c.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_common.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_neon.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_posix.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_win.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_argb.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_from.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_from_argb.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_jpeg.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_to_argb.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_to_i420.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\cpu_id.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\format_conversion.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\mjpeg_decoder.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\mjpeg_validate.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\planar_functions.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate_argb.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate_mips.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate_neon.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_any.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_common.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_mips.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_neon.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_posix.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_win.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_argb.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_argb_neon.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_common.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_mips.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_neon.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_posix.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_win.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\video_common.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\yuv_util.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theoraplayer\video_stream_theoraplayer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\analyze.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\apiwrapper.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\bitpack.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\cpu.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\decapiwrapper.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\decinfo.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\decode.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\dequant.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\encapiwrapper.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\encfrag.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\encinfo.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\drivers\theora\encode.c">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)encode_theora.obj</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)encode_theora.obj</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">$(IntDir)encode_theora.obj</ObjectFileName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\drivers\theora\enquant.c" />
-    <ClCompile Include="..\..\drivers\theora\fdct.c" />
-    <ClCompile Include="..\..\drivers\theora\fragment.c" />
-    <ClCompile Include="..\..\drivers\theora\huffdec.c" />
-    <ClCompile Include="..\..\drivers\theora\huffenc.c" />
-    <ClCompile Include="..\..\drivers\theora\idct.c" />
-    <ClCompile Include="..\..\drivers\theora\info.c" />
-    <ClCompile Include="..\..\drivers\theora\internal.c" />
-    <ClCompile Include="..\..\drivers\theora\mathops.c" />
-    <ClCompile Include="..\..\drivers\theora\mcenc.c" />
-    <ClCompile Include="..\..\drivers\theora\quant.c" />
-    <ClCompile Include="..\..\drivers\theora\rate.c" />
-    <ClCompile Include="..\..\drivers\theora\state.c" />
+    <ClCompile Include="..\..\drivers\theora\enquant.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\fdct.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\fragment.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\huffdec.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\huffenc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\idct.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\info.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\internal.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\mathops.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\mcenc.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\quant.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\rate.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\theora\state.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\drivers\theora\tokenize.c" />
-    <ClCompile Include="..\..\drivers\theora\video_stream_theora.cpp" />
+    <ClCompile Include="..\..\drivers\theora\video_stream_theora.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\drivers\unix\dir_access_unix.cpp" />
     <ClCompile Include="..\..\drivers\unix\file_access_unix.cpp" />
     <ClCompile Include="..\..\drivers\unix\ip_unix.cpp" />
