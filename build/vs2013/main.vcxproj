@@ -122,6 +122,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\main\input_default.cpp" />
     <ClCompile Include="..\..\main\main.cpp" />
     <ClCompile Include="..\..\main\performance.cpp" />
   </ItemGroup>

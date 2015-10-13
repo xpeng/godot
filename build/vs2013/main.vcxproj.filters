@@ -12,6 +12,9 @@
     <ClCompile Include="..\..\main\performance.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\main\input_default.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\main\main.h">
