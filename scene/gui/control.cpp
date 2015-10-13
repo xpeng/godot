@@ -649,27 +649,30 @@ void Control::_notification(int p_notification) {
 
 			if (!is_visible()) {
 
-				if (data.window->window->mouse_focus == this) {
-					data.window->window->mouse_focus=NULL;
-				}
-				if (data.window==this) {
-					window->drag_data=Variant();
-					if (window->drag_preview) {
-						memdelete( window->drag_preview);
-						window->drag_preview=NULL;
-					}
-				}
+				if(data.window != NULL) {
 
-				if (data.window->window->key_focus == this)
-					data.window->window->key_focus=NULL;
-				if (data.window->window->mouse_over == this)
-					data.window->window->mouse_over=NULL;
+					if (data.window->window->mouse_focus == this) {
+						data.window->window->mouse_focus=NULL;
+					}
+					if (data.window==this) {
+						window->drag_data=Variant();
+						if (window->drag_preview) {
+							memdelete( window->drag_preview);
+							window->drag_preview=NULL;
+						}
+					}
+
+					if (data.window->window->key_focus == this)
+						data.window->window->key_focus=NULL;
+					if (data.window->window->mouse_over == this)
+						data.window->window->mouse_over=NULL;
 #ifndef TOOLTIP_DISABLED
-				if (data.window->window->tooltip == this)
-					data.window->window->tooltip=NULL;
-				if (data.window->window->tooltip == this)
-					data.window->window->tooltip=NULL;
+					if (data.window->window->tooltip == this)
+						data.window->window->tooltip=NULL;
+					if (data.window->window->tooltip == this)
+						data.window->window->tooltip=NULL;
 #endif
+				}
 				_modal_stack_remove();
 				minimum_size_changed();
 
