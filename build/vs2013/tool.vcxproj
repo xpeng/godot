@@ -239,6 +239,7 @@
     <ClCompile Include="..\..\tools\editor\plugins\shader_graph_editor_plugin.cpp" />
     <ClCompile Include="..\..\tools\editor\plugins\spatial_editor_plugin.cpp" />
     <ClCompile Include="..\..\tools\editor\plugins\sprite_frames_editor_plugin.cpp" />
+    <ClCompile Include="..\..\tools\editor\plugins\sprite_region_editor_plugin.cpp" />
     <ClCompile Include="..\..\tools\editor\plugins\stream_editor_plugin.cpp" />
     <ClCompile Include="..\..\tools\editor\plugins\style_box_editor_plugin.cpp" />
     <ClCompile Include="..\..\tools\editor\plugins\theme_editor_plugin.cpp" />
@@ -404,6 +405,7 @@
     <ClInclude Include="..\..\tools\editor\plugins\shader_graph_editor_plugin.h" />
     <ClInclude Include="..\..\tools\editor\plugins\spatial_editor_plugin.h" />
     <ClInclude Include="..\..\tools\editor\plugins\sprite_frames_editor_plugin.h" />
+    <ClInclude Include="..\..\tools\editor\plugins\sprite_region_editor_plugin.h" />
     <ClInclude Include="..\..\tools\editor\plugins\stream_editor_plugin.h" />
     <ClInclude Include="..\..\tools\editor\plugins\style_box_editor_plugin.h" />
     <ClInclude Include="..\..\tools\editor\plugins\theme_editor_plugin.h" />

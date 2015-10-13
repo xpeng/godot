@@ -298,50 +298,23 @@
     <Filter Include="drivers\openssl">
       <UniqueIdentifier>{099e7f9d-6378-4bb8-a53e-4b154e62b94b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="drivers\theoraplayer">
-      <UniqueIdentifier>{2d8a2dbb-ea5d-453a-b43b-6e8ac1db2f0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\include">
-      <UniqueIdentifier>{80b4ed86-313a-4db2-b000-68495ac63eeb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\include\theoraplayer">
-      <UniqueIdentifier>{647fd241-726e-4585-9985-f53a4130994f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src">
-      <UniqueIdentifier>{f419bb0c-a47a-47d4-8aa9-be12e3bcaa88}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\AVFoundation">
-      <UniqueIdentifier>{27554505-1d70-40a5-b017-3ea1c8c18a7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\FFmpeg">
-      <UniqueIdentifier>{801507be-6539-43c9-8080-9ffa3bd023df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\Theora">
-      <UniqueIdentifier>{4ad3c820-4431-4533-b0d7-305c730292b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\YUV">
-      <UniqueIdentifier>{ae89fae0-c901-4e96-9c89-78f457d0c50d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\YUV\android">
-      <UniqueIdentifier>{fd211ddf-2879-4efa-acec-df1c96b32c50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\YUV\C">
-      <UniqueIdentifier>{45bb32b6-d77c-4a27-93f2-c2a6f5f72817}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\YUV\libyuv">
-      <UniqueIdentifier>{22b88ab9-9ac5-484f-942b-05f56c95a04e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\YUV\libyuv\include">
-      <UniqueIdentifier>{02024302-cf27-4fac-9eb5-d3922bfc305a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\YUV\libyuv\include\libyuv">
-      <UniqueIdentifier>{e8ef2f8e-ca25-485b-a2cd-71aa6d396093}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="drivers\theoraplayer\src\YUV\libyuv\src">
-      <UniqueIdentifier>{53f5b037-5de1-4a52-af7f-684d7bbc93a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="drivers\nrex">
       <UniqueIdentifier>{0f86b5a9-d16a-418b-981c-1d1ba7af6cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drivers\opus">
+      <UniqueIdentifier>{0a3a4f84-81dc-4001-9126-8e66a733ba07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drivers\opus\celt">
+      <UniqueIdentifier>{6ec11ad4-ed89-4c63-af47-034b19241cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drivers\opus\silk">
+      <UniqueIdentifier>{4af8e05b-da46-424e-a83d-2b961f53e8b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drivers\opus\celt\x86">
+      <UniqueIdentifier>{09ab388b-db09-4d82-837b-9f17b91da15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drivers\opus\silk\float">
+      <UniqueIdentifier>{1e3c8a37-c550-490c-b6b3-c26f016a4b99}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -3150,174 +3123,6 @@
     <ClCompile Include="..\..\drivers\openssl\stream_peer_openssl.cpp">
       <Filter>drivers\openssl</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\video_stream_theoraplayer.cpp">
-      <Filter>drivers\theoraplayer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraAsync.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraAudioInterface.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraAudioPacketQueue.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraDataSource.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraException.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraFrameQueue.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraTimer.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraUtil.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraVideoClip.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraVideoFrame.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraVideoManager.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\TheoraWorkerThread.cpp">
-      <Filter>drivers\theoraplayer\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\FFmpeg\TheoraVideoClip_FFmpeg.cpp">
-      <Filter>drivers\theoraplayer\src\FFmpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\Theora\TheoraVideoClip_Theora.cpp">
-      <Filter>drivers\theoraplayer\src\Theora</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\yuv_util.c">
-      <Filter>drivers\theoraplayer\src\YUV</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\android\cpu-features.c">
-      <Filter>drivers\theoraplayer\src\YUV\android</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\C\yuv420_grey_c.c">
-      <Filter>drivers\theoraplayer\src\YUV\C</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\C\yuv420_rgb_c.c">
-      <Filter>drivers\theoraplayer\src\YUV\C</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\C\yuv420_yuv_c.c">
-      <Filter>drivers\theoraplayer\src\YUV\C</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_common.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_neon.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_posix.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\compare_win.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_argb.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_from.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_from_argb.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_jpeg.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_to_argb.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\convert_to_i420.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\cpu_id.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\format_conversion.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\mjpeg_decoder.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\mjpeg_validate.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\planar_functions.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate_argb.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate_mips.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\rotate_neon.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_any.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_common.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_mips.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_neon.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_posix.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_win.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_argb.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_argb_neon.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_common.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_mips.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_neon.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_posix.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\scale_win.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\video_common.cc">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\drivers\pvr\BitScale.cpp">
       <Filter>drivers\pvr</Filter>
     </ClCompile>
@@ -3338,6 +3143,435 @@
     </ClCompile>
     <ClCompile Include="..\..\drivers\nrex\regex.cpp">
       <Filter>drivers\nrex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\audio_stream_opus.cpp">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\analysis.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\http.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\info.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\internal.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\mlp.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\mlp_data.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\opus.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\opus_decoder.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\opus_encoder.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\opus_multistream.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\opus_multistream_decoder.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\opus_multistream_encoder.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\opusfile.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\repacketizer.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\stream.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\wincerts.c">
+      <Filter>drivers\opus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\bands.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\celt.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\celt_decoder.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\celt_encoder.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\celt_lpc.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\cwrs.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\entcode.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\entdec.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\entenc.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\kiss_fft.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\laplace.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\mathops.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\mdct.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\modes.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\opus_custom_demo.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\pitch.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\quant_bands.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\rate.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\celt\vq.c">
+      <Filter>drivers\opus\celt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\find_LTP_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\find_pitch_lags_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\find_pred_coefs_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\inner_product_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\k2a_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\levinsondurbin_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\LPC_analysis_filter_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\LPC_inv_pred_gain_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\LTP_analysis_filter_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\LTP_scale_ctrl_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\noise_shape_analysis_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\pitch_analysis_core_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\prefilter_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\process_gains_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\regularize_correlations_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\residual_energy_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\scale_copy_vector_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\scale_vector_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\schur_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\solve_LS_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\sort_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\warped_autocorrelation_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\wrappers_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\apply_sine_window_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\autocorrelation_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\burg_modified_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\bwexpander_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\corrMatrix_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\encode_frame_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\energy_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\float\find_LPC_FLP.c">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\VQ_WMat_EC.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\A2NLSF.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\ana_filt_bank_1.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\biquad_alt.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\bwexpander.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\bwexpander_32.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\check_control_input.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\CNG.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\code_signs.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\control_audio_bandwidth.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\control_codec.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\control_SNR.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\debug.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\dec_API.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\decode_core.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\decode_frame.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\decode_indices.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\decode_parameters.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\decode_pitch.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\decode_pulses.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\decoder_set_fs.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\enc_API.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\encode_indices.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\encode_pulses.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\gain_quant.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\HP_variable_cutoff.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\init_decoder.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\init_encoder.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\inner_prod_aligned.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\interpolate.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\lin2log.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\log2lin.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\LP_variable_cutoff.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\LPC_analysis_filter.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\LPC_inv_pred_gain.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NLSF_decode.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NLSF_del_dec_quant.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NLSF_encode.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NLSF_stabilize.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NLSF_unpack.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NLSF_VQ.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NLSF_VQ_weights_laroia.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NLSF2A.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NSQ.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\NSQ_del_dec.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\pitch_est_tables.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\PLC.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\process_NLSFs.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\quant_LTP_gains.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\resampler.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\resampler_down2.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\resampler_down2_3.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\resampler_private_AR2.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\resampler_private_down_FIR.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\resampler_private_IIR_FIR.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\resampler_private_up2_HQ.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\resampler_rom.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\shell_coder.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\sigm_Q15.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\sort.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\stereo_decode_pred.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\stereo_encode_pred.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\stereo_find_predictor.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\stereo_LR_to_MS.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\stereo_MS_to_LR.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\stereo_quant_pred.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\sum_sqr_shift.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\table_LSF_cos.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\tables_gain.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\tables_LTP.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\tables_NLSF_CB_NB_MB.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\tables_NLSF_CB_WB.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\tables_other.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\tables_pitch_lag.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\tables_pulses_per_block.c">
+      <Filter>drivers\opus\silk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\opus\silk\VAD.c">
+      <Filter>drivers\opus\silk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -4871,123 +5105,6 @@
     <ClInclude Include="..\..\drivers\openssl\stream_peer_openssl.h">
       <Filter>drivers\openssl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\video_stream_theoraplayer.h">
-      <Filter>drivers\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraAsync.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraAudioInterface.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraAudioPacketQueue.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraDataSource.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraException.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraExport.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraFrameQueue.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraPixelTransform.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraPlayer.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraTimer.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraUtil.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraVideoClip.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraVideoFrame.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraVideoManager.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\include\theoraplayer\TheoraWorkerThread.h">
-      <Filter>drivers\theoraplayer\include\theoraplayer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\FFmpeg\TheoraVideoClip_FFmpeg.h">
-      <Filter>drivers\theoraplayer\src\FFmpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\Theora\TheoraVideoClip_Theora.h">
-      <Filter>drivers\theoraplayer\src\Theora</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\yuv_util.h">
-      <Filter>drivers\theoraplayer\src\YUV</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\android\cpu-features.h">
-      <Filter>drivers\theoraplayer\src\YUV\android</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\basic_types.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\compare.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\convert.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\convert_argb.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\convert_from.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\convert_from_argb.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\cpu_id.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\format_conversion.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\mjpeg_decoder.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\planar_functions.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\rotate.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\rotate_argb.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\row.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\scale.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\scale_argb.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\scale_row.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\version.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\drivers\theoraplayer\src\YUV\libyuv\include\libyuv\video_common.h">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\include\libyuv</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\drivers\pvr\RgbBitmap.h">
       <Filter>drivers\pvr</Filter>
     </ClInclude>
@@ -5036,6 +5153,204 @@
     <ClInclude Include="..\..\drivers\nrex\regex.h">
       <Filter>drivers\nrex</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\analysis.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\audio_stream_opus.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\internal.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\mlp.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\opus.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\opus_config.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\opus_custom.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\opus_defines.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\opus_multistream.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\opus_private.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\opus_types.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\opusfile.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\tansig_table.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\winerrno.h">
+      <Filter>drivers\opus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\vq.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\_kiss_fft_guts.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\arch.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\bands.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\celt.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\celt_lpc.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\cpu_support.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\cwrs.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\ecintrin.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\entcode.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\entdec.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\entenc.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\fixed_debug.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\fixed_generic.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\float_cast.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\kiss_fft.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\laplace.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\mathops.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\mdct.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\mfrngcod.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\opus_modes.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\os_support.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\pitch.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\quant_bands.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\rate.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\stack_alloc.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\static_modes_fixed.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\static_modes_float.h">
+      <Filter>drivers\opus\celt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\float\main_FLP.h">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\float\SigProc_FLP.h">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\float\structs_FLP.h">
+      <Filter>drivers\opus\silk\float</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\API.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\control.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\debug.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\define.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\errors.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\Inlines.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\MacroCount.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\MacroDebug.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\macros.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\pitch_est_defines.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\PLC.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\resampler_private.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\resampler_rom.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\resampler_structs.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\SigProc_FIX.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\silk_main.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\structs.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\tables.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\tuning_parameters.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\silk\typedef.h">
+      <Filter>drivers\opus\silk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\opus\celt\x86\pitch_sse.h">
+      <Filter>drivers\opus\celt\x86</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\drivers\squish\singlecolourlookup.inl">
@@ -5055,12 +5370,6 @@
     </None>
     <None Include="..\..\drivers\gles2\shaders\material.glsl">
       <Filter>drivers\gles2\shaders</Filter>
-    </None>
-    <None Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\row_x86.asm">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
-    </None>
-    <None Include="..\..\drivers\theoraplayer\src\YUV\libyuv\src\x86inc.asm">
-      <Filter>drivers\theoraplayer\src\YUV\libyuv\src</Filter>
     </None>
   </ItemGroup>
 </Project>

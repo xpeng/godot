@@ -91,7 +91,7 @@
 /* This is a build of OPUS */
 #define OPUS_BUILD /**/
 
-#ifndef WIN32
+#ifndef _MSC_VER
 	/* Use C99 variable-size arrays */
 	#define VAR_ARRAYS 1
 #else

@@ -40,6 +40,7 @@
 #include "tools/editor/plugins/script_editor_plugin.h"
 #include "multi_node_edit.h"
 #include "core/translation.h"
+#include "main/input_default.h"
 
 void SceneTreeDock::_unhandled_key_input(InputEvent p_event) {
 
