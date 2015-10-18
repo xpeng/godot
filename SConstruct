@@ -339,6 +339,7 @@ if selected_platform in platform_list:
 
 	if (env['tools']=='yes'):
 		env.Append(CPPFLAGS=['-DTOOLS_ENABLED'])
+		env.Append(CPPFLAGS=['-DDEBUG_METHODS_ENABLED'])
 	if (env['disable_3d']=='yes'):
 		env.Append(CPPFLAGS=['-D_3D_DISABLED'])
 	if (env['use_double']=='yes'):
