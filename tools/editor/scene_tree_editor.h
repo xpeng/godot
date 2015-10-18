@@ -52,8 +52,12 @@ class SceneTreeEditor : public Control {
 	};
 
 	enum {
-		SCENE_MENU_SHOW_CHILDREN,
+		SCENE_MENU_EDITABLE_CHILDREN,
+		SCENE_MENU_USE_PLACEHOLDER,
 		SCENE_MENU_OPEN,
+		SCENE_MENU_CLEAR_INHERITANCE,
+		SCENE_MENU_OPEN_INHERITED,
+		SCENE_MENU_CLEAR_INHERITANCE_CONFIRM,
 	};
 
 	Tree *tree;
@@ -62,9 +66,11 @@ class SceneTreeEditor : public Control {
 	int current_highlighted;
 	bool highlighting_tree;
 	PopupMenu *instance_menu;
+	PopupMenu *inheritance_menu;
 	ObjectID instance_node;
 
 	AcceptDialog *error;
+	ConfirmationDialog *clear_inherit_confirm;
 
 	int blocked;
 	

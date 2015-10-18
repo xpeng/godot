@@ -26,6 +26,9 @@ main/fixed_rfs.h
 make.bat
 log.txt
 
+# Doxygen generated documentation
+doc/doxygen/*
+
 # Javascript specific
 *.bc
 
@@ -84,6 +87,8 @@ platform/android/libs/play_licensing/gen/*
 *.suo
 *.user
 *.sln.docstates
+*.sln
+*.vcxproj*
 
 # Build results
 [Dd]ebug/

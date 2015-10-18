@@ -259,6 +259,7 @@
     <ClCompile Include="..\..\scene\io\resource_format_image.cpp" />
     <ClCompile Include="..\..\scene\io\resource_format_wav.cpp" />
     <ClCompile Include="..\..\scene\main\canvas_layer.cpp" />
+    <ClCompile Include="..\..\scene\main\instance_placeholder.cpp" />
     <ClCompile Include="..\..\scene\main\misc.cpp" />
     <ClCompile Include="..\..\scene\main\node.cpp" />
     <ClCompile Include="..\..\scene\main\resource_preloader.cpp" />
@@ -305,6 +306,7 @@
     <ClCompile Include="..\..\scene\resources\room.cpp" />
     <ClCompile Include="..\..\scene\resources\sample.cpp" />
     <ClCompile Include="..\..\scene\resources\sample_library.cpp" />
+    <ClCompile Include="..\..\scene\resources\scene_format_text.cpp" />
     <ClCompile Include="..\..\scene\resources\scene_preloader.cpp" />
     <ClCompile Include="..\..\scene\resources\segment_shape_2d.cpp" />
     <ClCompile Include="..\..\scene\resources\shader.cpp" />
@@ -461,6 +463,7 @@
     <ClInclude Include="..\..\scene\io\resource_format_image.h" />
     <ClInclude Include="..\..\scene\io\resource_format_wav.h" />
     <ClInclude Include="..\..\scene\main\canvas_layer.h" />
+    <ClInclude Include="..\..\scene\main\instance_placeholder.h" />
     <ClInclude Include="..\..\scene\main\misc.h" />
     <ClInclude Include="..\..\scene\main\node.h" />
     <ClInclude Include="..\..\scene\main\resource_preloader.h" />
@@ -508,6 +511,7 @@
     <ClInclude Include="..\..\scene\resources\room.h" />
     <ClInclude Include="..\..\scene\resources\sample.h" />
     <ClInclude Include="..\..\scene\resources\sample_library.h" />
+    <ClInclude Include="..\..\scene\resources\scene_format_text.h" />
     <ClInclude Include="..\..\scene\resources\scene_preloader.h" />
     <ClInclude Include="..\..\scene\resources\segment_shape_2d.h" />
     <ClInclude Include="..\..\scene\resources\shader.h" />

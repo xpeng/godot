@@ -630,6 +630,12 @@
     <ClCompile Include="..\..\scene\gui\patch_9_frame.cpp">
       <Filter>scene\gui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\scene\main\instance_placeholder.cpp">
+      <Filter>scene\main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\scene\resources\scene_format_text.cpp">
+      <Filter>scene\resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\scene\register_scene_types.h">
@@ -1228,6 +1234,12 @@
     </ClInclude>
     <ClInclude Include="..\..\scene\gui\patch_9_frame.h">
       <Filter>scene\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scene\main\instance_placeholder.h">
+      <Filter>scene\main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\scene\resources\scene_format_text.h">
+      <Filter>scene\resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

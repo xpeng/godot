@@ -398,6 +398,8 @@ public:
 
 	void warp_mouse(const Point2& p_to_pos);
 
+    virtual bool is_text_field() const;
+
 	Control();	
 	~Control();
 
