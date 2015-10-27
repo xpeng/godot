@@ -115,7 +115,7 @@ LuaInstance* LuaScript::_create_instance(const Variant** p_args,int p_argcount,O
 //	instance->members.resize(member_indices.size());
 	instance->script=Ref<LuaScript>(this);
 	instance->owner=p_owner;
-	((Object *) instance->owner)->set_script_instance(instance);
+	instance->owner->set_script_instance(instance);
 
 	/* STEP 2, INITIALIZE AND CONSRTUCT */
 	instances.insert(instance->owner);
@@ -531,6 +531,17 @@ bool LuaScript::preprocessHints(PropertyInfo& pi, Vector<String>& tokens)
     return true;
 }
 
+static int l_instance_from_id(lua_State *L) {
+
+	int id = luaL_checkint(L, 1);
+	Object *obj = ObjectDB::get_instance(id);
+	if(obj == NULL)
+		lua_pushnil(L);
+	else
+		LuaInstance::l_push_variant(L, obj);
+	return 1;
+}
+
 int LuaScript::l_export(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
@@ -645,6 +656,9 @@ Error LuaScript::reload() {
         lua_pushlightuserdata(L, this);
         lua_pushcclosure(L, l_export, 1);
         lua_setfield(L, -2, "export");
+
+		lua_pushcclosure(L, l_instance_from_id, 0);
+		lua_setfield(L, -2, "instance_from_id");
 
         lua_newtable(L);
         luaL_reg meta_methods[] = {

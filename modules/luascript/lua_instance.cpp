@@ -41,11 +41,11 @@
 //////////////////////////////
 
 
-static Variant *luaL_checkobject(lua_State *L, int idx, const char *type)
+static Object *luaL_checkobject(lua_State *L, int idx)
 {
     LUA_MULTITHREAD_GUARD();
-    void *ptr = luaL_checkudata(L, idx, type);
-    return *((Variant **) ptr);
+    size_t id = *(size_t *) luaL_checkudata(L, idx, "GdObject");
+	return ObjectDB::get_instance(id);
 }
 
 bool LuaInstance::set(const StringName& p_name, const Variant& p_value) {
@@ -399,8 +399,7 @@ int LuaInstance::l_extends(lua_State *L)
     LUA_MULTITHREAD_GUARD();
 
     // self -> GdObject
-    Variant *self = (Variant *) luaL_checkobject(L, 1, "GdObject");
-    Object *obj = *self;
+    Object *obj = luaL_checkobject(L, 1);
     const char *type = luaL_checkstring(L, 2);
 
     if(obj->get_type() == type)
@@ -436,8 +435,7 @@ int LuaInstance::l_methodbind_wrapper(lua_State *L)
 
     MethodBind *mb = (MethodBind *) lua_touserdata(L, lua_upvalueindex(1));
     // self -> GdObject
-    Variant *self = (Variant *) luaL_checkobject(L, 1, "GdObject");
-    Object *obj = *self;
+    Object *obj = luaL_checkobject(L, 1);
 
     Variant ret;
     Variant::CallError err;
@@ -488,17 +486,20 @@ int LuaInstance::meta__gc(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
 
-    //// self -> GdObject
-    Variant *self = (Variant *) luaL_checkobject(L, 1, "GdObject");
-    Object *obj = *self;
+    Object *obj = (Object *) luaL_checkobject(L, 1);
+	if(obj == NULL)
+		return 0;
 
-    //printf("gc -> %s\n", ((String) obj->get_type_name()).utf8().get_data());
+    //LuaInstance *inst = dynamic_cast<LuaInstance *>(obj->get_script_instance());
+    //if(inst != NULL && !inst->gc_delete)
+    //    obj->set_script_instance(NULL);
 
-    LuaInstance *inst = dynamic_cast<LuaInstance *>(obj->get_script_instance());
-    if(inst != NULL && !inst->gc_delete)
-        obj->set_script_instance(NULL);
-    memdelete(self);
-
+	// dec refcount if obj is resource
+	if(obj->is_type_ptr(Resource::get_type_ptr_static())) {
+		Resource *res = obj->cast_to<Resource>();
+		if(res->unreference())
+			memdelete(res);
+	}
     lua_pushnil(L);
     lua_setmetatable(L, 1);
     return 1;
@@ -509,8 +510,7 @@ int LuaInstance::meta__tostring(lua_State *L)
     LUA_MULTITHREAD_GUARD();
 
     // self -> GdObject
-    Variant *self = (Variant *) luaL_checkobject(L, 1, "GdObject");
-    Object *obj = *self;
+    Object *obj = luaL_checkobject(L, 1);
 
     char buf[128];
     sprintf(buf, "%s: 0x%p", obj->get_type().utf8().get_data(), obj);
@@ -524,8 +524,7 @@ int LuaInstance::meta__index(lua_State *L)
     LUA_MULTITHREAD_GUARD();
 
     // self -> GdObject
-    Variant *self = (Variant *) luaL_checkobject(L, 1, "GdObject");
-    Object *obj = *self;
+    Object *obj = luaL_checkobject(L, 1);
     LuaInstance *inst = dynamic_cast<LuaInstance *>(obj->get_script_instance());
 
     // get symbol from lua instance table
@@ -583,7 +582,7 @@ int LuaInstance::meta__index(lua_State *L)
 
     // get object's property
     bool success = false;
-    Variant var = self->get(name, &success);
+    Variant var = obj->get(name, &success);
     if(success)
     {
         l_push_variant(L, var);
@@ -621,8 +620,7 @@ int LuaInstance::meta__newindex(lua_State *L)
     LUA_MULTITHREAD_GUARD();
 
     // self -> GdObject
-    Variant *self = (Variant *) luaL_checkobject(L, 1, "GdObject");
-    Object *obj = *self;
+    Object *obj = luaL_checkobject(L, 1);
     ScriptInstance *sci = obj->get_script_instance();
     if(sci != NULL)
     {
@@ -761,9 +759,13 @@ int LuaInstance::init(bool p_ref)
         // key
         lua_pushlightuserdata(L, obj);
         // value
-        void *ptr = lua_newuserdata(L, sizeof(obj));
-        *((Variant **) ptr)= memnew(Variant);
-        **((Variant **) ptr) = owner;
+        size_t *ptr = (size_t *) lua_newuserdata(L, sizeof(size_t));
+		// add refcount if obj(self) is resource
+		if(obj->is_type_ptr(Resource::get_type_ptr_static())) {
+			Resource *res = obj->cast_to<Resource>();
+			res->reference();
+		}
+		*ptr = owner->get_instance_ID();
         luaL_getmetatable(L, "GdObject");
         lua_setmetatable(L, -2);
         // object's env table
@@ -773,9 +775,7 @@ int LuaInstance::init(bool p_ref)
             lua_setfield(L, -2, ".c_instance");
         }
         lua_setfenv(L, -2);
-
-        if(p_ref)
-        {
+        if(p_ref) {
             lua_pushvalue(L, -1);
             ref = luaL_ref(L, LUA_REGISTRYINDEX);
         }
@@ -804,28 +804,37 @@ LuaInstance::~LuaInstance() {
     if (script.is_valid() && owner) {
 		script->instances.erase(owner);
 	}
-    lua_State *L = LuaScriptLanguage::get_singleton()->get_state();
-    if(l_get_object_table())
-    {
-        lua_getfield(L, -1, ".c_instance");
+	if(lang != NULL) {
+	    lua_State *L = lang->get_state();
+		if(l_get_object_table())
+		{
+			// get c instance
+			lua_getfield(L, -1, ".c_instance");
 
-        // delete userdata Variant
-        Variant *self = (Variant *) luaL_checkobject(L, -1, "GdObject");
-        memdelete(self);
+			Object *self = luaL_checkobject(L, -1);
+			if(self->is_type_ptr(Resource::get_type_ptr_static())) {
+				Resource *res = self->cast_to<Resource>();
+				if(res->unreference())
+					memdelete(res);
+			} else {
+				// delete userdata Variant
+				//memdelete(self);
+			}
+			// set object's metatable to nil
+			lua_pushnil(L);
+			lua_setmetatable(L, -2);
+			lua_pop(L, 1);
 
-        lua_pushnil(L);
-        lua_setmetatable(L, -2);
-        lua_pop(L, 1);
-
-        lua_pushnil(L);
-        lua_setfield(L, -2, ".c_instance");
-        lua_pop(L, 1);
-    }
-    if(ref != LUA_NOREF)
-    {
-        luaL_unref(L, LUA_REGISTRYINDEX, ref);
-        ref = LUA_NOREF;
-    }
+			lua_pushnil(L);
+			lua_setfield(L, -2, ".c_instance");
+			lua_pop(L, 1);
+		}
+		if(ref != LUA_NOREF)
+		{
+			luaL_unref(L, LUA_REGISTRYINDEX, ref);
+			ref = LUA_NOREF;
+		}
+	}
 }
 
 #endif

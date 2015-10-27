@@ -182,7 +182,7 @@ friend class LuaScript;
 friend class LuaScriptLanguage;
 //friend class GDFunctions;
 
-	Variant owner;
+	Object *owner;
 	Ref<LuaScript> script;
 //	Vector<Variant> members;
 	bool base_ref;
@@ -377,7 +377,8 @@ public:
 //    LuaScriptLanguage *lang = LuaScriptLanguage::get_singleton();
 #define LUA_MULTITHREAD_GUARD()\
     LuaScriptLanguage *lang = LuaScriptLanguage::get_singleton();\
-    MutexLock lklua(lang->get_lock());
+	if(lang != NULL)\
+		MutexLock lklua(lang->get_lock());
 
 #endif // LUA_SCRIPT_H
 
