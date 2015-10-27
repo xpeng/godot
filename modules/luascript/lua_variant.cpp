@@ -385,7 +385,13 @@ void LuaInstance::l_get_variant(lua_State *L, int idx, Variant& var)
                     {
                         lua_pop(L, 2);
 						size_t id = *((size_t *) p);
-						var = ObjectDB::get_instance(id);
+						Object *obj = ObjectDB::get_instance(id);
+						if(obj->is_type_ptr(Resource::get_type_ptr_static())) {
+							Resource *res = obj->cast_to<Resource>();
+							var = Ref<Resource>(res);
+						} else {
+							var = obj;
+						}
                         return;
                     }
                     lua_pop(L, 1);
