@@ -100,6 +100,7 @@ friend class LuaScriptLanguage;
 	String path;
 	String name;
 	int ref; // ref to loaded lua script chunk(function)
+	bool source_changed_cache;
 
 	LuaInstance* _create_instance(const Variant** p_args,int p_argcount,Object *p_owner,bool p_isref);
 
@@ -109,6 +110,7 @@ friend class LuaScriptLanguage;
 	Set<PlaceHolderScriptInstance*> placeholders;
 	void _update_placeholder(PlaceHolderScriptInstance *p_placeholder);
 	virtual void _placeholder_erased(PlaceHolderScriptInstance *p_placeholder);
+	void _update_exports_values(Map<StringName,Variant>& values, List<PropertyInfo> &propnames);
 #endif
 
 	void reset();
@@ -124,6 +126,8 @@ friend class LuaScriptLanguage;
 	static int l_meta_index(lua_State *L);
 	static int l_meta_gc(lua_State *L);
 	static int l_meta_tostring(lua_State *L);
+
+	bool _update_exports();
 
 protected:
 	bool _get(const StringName& p_name,Variant &r_ret) const;
@@ -161,6 +165,7 @@ public:
 	virtual bool has_source_code() const;
 	virtual String get_source_code() const;
 	virtual void set_source_code(const String& p_code);
+	virtual void update_exports();
 	virtual Error reload();
 
 	virtual bool has_script_signal(const StringName &) const { return false; }

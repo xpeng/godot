@@ -289,6 +289,10 @@ String LuaScript::get_source_code() const {
 void LuaScript::set_source_code(const String& p_code) {
 
 	source=p_code;
+#ifdef TOOLS_ENABLED
+	source_changed_cache=true;
+	//print_line("SC CHANGED "+get_path());
+#endif
 
 }
 
@@ -616,6 +620,91 @@ int LuaScript::l_export(lua_State *L)
 	return 0;
 }
 
+
+#ifdef TOOLS_ENABLED
+void LuaScript::_update_exports_values(Map<StringName,Variant>& values, List<PropertyInfo> &propnames) {
+
+
+	LuaScript *sptr=_base;
+	while(sptr != NULL) {
+		sptr->_update_exports_values(values,propnames);
+		sptr = sptr->_base;
+	}
+
+	for(Map<StringName,Variant>::Element *E=member_default_values.front();E;E=E->next()) {
+		values[E->key()]=E->get();
+	}
+
+	for (Map<StringName,PropertyInfo>::Element *E=member_info.front();E;E=E->next()) {
+		propnames.push_back(E->get());
+	}
+
+}
+#endif
+
+bool LuaScript::_update_exports() {
+
+#ifdef TOOLS_ENABLED
+
+	bool changed=false;
+	if (source_changed_cache) {
+		//print_line("updating source for "+get_path());
+		source_changed_cache=false;
+		changed=true;
+		reload();
+	} else {
+		//print_line("unchaged is "+get_path());
+	}
+
+	LuaScript *sptr=_base;
+	while(sptr != NULL) {
+		if(sptr->_update_exports())
+			changed = true;
+		sptr = sptr->_base;
+	}
+
+	if (/*changed &&*/ placeholders.size()) { //hm :(
+
+		//print_line("updating placeholders for "+get_path());
+
+		//update placeholders if any
+		Map<StringName,Variant> values;
+		List<PropertyInfo> propnames;
+		_update_exports_values(values,propnames);
+
+		for (Set<PlaceHolderScriptInstance*>::Element *E=placeholders.front();E;E=E->next()) {
+
+			E->get()->update(propnames,values);
+		}
+	}
+	return changed;
+
+#endif
+	return false;
+}
+
+void LuaScript::update_exports() {
+
+#ifdef TOOLS_ENABLED
+
+	_update_exports();
+
+	//Set<ObjectID> copy=inheriters_cache; //might get modified
+
+	////print_line("update exports for "+get_path()+" ic: "+itos(copy.size()));
+	//for(Set<ObjectID>::Element *E=copy.front();E;E=E->next()) {
+	//	Object *id=ObjectDB::get_instance(E->get());
+	//	if (!id)
+	//		continue;
+	//	GDScript *s=id->cast_to<GDScript>();
+	//	if (!s)
+	//		continue;
+	//	s->update_exports();
+	//}
+
+#endif
+}
+
 Error LuaScript::reload() {
 
 	LUA_MULTITHREAD_GUARD();
@@ -731,11 +820,10 @@ Variant LuaScript::call(const StringName& p_method,const Variant** p_args,int p_
 //
 //			return E->get().call(NULL,p_args,p_argcount,r_error);
 //		}
-//		top=top->_base;
+		top=top->_base;
 	}
 	//none found, regular
-	//return Script::call(p_method,p_args,p_argcount,r_error);
-	return Variant();
+	return Script::call(p_method,p_args,p_argcount,r_error);
 }
 
 bool LuaScript::_get(const StringName& p_name,Variant &r_ret) const {
@@ -817,6 +905,9 @@ Error LuaScript::load_source_code(const String& p_path) {
 	}
 
 	source=s;
+#ifdef TOOLS_ENABLED
+	source_changed_cache=true;
+#endif
 	path=p_path;
 	return OK;
 
@@ -866,6 +957,10 @@ void LuaScript::reset()
 		luaL_unref(L, LUA_REGISTRYINDEX, ref);
 		ref = LUA_NOREF;
 	}
+	member_info.clear();
+#ifdef TOOLS_ENABLED
+	member_default_values.clear();
+#endif
 	valid=false;
 }
 
@@ -877,6 +972,9 @@ LuaScript::LuaScript() {
 //	_owner=NULL;
 	ref=LUA_NOREF;
 	tool=false;
+#ifdef TOOLS_ENABLED
+	source_changed_cache=false;
+#endif
 }
 
 LuaScript::~LuaScript()
