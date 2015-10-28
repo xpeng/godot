@@ -301,9 +301,9 @@
 							<int> 2 </int>
 							<string> "sources" </string>
 							<array  len="3" shared="false">
-								<string> "res://enemy.gd" </string>
-								<string> "res://player.gd" </string>
-								<string> "res://coin.gd" </string>
+								<string> "res://enemy.lua" </string>
+								<string> "res://player.lua" </string>
+								<string> "res://coin.lua" </string>
 							</array>
 						</dictionary>
 						<string> "2D" </string>

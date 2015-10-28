@@ -58,7 +58,7 @@ end
 
 function node:_draw()
     local sb = self:get_stylebox("bg", "Tree") -- use line edit bg
-    self:draw_style_box(sb, Rect2(Vector2(), self:get_size()):grow(3))
+    self:draw_style_box(sb, Rect2(Vector2(), self:get_size()):grow(3), Color(1,1,1,1))
 
     local bs = block:get_size()
     for y = 0, height - 1 do
