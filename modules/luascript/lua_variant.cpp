@@ -81,7 +81,7 @@ int LuaInstance::l_bultins_caller_wrapper(lua_State *L)
     const char *key = luaL_checkstring(L, lua_upvalueindex(1));
     int top = lua_gettop(L);
 
-    void *ptr = luaL_checkudata(L, 1, "Variant");
+    void *ptr = luaL_checkudata(L, 1, "LuaVariant");
     Variant* var = *((Variant **) ptr);
     Variant::CallError err;
     Variant ret;
@@ -238,7 +238,7 @@ int LuaInstance::meta_bultins__gc(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
 
-    void *ptr = luaL_checkudata(L, 1, "Variant");
+    void *ptr = luaL_checkudata(L, 1, "LuaVariant");
     Variant* var = *((Variant **) ptr);
     memdelete(var);
 
@@ -254,7 +254,7 @@ int LuaInstance::meta_bultins__evaluate(lua_State *L)
 
     Variant::Operator op = (Variant::Operator) lua_tointeger(L, lua_upvalueindex(1));
 
-    void *ptr1 = luaL_checkudata(L, 1, "Variant");
+    void *ptr1 = luaL_checkudata(L, 1, "LuaVariant");
     Variant* var1 = *((Variant **) ptr1);
 
     Variant var2;
@@ -275,7 +275,7 @@ int LuaInstance::meta_bultins__tostring(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
 
-    void *ptr = luaL_checkudata(L, 1, "Variant");
+    void *ptr = luaL_checkudata(L, 1, "LuaVariant");
     Variant* var = *((Variant **) ptr);
 
     char buf[4096];
@@ -289,7 +289,7 @@ int LuaInstance::meta_bultins__index(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
 
-    void *ptr = luaL_checkudata(L, 1, "Variant");
+    void *ptr = luaL_checkudata(L, 1, "LuaVariant");
     Variant* var = *((Variant **) ptr);
 
     Variant key;
@@ -316,7 +316,7 @@ int LuaInstance::meta_bultins__newindex(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
 
-    void *ptr = luaL_checkudata(L, 1, "Variant");
+    void *ptr = luaL_checkudata(L, 1, "LuaVariant");
     Variant* var = *((Variant **) ptr);
 
     Variant key, value;
@@ -338,7 +338,7 @@ int LuaInstance::l_push_bulltins_type(lua_State *L, const Variant& var)
     void *ptr = lua_newuserdata(L, sizeof(Variant*));
     *((Variant **) ptr) = memnew(Variant);
     **((Variant **) ptr) = var;
-    luaL_getmetatable(L, "Variant");
+    luaL_getmetatable(L, "LuaVariant");
     lua_setmetatable(L, -2);
 
     return 1;
@@ -380,7 +380,7 @@ void LuaInstance::l_get_variant(lua_State *L, int idx, Variant& var)
             {
                 if(lua_getmetatable(L, idx))
                 {
-                    lua_getfield(L, LUA_REGISTRYINDEX, "GdObject");
+                    lua_getfield(L, LUA_REGISTRYINDEX, "LuaObject");
                     if(lua_rawequal(L, -1, -2))
                     {
                         lua_pop(L, 2);
@@ -390,7 +390,7 @@ void LuaInstance::l_get_variant(lua_State *L, int idx, Variant& var)
                     }
                     lua_pop(L, 1);
 
-                    lua_getfield(L, LUA_REGISTRYINDEX, "Variant");
+                    lua_getfield(L, LUA_REGISTRYINDEX, "LuaVariant");
                     if(lua_rawequal(L, -1, -2))
                     {
                         lua_pop(L, 2);
@@ -478,7 +478,7 @@ void LuaInstance::l_push_variant(lua_State *L, const Variant& var)
 					res->reference();
 				}
 				*ptr = obj->get_instance_ID();
-				luaL_getmetatable(L, "GdObject");
+				luaL_getmetatable(L, "LuaObject");
 				lua_setmetatable(L, -2);
             }
         }

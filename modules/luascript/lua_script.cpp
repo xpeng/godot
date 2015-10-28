@@ -347,6 +347,17 @@ int LuaScript::l_meta_gc(lua_State *L)
     return 0;
 }
 
+int LuaScript::l_meta_tostring(lua_State *L) {
+
+    LUA_MULTITHREAD_GUARD();
+    LuaScript *self = (LuaScript *) lua_touserdata(L, lua_upvalueindex(1));
+	lua_rawgeti(L, LUA_REGISTRYINDEX, self->ref);
+	const void *p = lua_topointer(L, -1);
+	lua_pop(L, 1);
+	lua_pushfstring(L, "LuaProto(%s):%p", self->get_path().utf8().get_data(), p);
+	return 1;
+}
+
 int LuaScript::l_meta_index(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
@@ -542,6 +553,15 @@ static int l_instance_from_id(lua_State *L) {
 	return 1;
 }
 
+int LuaScript::l_get_proto(lua_State *L) {
+
+    LUA_MULTITHREAD_GUARD();
+
+    LuaScript *self = (LuaScript *) lua_touserdata(L, lua_upvalueindex(1));
+	lua_rawgeti(L, LUA_REGISTRYINDEX, self->ref);
+	return 1;
+}
+
 int LuaScript::l_export(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
@@ -657,8 +677,9 @@ Error LuaScript::reload() {
         lua_pushcclosure(L, l_export, 1);
         lua_setfield(L, -2, "export");
 
-		lua_pushcclosure(L, l_instance_from_id, 0);
-		lua_setfield(L, -2, "instance_from_id");
+        lua_pushlightuserdata(L, this);
+        lua_pushcclosure(L, l_get_proto, 1);
+        lua_setfield(L, -2, "get_proto");
 
         lua_newtable(L);
         luaL_reg meta_methods[] = {
@@ -667,6 +688,11 @@ Error LuaScript::reload() {
             { NULL, NULL },
         };
         luaL_register(L, NULL, meta_methods);
+
+		lua_pushlightuserdata(L, this);
+		lua_pushcclosure(L, l_meta_tostring, 1);
+		lua_setfield(L, -2, "__tostring");
+
         lua_setmetatable(L, -2);
     }
     lua_setfenv(L, -2);
@@ -1172,6 +1198,7 @@ LuaScriptLanguage::LuaScriptLanguage() {
     // replace lua print function for debugger's output
     lua_register(L, "print", l_print);
     lua_register(L, "deb", l_deb);
+    lua_register(L, "instance_from_id", l_instance_from_id);
 
     LuaInstance::l_register_bultins_ctors(L);
 

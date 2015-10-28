@@ -44,7 +44,7 @@
 static Object *luaL_checkobject(lua_State *L, int idx)
 {
     LUA_MULTITHREAD_GUARD();
-    size_t id = *(size_t *) luaL_checkudata(L, idx, "GdObject");
+    size_t id = *(size_t *) luaL_checkudata(L, idx, "LuaObject");
 	return ObjectDB::get_instance(id);
 }
 
@@ -398,7 +398,7 @@ int LuaInstance::l_extends(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
 
-    // self -> GdObject
+    // self -> LuaObject
     Object *obj = luaL_checkobject(L, 1);
     const char *type = luaL_checkstring(L, 2);
 
@@ -434,7 +434,7 @@ int LuaInstance::l_methodbind_wrapper(lua_State *L)
     LUA_MULTITHREAD_GUARD();
 
     MethodBind *mb = (MethodBind *) lua_touserdata(L, lua_upvalueindex(1));
-    // self -> GdObject
+    // self -> LuaObject
     Object *obj = luaL_checkobject(L, 1);
 
     Variant ret;
@@ -509,7 +509,7 @@ int LuaInstance::meta__tostring(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
 
-    // self -> GdObject
+    // self -> LuaObject
     Object *obj = luaL_checkobject(L, 1);
 
     char buf[128];
@@ -523,10 +523,9 @@ int LuaInstance::meta__index(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
 
-    // self -> GdObject
+    // self -> LuaObject
     Object *obj = luaL_checkobject(L, 1);
     LuaInstance *inst = dynamic_cast<LuaInstance *>(obj->get_script_instance());
-
     // get symbol from lua instance table
     if(inst != NULL && inst->l_get_object_table())
     {
@@ -554,9 +553,24 @@ int LuaInstance::meta__index(lua_State *L)
     }
     lua_pop(L, 3);
 
-    // get symbol from script
-    if(inst != NULL)
-    {
+    // get symbol from script proto
+
+	// 1. if self is LuaScript, try get value from self->ref[key]
+	LuaScript *sptr = obj->cast_to<LuaScript>();
+	if(sptr != NULL) {
+        lua_rawgeti(L, LUA_REGISTRYINDEX, sptr->ref);
+        lua_pushvalue(L, 2);
+        lua_rawget(L, -2);
+        if(!lua_isnil(L, -1))
+        {
+            lua_insert(L, -3);
+            lua_pop(L, 2);
+            return 1;
+        }
+        lua_pop(L, 2);
+	}
+	// 2. get value from self->get_script()->ref[key]
+	if(inst != NULL) {
         LuaScript *sptr = inst->script.ptr();
         while(sptr != NULL)
         {
@@ -570,11 +584,10 @@ int LuaInstance::meta__index(lua_State *L)
                 return 1;
             }
             lua_pop(L, 2);
-
+			// inherit(extends) script
     		sptr = sptr->_base;
         }
     }
-
     const char *name = lua_tostring(L, 2);
     // get symbol from c++
     if(name == NULL)
@@ -619,7 +632,7 @@ int LuaInstance::meta__newindex(lua_State *L)
 {
     LUA_MULTITHREAD_GUARD();
 
-    // self -> GdObject
+    // self -> LuaObject
     Object *obj = luaL_checkobject(L, 1);
     ScriptInstance *sci = obj->get_script_instance();
     if(sci != NULL)
@@ -642,7 +655,7 @@ void LuaInstance::setup()
     LUA_MULTITHREAD_GUARD();
 
     lua_State *L = LuaScriptLanguage::get_singleton()->get_state();
-    luaL_newmetatable(L, "GdObject");
+    luaL_newmetatable(L, "LuaObject");
     {
         static luaL_reg meta_methods[] = {
             { "__gc", meta__gc },
@@ -663,7 +676,7 @@ void LuaInstance::setup()
     }
     lua_pop(L, 1);
 
-    luaL_newmetatable(L, "Variant");
+    luaL_newmetatable(L, "LuaVariant");
     {
         typedef struct {
             const char *meta;
@@ -754,8 +767,7 @@ int LuaInstance::init(bool p_ref)
 
     Object *obj = owner;
     lua_pushstring(L, "gdlua_ubox");
-    lua_rawget(L, LUA_REGISTRYINDEX);
-    {
+	lua_rawget(L, LUA_REGISTRYINDEX); {
         // key
         lua_pushlightuserdata(L, obj);
         // value
@@ -766,7 +778,7 @@ int LuaInstance::init(bool p_ref)
 			res->reference();
 		}
 		*ptr = owner->get_instance_ID();
-        luaL_getmetatable(L, "GdObject");
+        luaL_getmetatable(L, "LuaObject");
         lua_setmetatable(L, -2);
         // object's env table
         lua_newtable(L);

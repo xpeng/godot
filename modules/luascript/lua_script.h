@@ -112,16 +112,18 @@ friend class LuaScriptLanguage;
 #endif
 
     void reset();
-    // lua functions
-    static int l_extends(lua_State *L);
 
     static bool preprocessHints(PropertyInfo& pi, Vector<String>& tokens);
-    static int l_export(lua_State *L);
 
-    // lua meta methods
+    // lua functions
+    static int l_extends(lua_State *L);
+    static int l_export(lua_State *L);
+    static int l_get_proto(lua_State *L);
+
+    // LuaScript meta methods
     static int l_meta_index(lua_State *L);
     static int l_meta_gc(lua_State *L);
-
+	static int l_meta_tostring(lua_State *L);
 
 protected:
 //	bool _get(const StringName& p_name,Variant &r_ret) const;
@@ -208,7 +210,7 @@ friend class LuaScriptLanguage;
 
     static int l_push_bulltins_type(lua_State *L, const Variant& var);
 
-    // GdObject lua meta methods
+    // LuaObject lua meta methods
     static int meta__gc(lua_State *L);
     static int meta__tostring(lua_State *L);
     static int meta__index(lua_State *L);
