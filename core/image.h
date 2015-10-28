@@ -93,6 +93,7 @@ public:
 		FORMAT_MAX
 	};
 
+	static const char* format_names[FORMAT_MAX];
 	enum Interpolation {
 	
 		INTERPOLATE_NEAREST,
@@ -358,6 +359,8 @@ public:
 	Image get_rect(const Rect2& p_area) const;
 
 	static void set_compress_bc_func(void (*p_compress_func)(Image *));
+	static String get_format_name(Format p_format);
+
 	Image(const uint8_t* p_mem_png, int p_len=-1);
 	Image(const char **p_xpm);
 	~Image();
