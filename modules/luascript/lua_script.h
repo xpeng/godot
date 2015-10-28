@@ -37,11 +37,7 @@
 #include "os/thread.h"
 #include "pair.h"
 #include "os/mutex.h"
-extern "C" {
-#include "lua/src/lua.h"
-#include "lua/src/lauxlib.h"
-#include "lua/src/lualib.h"
-};
+#include "compat51.h"
 
 class LuaInstance;
 class LuaScript;
@@ -227,7 +223,8 @@ friend class LuaScriptLanguage;
 	static int meta_bultins__index(lua_State *L);
 	static int meta_bultins__newindex(lua_State *L);
 	static int meta_bultins__evaluate(lua_State *L);
-
+	static int meta_bultins__pairs(lua_State *L);
+	static int meta_bultins__ipairs(lua_State *L);
 
 public:
 

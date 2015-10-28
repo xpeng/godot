@@ -255,6 +255,9 @@
     <ClCompile Include="..\..\modules\digest\crypt\crypt.cpp">
       <Filter>modules\digest\crypt</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\modules\luascript\compat51.cpp">
+      <Filter>modules\luascript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\modules\register_module_types.h">
@@ -466,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="..\..\modules\digest\crypt\crypt.h">
       <Filter>modules\digest\crypt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\modules\luascript\compat51.h">
+      <Filter>modules\luascript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1185,9 +1185,6 @@
     <ClCompile Include="..\..\drivers\lua\src\lzio.c">
       <Filter>drivers\lua\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\drivers\lua\src\print.c">
-      <Filter>drivers\lua\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\drivers\builtin_openssl2\ssl\bio_ssl.c">
       <Filter>drivers\builtin_openssl\ssl</Filter>
     </ClCompile>
@@ -3573,6 +3570,18 @@
     <ClCompile Include="..\..\drivers\opus\silk\VAD.c">
       <Filter>drivers\opus\silk</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\drivers\lua\src\lutf8lib.c">
+      <Filter>drivers\lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\lua\src\lbitlib.c">
+      <Filter>drivers\lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\lua\src\lcorolib.c">
+      <Filter>drivers\lua\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\drivers\lua\src\lctype.c">
+      <Filter>drivers\lua\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\drivers\register_driver_types.h">
@@ -5350,6 +5359,15 @@
     </ClInclude>
     <ClInclude Include="..\..\drivers\opus\celt\x86\pitch_sse.h">
       <Filter>drivers\opus\celt\x86</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\lua\src\lctype.h">
+      <Filter>drivers\lua\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\lua\src\lprefix.h">
+      <Filter>drivers\lua\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\drivers\lua\src\lua.hpp">
+      <Filter>drivers\lua\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

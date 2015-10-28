@@ -267,6 +267,98 @@ int LuaInstance::meta_bultins__evaluate(lua_State *L)
 	return 0;
 }
 
+static int l_builtins_iterator(lua_State *L) {
+
+	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
+	Variant& var = **((Variant **) ptr);
+
+	if(var.get_type() == Variant::DICTIONARY) {
+
+		Variant k;
+		const Variant *key = NULL;
+		Dictionary& dict = var.operator Dictionary();
+		if(!lua_isnil(L, 2)) {
+			LuaInstance::l_get_variant(L, 2, k);
+			key = &k;
+		}
+		key = dict.next(key);
+		if(key != NULL) {
+			LuaInstance::l_push_variant(L, *key);
+			LuaInstance::l_push_variant(L, dict[*key]);
+			return 2;
+		}
+	} else {
+
+		int idx = 0;
+		if(!lua_isnil(L, 2))
+			idx = luaL_optinteger(L, 2, 0) + 1;
+
+		bool r_valid = false;
+		Variant value = var.get(idx, &r_valid);
+		if(r_valid) {
+			lua_pushinteger(L, idx);
+			LuaInstance::l_push_variant(L, value);
+			return 2;
+		}
+	}
+	return 0;
+}
+
+int LuaInstance::meta_bultins__pairs(lua_State *L) {
+
+	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
+	Variant& var = **((Variant **) ptr);
+
+	Variant::Type vt = var.get_type();
+	switch(vt) {
+	case Variant::DICTIONARY:
+	case Variant::ARRAY:
+	case Variant::RAW_ARRAY:
+	case Variant::INT_ARRAY:
+	case Variant::REAL_ARRAY:
+	case Variant::STRING_ARRAY:
+	case Variant::VECTOR2_ARRAY:
+	case Variant::VECTOR3_ARRAY:
+	case Variant::COLOR_ARRAY:
+		lua_pushcclosure(L, l_builtins_iterator, 0);
+		LuaInstance::l_push_bulltins_type(L, var);
+		lua_pushnil(L);
+		return 3;
+	default:
+		luaL_error(L, "Cannot pairs an %s value", var.get_type_name(var.get_type()));
+		break;
+	}
+	return 0;
+}
+
+int LuaInstance::meta_bultins__ipairs(lua_State *L) {
+
+	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
+	Variant& var = **((Variant **) ptr);
+
+	Variant::Type vt = var.get_type();
+	switch(vt) {
+	case Variant::ARRAY:
+	case Variant::RAW_ARRAY:
+	case Variant::INT_ARRAY:
+	case Variant::REAL_ARRAY:
+	case Variant::STRING_ARRAY:
+	case Variant::VECTOR2_ARRAY:
+	case Variant::VECTOR3_ARRAY:
+	case Variant::COLOR_ARRAY: {
+
+		int idx = luaL_checkinteger(L, 2);
+		bool r_valid = false;
+		l_push_variant(L, var.get(idx, &r_valid));
+		return 1;
+	}
+	default:
+		luaL_error(L, "Cannot ipairs an %s value", var.get_type_name(var.get_type()));
+		break;
+	}
+	return 0;
+}
+
 int LuaInstance::meta_bultins__tostring(lua_State *L)
 {
 	LUA_MULTITHREAD_GUARD();
@@ -361,7 +453,10 @@ void LuaInstance::l_get_variant(lua_State *L, int idx, Variant& var)
 		break;
 
 	case LUA_TNUMBER:
-		var = lua_tonumber(L, idx);
+		if(lua_isinteger(L, idx))
+			var = lua_tointeger(L, idx);
+		else
+			var = lua_tonumber(L, idx);
 		break;
 
 	case LUA_TSTRING:

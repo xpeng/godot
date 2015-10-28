@@ -502,7 +502,7 @@ void LuaScriptLanguage::onHook(lua_State *L, lua_Debug *ar)
 				//if(_debug_break_level >= _debug_running_level)
 				//	lua_sethook(L, HookRoutine, LUA_MASKCALL | LUA_MASKRET | LUA_MASKLINE, 0);
 				return;
-			case LUA_HOOKTAILRET:
+			//case LUA_HOOKTAILRET:
 			case LUA_HOOKLINE:
 				deb->line_poll();
 				break;

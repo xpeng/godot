@@ -10,5 +10,7 @@ end
 
 function node:_on_princess_body_enter(body)
 	-- the name of this editor-generated callback is unfortunate
-	self:get_node("youwin"):show()
+	if body:get_name() == "player" then
+		self:get_node("youwin"):show()
+	end
 end

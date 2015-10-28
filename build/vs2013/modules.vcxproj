@@ -180,6 +180,7 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)register_types_gridmap.obj</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">$(IntDir)register_types_gridmap.obj</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="..\..\modules\luascript\compat51.cpp" />
     <ClCompile Include="..\..\modules\luascript\lua_editor.cpp" />
     <ClCompile Include="..\..\modules\luascript\lua_instance.cpp" />
     <ClCompile Include="..\..\modules\luascript\lua_script.cpp" />
@@ -266,6 +267,7 @@
     <ClInclude Include="..\..\modules\gridmap\grid_map.h" />
     <ClInclude Include="..\..\modules\gridmap\grid_map_editor_plugin.h" />
     <ClInclude Include="..\..\modules\gridmap\register_types.h" />
+    <ClInclude Include="..\..\modules\luascript\compat51.h" />
     <ClInclude Include="..\..\modules\luascript\lua_script.h" />
     <ClInclude Include="..\..\modules\luascript\register_types.h" />
     <ClInclude Include="..\..\modules\register_module_types.h" />

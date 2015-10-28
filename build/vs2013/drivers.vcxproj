@@ -833,7 +833,10 @@
     <ClCompile Include="..\..\drivers\lua\src\lapi.c" />
     <ClCompile Include="..\..\drivers\lua\src\lauxlib.c" />
     <ClCompile Include="..\..\drivers\lua\src\lbaselib.c" />
+    <ClCompile Include="..\..\drivers\lua\src\lbitlib.c" />
     <ClCompile Include="..\..\drivers\lua\src\lcode.c" />
+    <ClCompile Include="..\..\drivers\lua\src\lcorolib.c" />
+    <ClCompile Include="..\..\drivers\lua\src\lctype.c" />
     <ClCompile Include="..\..\drivers\lua\src\ldblib.c" />
     <ClCompile Include="..\..\drivers\lua\src\ldebug.c" />
     <ClCompile Include="..\..\drivers\lua\src\ldo.c" />
@@ -857,9 +860,9 @@
     <ClCompile Include="..\..\drivers\lua\src\ltablib.c" />
     <ClCompile Include="..\..\drivers\lua\src\ltm.c" />
     <ClCompile Include="..\..\drivers\lua\src\lundump.c" />
+    <ClCompile Include="..\..\drivers\lua\src\lutf8lib.c" />
     <ClCompile Include="..\..\drivers\lua\src\lvm.c" />
     <ClCompile Include="..\..\drivers\lua\src\lzio.c" />
-    <ClCompile Include="..\..\drivers\lua\src\print.c" />
     <ClCompile Include="..\..\drivers\mpc\audio_stream_mpc.cpp" />
     <ClCompile Include="..\..\drivers\mpc\huffman.c" />
     <ClCompile Include="..\..\drivers\mpc\mpc_bits_reader.c" />
@@ -1705,6 +1708,7 @@
     <ClInclude Include="..\..\drivers\lua\src\lapi.h" />
     <ClInclude Include="..\..\drivers\lua\src\lauxlib.h" />
     <ClInclude Include="..\..\drivers\lua\src\lcode.h" />
+    <ClInclude Include="..\..\drivers\lua\src\lctype.h" />
     <ClInclude Include="..\..\drivers\lua\src\ldebug.h" />
     <ClInclude Include="..\..\drivers\lua\src\ldo.h" />
     <ClInclude Include="..\..\drivers\lua\src\lfunc.h" />
@@ -1715,11 +1719,13 @@
     <ClInclude Include="..\..\drivers\lua\src\lobject.h" />
     <ClInclude Include="..\..\drivers\lua\src\lopcodes.h" />
     <ClInclude Include="..\..\drivers\lua\src\lparser.h" />
+    <ClInclude Include="..\..\drivers\lua\src\lprefix.h" />
     <ClInclude Include="..\..\drivers\lua\src\lstate.h" />
     <ClInclude Include="..\..\drivers\lua\src\lstring.h" />
     <ClInclude Include="..\..\drivers\lua\src\ltable.h" />
     <ClInclude Include="..\..\drivers\lua\src\ltm.h" />
     <ClInclude Include="..\..\drivers\lua\src\lua.h" />
+    <ClInclude Include="..\..\drivers\lua\src\lua.hpp" />
     <ClInclude Include="..\..\drivers\lua\src\luaconf.h" />
     <ClInclude Include="..\..\drivers\lua\src\lualib.h" />
     <ClInclude Include="..\..\drivers\lua\src\lundump.h" />

@@ -542,7 +542,7 @@ bool LuaScript::preprocessHints(PropertyInfo& pi, Vector<String>& tokens)
 
 static int l_instance_from_id(lua_State *L) {
 
-	int id = luaL_checkint(L, 1);
+	int id = luaL_checkinteger(L, 1);
 	Object *obj = ObjectDB::get_instance(id);
 	if(obj == NULL)
 		lua_pushnil(L);
@@ -739,7 +739,7 @@ Error LuaScript::reload() {
 			ERR_FAIL_V(ERR_PARSE_ERROR);
 		}
 	}
-	// new object's mtable(method table)
+	// new LuaScript code's env table(method table)
 	lua_newtable(L);
 	// make a ref to mtable
 	lua_pushvalue(L, -1);
@@ -758,12 +758,12 @@ Error LuaScript::reload() {
 		lua_setfield(L, -2, "get_proto");
 
 		lua_newtable(L);
-		luaL_reg meta_methods[] = {
+		luaL_Reg meta_methods[] = {
 			{ "__index", l_meta_index },
 			{ "__gc", l_meta_gc },
 			{ NULL, NULL },
 		};
-		luaL_register(L, NULL, meta_methods);
+		luaL_setfuncs(L, meta_methods, 0);
 
 		lua_pushlightuserdata(L, this);
 		lua_pushcclosure(L, l_meta_tostring, 1);
@@ -771,7 +771,22 @@ Error LuaScript::reload() {
 
 		lua_setmetatable(L, -2);
 	}
-	lua_setfenv(L, -2);
+	//lua_setfenv(L, -2);
+	//lua_setupvalue(L, -2, 1);
+	int i = 1;
+	for(;;) {
+		const char *name = lua_getupvalue(L, -2, i);
+		lua_pop(L, 1);
+		if(name == NULL)
+			break;
+		if(!strcmp(name, "_ENV")) {
+			lua_setupvalue(L, -2, i);
+			i = -1;
+			break;
+		}
+		i++;
+	}
+	ERR_FAIL_COND_V(i != -1, ERR_SCRIPT_FAILED);
 	//lua_pushcfunction(L, LuaScriptLanguage::panic);
 	//lua_insert(L, -2);
 	if(lua_pcall(L, 0, 0, 0/*-2*/)) {

@@ -611,21 +611,21 @@ void LuaInstance::setup()
 	lua_State *L = LuaScriptLanguage::get_singleton()->get_state();
 	luaL_newmetatable(L, "LuaObject"); 
 	{
-		static luaL_reg meta_methods[] = {
+		static luaL_Reg meta_methods[] = {
 			{ "__gc", meta__gc },
 			{ "__index", meta__index },
 			{ "__newindex", meta__newindex },
 			{ "__tostring", meta__tostring },
 			{ NULL, NULL },
 		};
-		luaL_register(L, NULL, meta_methods);
+		luaL_setfuncs(L, meta_methods, 0);
 
 		lua_newtable(L);
-		static luaL_reg methods[] = {
+		static luaL_Reg methods[] = {
 			{ "extends", l_extends },
 			{ NULL, NULL },
 		};
-		luaL_register(L, NULL, methods);
+		luaL_setfuncs(L, methods, 0);
 		lua_setfield(L, -2, ".methods");
 	}
 	lua_pop(L, 1);
@@ -657,20 +657,22 @@ void LuaInstance::setup()
 			lua_rawset(L, -3);
 		}
 
-		static luaL_reg meta_methods[] = {
+		static luaL_Reg meta_methods[] = {
 			{ "__gc", meta_bultins__gc },
 			{ "__index", meta_bultins__index },
 			{ "__newindex", meta_bultins__newindex },
 			{ "__tostring", meta_bultins__tostring },
+			{ "__pairs", meta_bultins__pairs },
+			{ "__ipairs", meta_bultins__ipairs },
 			{ NULL, NULL },
 		};
-		luaL_register(L, NULL, meta_methods);
+		luaL_setfuncs(L, meta_methods, 0);
 
 		lua_newtable(L);
-		static luaL_reg methods[] = {
+		static luaL_Reg methods[] = {
 			{ NULL, NULL },
 		};
-		luaL_register(L, NULL, methods);
+		luaL_setfuncs(L, methods, 0);
 		lua_setfield(L, -2, ".methods");
 	}
 	lua_pop(L, 1);
