@@ -41,31 +41,30 @@ public:
 			if (file.empty())
 				return file;
 
-            lua_State *L = luaL_newstate();
-            luaL_openlibs(L);
-            if(!luaL_loadbuffer(L, (const char *) file.ptr(), file.size(), p_path.utf8().get_data()))
-            {
-                lua_getglobal(L, "string");
-                lua_getfield(L, -1, "dump");
-                lua_remove(L, -2);
-                lua_insert(L, -2);
-                lua_pushboolean(L, false); // true = strip debug info
-                if(!lua_pcall(L, 2, 1, 0))
-                {
-                    size_t sz;
-                    const char *bc = luaL_checklstring(L, -1, &sz);
-                    if(file.resize(sz + 1) == OK)
-                    {
-                        memcpy(&file[0], bc, sz);
-    				    print_line("PREV: "+p_path);
-	    			    p_path=p_path.basename()+".luac";
-		    		    print_line("NOW: "+p_path);
-                        lua_close(L);
-                        return file;
-                    }
-                }
-            }
-            lua_close(L);
+			lua_State *L = luaL_newstate();
+			luaL_openlibs(L);
+			if(!luaL_loadbuffer(L, (const char *) file.ptr(), file.size(), p_path.utf8().get_data())) {
+				lua_getglobal(L, "string");
+				lua_getfield(L, -1, "dump");
+				lua_remove(L, -2);
+				lua_insert(L, -2);
+				lua_pushboolean(L, false); // true = strip debug info
+				if(!lua_pcall(L, 2, 1, 0)) {
+
+					size_t sz;
+					const char *bc = luaL_checklstring(L, -1, &sz);
+					if(file.resize(sz + 1) == OK)
+					{
+						memcpy(&file[0], bc, sz);
+						print_line("PREV: "+p_path);
+						p_path=p_path.basename()+".luac";
+						print_line("NOW: "+p_path);
+						lua_close(L);
+						return file;
+					}
+				}
+			}
+			lua_close(L);
 		}
 
 		return Vector<uint8_t>();

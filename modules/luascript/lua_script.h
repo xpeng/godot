@@ -96,10 +96,10 @@ friend class LuaScriptLanguage;
 	Set<Object*> instances;
 	//exported members
 	String source;
-    Vector<uint8_t> bytecode;
+	Vector<uint8_t> bytecode;
 	String path;
 	String name;
-    int ref; // ref to loaded lua script chunk(function)
+	int ref; // ref to loaded lua script chunk(function)
 
 	LuaInstance* _create_instance(const Variant** p_args,int p_argcount,Object *p_owner,bool p_isref);
 
@@ -111,26 +111,26 @@ friend class LuaScriptLanguage;
 	virtual void _placeholder_erased(PlaceHolderScriptInstance *p_placeholder);
 #endif
 
-    void reset();
+	void reset();
 
-    static bool preprocessHints(PropertyInfo& pi, Vector<String>& tokens);
+	static bool preprocessHints(PropertyInfo& pi, Vector<String>& tokens);
 
-    // lua functions
-    static int l_extends(lua_State *L);
-    static int l_export(lua_State *L);
-    static int l_get_proto(lua_State *L);
+	// lua functions
+	static int l_extends(lua_State *L);
+	static int l_export(lua_State *L);
+	static int l_get_proto(lua_State *L);
 
-    // LuaScript meta methods
-    static int l_meta_index(lua_State *L);
-    static int l_meta_gc(lua_State *L);
+	// LuaScript meta methods
+	static int l_meta_index(lua_State *L);
+	static int l_meta_gc(lua_State *L);
 	static int l_meta_tostring(lua_State *L);
 
 protected:
-//	bool _get(const StringName& p_name,Variant &r_ret) const;
-//	bool _set(const StringName& p_name, const Variant& p_value);
-//	void _get_property_list(List<PropertyInfo> *p_properties) const;
-//
-//	Variant call(const StringName& p_method,const Variant** p_args,int p_argcount,Variant::CallError &r_error);
+	bool _get(const StringName& p_name,Variant &r_ret) const;
+	bool _set(const StringName& p_name, const Variant& p_value);
+	void _get_property_list(List<PropertyInfo> *p_properties) const;
+
+	Variant call(const StringName& p_method,const Variant** p_args,int p_argcount,Variant::CallError &r_error);
 //	void call_multilevel(const StringName& p_method,const Variant** p_args,int p_argcount);
 
 	static void _bind_methods();
@@ -169,14 +169,14 @@ public:
 	virtual String get_node_type() const;
 	void set_script_path(const String& p_path) { path=p_path; } //because subclasses need a path too...
 	Error load_source_code(const String& p_path);
-    Error load_byte_code(const String& p_path);
+	Error load_byte_code(const String& p_path);
 
 	virtual ScriptLanguage *get_language() const;
 
-    void reportError(const char* fmt, ...) const;
+	void reportError(const char* fmt, ...) const;
 
 	LuaScript();
-    ~LuaScript();
+	~LuaScript();
 };
 
 class LuaInstance : public ScriptInstance {
@@ -188,40 +188,40 @@ friend class LuaScriptLanguage;
 	Ref<LuaScript> script;
 //	Vector<Variant> members;
 	bool base_ref;
-    bool gc_delete;
-    int ref; // ref to object's lua table
+	bool gc_delete;
+	int ref; // ref to object's lua table
 
 	void _ml_call_reversed(LuaScript *sptr,const StringName& p_method,const Variant** p_args,int p_argcount);
 
-    int _call_script(const LuaScript *sptr, const LuaInstance *inst, const char *p_method, const Variant** p_args, int p_argcount, bool p_ret) const;
-    int _call_script_func(const LuaScript *sptr, const LuaInstance *inst, const char *p_method, const Variant** p_args, int p_argcount) const;
-    int _call_script_func(const LuaScript *sptr, const LuaInstance *inst, const char *p_method, const Variant** p_args, int p_argcount, Variant& result) const;
+	int _call_script(const LuaScript *sptr, const LuaInstance *inst, const char *p_method, const Variant** p_args, int p_argcount, bool p_ret) const;
+	int _call_script_func(const LuaScript *sptr, const LuaInstance *inst, const char *p_method, const Variant** p_args, int p_argcount) const;
+	int _call_script_func(const LuaScript *sptr, const LuaInstance *inst, const char *p_method, const Variant** p_args, int p_argcount, Variant& result) const;
 
-    // lua methods
-    static int l_extends(lua_State *L);
-    //static int l_ratain(lua_State *L);
-    //static int l_release(lua_State *L);
+	// lua methods
+	static int l_extends(lua_State *L);
+	//static int l_ratain(lua_State *L);
+	//static int l_release(lua_State *L);
 
-    static int l_methodbind_wrapper(lua_State *L);
-    static int l_bultins_wrapper(lua_State *L);
-    static int l_bultins_tostring(lua_State *L);
-    static int l_bultins_index(lua_State *L);
-    static int l_bultins_caller_wrapper(lua_State *L);
+	static int l_methodbind_wrapper(lua_State *L);
+	static int l_bultins_wrapper(lua_State *L);
+	static int l_bultins_tostring(lua_State *L);
+	static int l_bultins_index(lua_State *L);
+	static int l_bultins_caller_wrapper(lua_State *L);
 
-    static int l_push_bulltins_type(lua_State *L, const Variant& var);
+	static int l_push_bulltins_type(lua_State *L, const Variant& var);
 
-    // LuaObject lua meta methods
-    static int meta__gc(lua_State *L);
-    static int meta__tostring(lua_State *L);
-    static int meta__index(lua_State *L);
-    static int meta__newindex(lua_State *L);
+	// LuaObject lua meta methods
+	static int meta__gc(lua_State *L);
+	static int meta__tostring(lua_State *L);
+	static int meta__index(lua_State *L);
+	static int meta__newindex(lua_State *L);
 
-    // Variant bultins lua meta methods
-    static int meta_bultins__gc(lua_State *L);
-    static int meta_bultins__tostring(lua_State *L);
-    static int meta_bultins__index(lua_State *L);
-    static int meta_bultins__newindex(lua_State *L);
-    static int meta_bultins__evaluate(lua_State *L);
+	// Variant bultins lua meta methods
+	static int meta_bultins__gc(lua_State *L);
+	static int meta_bultins__tostring(lua_State *L);
+	static int meta_bultins__index(lua_State *L);
+	static int meta_bultins__newindex(lua_State *L);
+	static int meta_bultins__evaluate(lua_State *L);
 
 
 public:
@@ -236,7 +236,7 @@ public:
 	virtual void call_multilevel(const StringName& p_method,const Variant** p_args,int p_argcount);
 	virtual void call_multilevel_reversed(const StringName& p_method,const Variant** p_args,int p_argcount);
 
-//    Variant debug_get_member_by_index(int p_idx) const { return members[p_idx]; }
+//	Variant debug_get_member_by_index(int p_idx) const { return members[p_idx]; }
 
 	virtual void notification(int p_notification);
 
@@ -246,16 +246,16 @@ public:
 
 //	void set_path(const String& p_path);
 
-    int init(bool p_ref = false);
-    // helper lua functions
-    static void l_push_variant(lua_State *L, const Variant& var);
-    static void l_get_variant(lua_State *L, int idx, Variant& var);
-    static void l_push_value(lua_State *L, int idx);
-    static bool l_register_bultins_ctors(lua_State *L);
+	int init(bool p_ref = false);
+	// helper lua functions
+	static void l_push_variant(lua_State *L, const Variant& var);
+	static void l_get_variant(lua_State *L, int idx, Variant& var);
+	static void l_push_value(lua_State *L, int idx);
+	static bool l_register_bultins_ctors(lua_State *L);
 
-    bool l_get_object_table() const;
+	bool l_get_object_table() const;
 
-    static void setup();
+	static void setup();
 
 
 	LuaInstance();
@@ -271,30 +271,44 @@ class LuaScriptLanguage : public ScriptLanguage {
 	Vector<Variant> global_array;
 	Map<StringName,int> globals;
 
-    lua_State *L;
-    Mutex* lock;
+	lua_State *L;
+	Mutex* lock;
 
-    int _debug_parse_err_line;
-    String _debug_parse_err_file;
-    String _debug_error;
+	int _debug_parse_err_line;
+	String _debug_parse_err_file;
+	String _debug_error;
 
-    bool _debug_in_coroutine;
-    int _debug_running_level;
-    int _debug_break_level;
+	bool _debug_in_coroutine;
+	int _debug_running_level;
+	int _debug_break_level;
 
-    bool hitBreakPoint(lua_State *L, lua_Debug *ar);
-    void onHook(lua_State *L, lua_Debug *ar);
-    static void hookRoutine(lua_State *L, lua_Debug *ar);
+	bool hitBreakPoint(lua_State *L, lua_Debug *ar);
+	void onHook(lua_State *L, lua_Debug *ar);
+	static void hookRoutine(lua_State *L, lua_Debug *ar);
 
 	void _add_global(const StringName& p_name,const Variant& p_value);
-    bool execute(const char *script);
+	bool execute(const char *script);
+
+protected:
+	struct {
+
+		//StringName _init;
+		//StringName _notification;
+		//StringName _set;
+		//StringName _get;
+		//StringName _get_property_list;
+		StringName _script_source;
+
+	} strings;
+
+	friend class LuaScript;
 
 public:
 
 	int calls;
 
-    bool debug_break(const String& p_error,bool p_allow_continue=true);
-    bool debug_break_parse(const String& p_file, int p_line,const String& p_error);
+	bool debug_break(const String& p_error,bool p_allow_continue=true);
+	bool debug_break_parse(const String& p_file, int p_line,const String& p_error);
 
 	_FORCE_INLINE_ int get_global_array_size() const { return global_array.size(); }
 	_FORCE_INLINE_ Variant* get_global_array() { return _global_array; }
@@ -335,7 +349,7 @@ public:
 	virtual void debug_get_stack_level_members(int p_level,List<String> *p_members, List<Variant> *p_values, int p_max_subitems=-1,int p_max_depth=-1);
 	virtual void debug_get_globals(List<String> *p_locals, List<Variant> *p_values, int p_max_subitems=-1,int p_max_depth=-1);
 	virtual String debug_parse_stack_level_expression(int p_level,const String& p_expression,int p_max_subitems=-1,int p_max_depth=-1,bool p_return=true);
-    virtual void debug_status_changed();
+	virtual void debug_status_changed();
 
 	virtual void frame();
 
@@ -346,10 +360,10 @@ public:
 
 	virtual void get_recognized_extensions(List<String> *p_extensions) const;
 
-    lua_State *get_state() const { return L; }
-    Mutex* get_lock() const { return lock; }
+	lua_State *get_state() const { return L; }
+	Mutex* get_lock() const { return lock; }
 
-    static int panic(lua_State *L);
+	static int panic(lua_State *L);
 
 	LuaScriptLanguage();
 	~LuaScriptLanguage();
@@ -376,9 +390,9 @@ public:
 };
 
 //#define LUA_MULTITHREAD_GUARD()\
-//    LuaScriptLanguage *lang = LuaScriptLanguage::get_singleton();
+//	LuaScriptLanguage *lang = LuaScriptLanguage::get_singleton();
 #define LUA_MULTITHREAD_GUARD()\
-    LuaScriptLanguage *lang = LuaScriptLanguage::get_singleton();\
+	LuaScriptLanguage *lang = LuaScriptLanguage::get_singleton();\
 	if(lang != NULL)\
 		MutexLock lklua(lang->get_lock());
 

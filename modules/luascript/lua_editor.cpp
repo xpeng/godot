@@ -52,7 +52,7 @@ String LuaScriptLanguage::get_template(const String& p_class_name, const String&
 	"-- member variables here, example:\n"+
 	"-- local a=2\n"+
 	"-- b=\"textvar\"\n\n"+
-    "function node:_ready()\n"+
+	"function node:_ready()\n"+
 	"\t-- Initalization here\n"+
 	"\t-- pass\n"+
 	"end\n"+
@@ -64,35 +64,35 @@ String LuaScriptLanguage::get_template(const String& p_class_name, const String&
 
 bool LuaScriptLanguage::validate(const String& p_script, int &r_line_error,int &r_col_error,String& r_test_error, const String& p_path,List<String> *r_functions) const {
 
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    CharString code = p_script.utf8();
+	CharString code = p_script.utf8();
 
-    lua_State *L = LuaScriptLanguage::get_singleton()->get_state();
-    int top = lua_gettop(L);
-    if(luaL_loadbuffer(L, code.get_data(), code.length(), p_path.utf8().get_data()))
-    {
-        const char *err = lua_tostring(L, -1);
+	lua_State *L = LuaScriptLanguage::get_singleton()->get_state();
+	int top = lua_gettop(L);
+	if(luaL_loadbuffer(L, code.get_data(), code.length(), p_path.utf8().get_data())) {
 
-        int error_line = -1;
-        const char *ls = err;
-        while(ls != NULL && ls[0] != '\0')
-        {
-            ls = strchr(ls, ':');
-            if(ls == NULL)
-                break;
-            error_line = atoi(ls + 1);
-            if(error_line > 0)
-                break;
-            ls ++;
-        }
-        r_line_error = error_line;
-        r_col_error = 0;
-        r_test_error = err;
+		const char *err = lua_tostring(L, -1);
 
-        return false;
-    }
-    lua_pop(L, 1);
+		int error_line = -1;
+		const char *ls = err;
+		while(ls != NULL && ls[0] != '\0') {
+
+			ls = strchr(ls, ':');
+			if(ls == NULL)
+				break;
+			error_line = atoi(ls + 1);
+			if(error_line > 0)
+				break;
+			ls ++;
+		}
+		r_line_error = error_line;
+		r_col_error = 0;
+		r_test_error = err;
+
+		return false;
+	}
+	lua_pop(L, 1);
 
 	return true;
 }
@@ -135,37 +135,37 @@ Script *LuaScriptLanguage::create_script() const {
 bool LuaScriptLanguage::debug_break_parse(const String& p_file, int p_line,const String& p_error) {
 	//break because of parse error
 
-    if (ScriptDebugger::get_singleton() && Thread::get_caller_ID()==Thread::get_main_ID()) {
+	if (ScriptDebugger::get_singleton() && Thread::get_caller_ID()==Thread::get_main_ID()) {
 
 	_debug_parse_err_line=p_line;
 	_debug_parse_err_file=p_file;
 	_debug_error=p_error;
 	ScriptDebugger::get_singleton()->debug(this,false);
 	return true;
-    } else {
+	} else {
 	return false;
-    }
+	}
 
 }
 
 bool LuaScriptLanguage::debug_break(const String& p_error,bool p_allow_continue) {
 
-    if (ScriptDebugger::get_singleton() && Thread::get_caller_ID()==Thread::get_main_ID()) {
+	if (ScriptDebugger::get_singleton() && Thread::get_caller_ID()==Thread::get_main_ID()) {
 
-	_debug_parse_err_line=-1;
-	_debug_parse_err_file="";
-	_debug_error=p_error;
-	ScriptDebugger::get_singleton()->debug(this,p_allow_continue);
-	return true;
-    } else {
-	return false;
-    }
+		_debug_parse_err_line=-1;
+		_debug_parse_err_file="";
+		_debug_error=p_error;
+		ScriptDebugger::get_singleton()->debug(this,p_allow_continue);
+		return true;
+	} else {
+		return false;
+	}
 
 }
 
 String LuaScriptLanguage::debug_get_error() const {
 
-    return _debug_error;
+	return _debug_error;
 }
 
 int LuaScriptLanguage::debug_get_stack_level_count() const {
@@ -173,31 +173,31 @@ int LuaScriptLanguage::debug_get_stack_level_count() const {
 	if (_debug_parse_err_line>=0)
 		return 1;
 
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    lua_Debug ld;
-    int depth = 0;
-    for(; lua_getstack(L, depth, &ld); ++depth);
-    return depth;
+	lua_Debug ld;
+	int depth = 0;
+	for(; lua_getstack(L, depth, &ld); ++depth);
+	return depth;
 }
 
 bool printFrame(lua_State *L, unsigned int level)
 {
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    lua_Debug ld;
-    if(!lua_getstack(L, level, &ld))
-        return false;
+	lua_Debug ld;
+	if(!lua_getstack(L, level, &ld))
+		return false;
 
-    lua_getinfo(L, "n", &ld);
-    lua_getinfo(L, "S", &ld);
-    lua_getinfo(L, "l", &ld);
+	lua_getinfo(L, "n", &ld);
+	lua_getinfo(L, "S", &ld);
+	lua_getinfo(L, "l", &ld);
 
-    printf("#%d  %s %s", level, ld.name ? ld.name : "(trunk)", ld.short_src); //  ld.linedefined ? ld.source : "[string]");
-    if(ld.source[0] == '@')
-        printf(":%d", ld.currentline);
-    printf("\n");
-    return true;
+	printf("#%d  %s %s", level, ld.name ? ld.name : "(trunk)", ld.short_src); //  ld.linedefined ? ld.source : "[string]");
+	if(ld.source[0] == '@')
+		printf(":%d", ld.currentline);
+	printf("\n");
+	return true;
 }
 
 
@@ -206,15 +206,15 @@ int LuaScriptLanguage::debug_get_stack_level_line(int p_level) const {
 	if (_debug_parse_err_line>=0)
 		return _debug_parse_err_line;
 
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    lua_Debug ar;
-    if(lua_getstack(L, p_level, &ar))
-    {
-        lua_getinfo(L, "l", &ar);
-        return ar.currentline;
-    }
-    return -1;
+	lua_Debug ar;
+	if(lua_getstack(L, p_level, &ar)) {
+
+		lua_getinfo(L, "l", &ar);
+		return ar.currentline;
+	}
+	return -1;
 }
 
 String LuaScriptLanguage::debug_get_stack_level_function(int p_level) const {
@@ -222,43 +222,44 @@ String LuaScriptLanguage::debug_get_stack_level_function(int p_level) const {
 	if (_debug_parse_err_line>=0)
 		return "";
 
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    lua_Debug ar;
-    if(lua_getstack(L, p_level, &ar))
-    {
-        lua_getinfo(L, "Snl", &ar);
-        return ar.name ? ar.name : "(trunk)";
-    }
-    return "";
+	lua_Debug ar;
+	if(lua_getstack(L, p_level, &ar)) {
+
+		lua_getinfo(L, "Snl", &ar);
+		return ar.name ? ar.name : "(trunk)";
+	}
+	return "";
 }
+
 String LuaScriptLanguage::debug_get_stack_level_source(int p_level) const {
 
 	if (_debug_parse_err_line>=0)
 		return _debug_parse_err_file;
 
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    lua_Debug ar;
-    if(lua_getstack(L, p_level, &ar))
-    {
-        lua_getinfo(L, "S", &ar);
-        return ar.source ? ar.source : ar.short_src;
-    }
-    return "";
+	lua_Debug ar;
+	if(lua_getstack(L, p_level, &ar)) {
+
+		lua_getinfo(L, "S", &ar);
+		return ar.source ? ar.source : ar.short_src;
+	}
+	return "";
 }
 
 static bool is_filter_locals(const char *name)
 {
-    if(!strcmp(name, "(*temporary)"))
-        return true;
-    if(!strcmp(name, "(for index)"))
-        return true;
-    if(!strcmp(name, "(for limit)"))
-        return true;
-    if(!strcmp(name, "(for step)"))
-        return true;
-    return false;
+	if(!strcmp(name, "(*temporary)"))
+		return true;
+	if(!strcmp(name, "(for index)"))
+		return true;
+	if(!strcmp(name, "(for limit)"))
+		return true;
+	if(!strcmp(name, "(for step)"))
+		return true;
+	return false;
 }
 
 void LuaScriptLanguage::debug_get_stack_level_locals(int p_level,List<String> *p_locals, List<Variant> *p_values, int p_max_subitems,int p_max_depth) {
@@ -266,147 +267,148 @@ void LuaScriptLanguage::debug_get_stack_level_locals(int p_level,List<String> *p
 	if (_debug_parse_err_line>=0)
 		return;
 
-    int level = p_level;
+	int level = p_level;
 
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    lua_Debug _ar;
-    for(int depth = 0; lua_getstack(L, depth, &_ar); ++depth)
-    {
-        if((level != -1) && (level != depth))
-            continue;
+	lua_Debug _ar;
+	for(int depth = 0; lua_getstack(L, depth, &_ar); ++depth) {
 
-        int n = 1;
-        const char *name = NULL;
-        // get local values first
-        while((name = lua_getlocal(L, &_ar, n++)) != NULL)
-        {
-            if(!is_filter_locals(name))
-            {
-                p_locals->push_back(String("[local] ") + name);
-                Variant var;
-                LuaInstance::l_get_variant(L, -1, var);
-                if(var.get_type() == Variant::NIL || var.get_type() == Variant::OBJECT)
-                {
-                    lua_getglobal(L, "tostring");
-                    lua_insert(L, -2);
-                    lua_call(L, 1, 1);
-                    var = lua_tostring(L, -1);
-                }
-                p_values->push_back(var);
-            }
-            lua_pop(L, 1);
-        }
-        // get upvalues
-        n = 1;
-        lua_getinfo(L, "f", &_ar);
-        while((name = lua_getupvalue(L, -1, n++)) != NULL)
-        {
-            if(!is_filter_locals(name))
-            {
-                p_locals->push_back(String("[upvalue] ") + name);
-                Variant var;
-                LuaInstance::l_get_variant(L, -1, var);
-                if(var.get_type() == Variant::NIL || var.get_type() == Variant::OBJECT)
-                {
-                    lua_getglobal(L, "tostring");
-                    lua_insert(L, -2);
-                    lua_call(L, 1, 1);
-                    var = lua_tostring(L, -1);
-                }
-                p_values->push_back(var);
-            }
-            lua_pop(L, 1);
-        }
-    }
+		if((level != -1) && (level != depth))
+			continue;
+
+		int n = 1;
+		const char *name = NULL;
+		// get local values first
+		while((name = lua_getlocal(L, &_ar, n++)) != NULL) {
+
+			if(!is_filter_locals(name)) {
+
+				p_locals->push_back(String("[local] ") + name);
+				Variant var;
+				LuaInstance::l_get_variant(L, -1, var);
+				if(var.get_type() == Variant::NIL || var.get_type() == Variant::OBJECT)
+				{
+					lua_getglobal(L, "tostring");
+					lua_insert(L, -2);
+					lua_call(L, 1, 1);
+					var = lua_tostring(L, -1);
+				}
+				p_values->push_back(var);
+			}
+			lua_pop(L, 1);
+		}
+		// get upvalues
+		n = 1;
+		lua_getinfo(L, "f", &_ar);
+		while((name = lua_getupvalue(L, -1, n++)) != NULL) {
+
+			if(!is_filter_locals(name)) {
+
+				p_locals->push_back(String("[upvalue] ") + name);
+				Variant var;
+				LuaInstance::l_get_variant(L, -1, var);
+				if(var.get_type() == Variant::NIL || var.get_type() == Variant::OBJECT) {
+
+					lua_getglobal(L, "tostring");
+					lua_insert(L, -2);
+					lua_call(L, 1, 1);
+					var = lua_tostring(L, -1);
+				}
+				p_values->push_back(var);
+			}
+			lua_pop(L, 1);
+		}
+	}
 }
+
 void LuaScriptLanguage::debug_get_stack_level_members(int p_level,List<String> *p_members, List<Variant> *p_values, int p_max_subitems,int p_max_depth) {
 
 	if (_debug_parse_err_line>=0)
 		return;
 
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    lua_Debug ar;
-    if(!lua_getstack(L, p_level, &ar))
-        return;
+	lua_Debug ar;
+	if(!lua_getstack(L, p_level, &ar))
+		return;
 
-    const LuaInstance *instance = NULL;
+	const LuaInstance *instance = NULL;
 
-    int n = 1;
-    const char *name = NULL;
-    // get local 'self'
-    while((name = lua_getlocal(L, &ar, n++)) != NULL)
-    {
-        if(!strcmp(name, "self"))
-        {
-            Variant self;
-            LuaInstance::l_get_variant(L, -1, self);
-            if(self.get_type() != Variant::OBJECT)
-            {
-                lua_pop(L, 1);
-                return;
-            }
-            Object *obj = self;
-            if(obj->get_script_instance() == NULL)
-                return;
-            instance = dynamic_cast<LuaInstance *>(obj->get_script_instance());
-        }
-        lua_pop(L, 1);
-    }
-    if(instance == NULL)
-        return;
+	int n = 1;
+	const char *name = NULL;
+	// get local 'self'
+	while((name = lua_getlocal(L, &ar, n++)) != NULL) {
 
-    if(instance->l_get_object_table())
-    {
-        lua_pushnil(L);
-        while(lua_next(L, -2))
-        {
-            Variant key, value;
-            LuaInstance::l_get_variant(L, -2, key);
-            if(key.get_type() == Variant::NIL || key.get_type() == Variant::OBJECT)
-            {
-                lua_getglobal(L, "tostring");
-                lua_insert(L, -2);
-                lua_call(L, 1, 1);
-                key = lua_tostring(L, -1);
-            }
-            LuaInstance::l_get_variant(L, -1, value);
-            if(value.get_type() == Variant::NIL || value.get_type() == Variant::OBJECT)
-            {
-                lua_getglobal(L, "tostring");
-                lua_insert(L, -2);
-                lua_call(L, 1, 1);
-                value = lua_tostring(L, -1);
-            }
-            if((String) key != String(".c_instance"))
-            {
-                p_members->push_back(key);
-                p_values->push_back(value);
-            }
-            lua_pop(L, 1);
-        }
-        lua_pop(L, 1);
-    }
+		if(!strcmp(name, "self")) {
 
-    //Ref<LuaScript> script = instance->get_script();
-    //ERR_FAIL_COND( script.is_null() );
+			Variant self;
+			LuaInstance::l_get_variant(L, -1, self);
+			if(self.get_type() != Variant::OBJECT) {
 
-    //for(Map<StringName,PropertyInfo>::Element *E=script->member_info.front(); E; E=E->next())
-    //{
-    //    const StringName& key = E->key();
-    //    Variant value;
-    //    if(instance->get(key, value))
-    //    {
-    //        p_members->push_back(key);
-    //        p_values->push_back(value);
-    //    }
-    //}
+				lua_pop(L, 1);
+				return;
+			}
+			Object *obj = self;
+			if(obj->get_script_instance() == NULL)
+				return;
+			instance = dynamic_cast<LuaInstance *>(obj->get_script_instance());
+		}
+		lua_pop(L, 1);
+	}
+	if(instance == NULL)
+		return;
+
+	if(instance->l_get_object_table()) {
+
+		lua_pushnil(L);
+		while(lua_next(L, -2)) {
+
+			Variant key, value;
+			LuaInstance::l_get_variant(L, -2, key);
+			if(key.get_type() == Variant::NIL || key.get_type() == Variant::OBJECT) {
+
+				lua_getglobal(L, "tostring");
+				lua_insert(L, -2);
+				lua_call(L, 1, 1);
+				key = lua_tostring(L, -1);
+			}
+			LuaInstance::l_get_variant(L, -1, value);
+			if(value.get_type() == Variant::NIL || value.get_type() == Variant::OBJECT) {
+
+				lua_getglobal(L, "tostring");
+				lua_insert(L, -2);
+				lua_call(L, 1, 1);
+				value = lua_tostring(L, -1);
+			}
+			if((String) key != String(".c_instance")) {
+
+				p_members->push_back(key);
+				p_values->push_back(value);
+			}
+			lua_pop(L, 1);
+		}
+		lua_pop(L, 1);
+	}
+
+	//Ref<LuaScript> script = instance->get_script();
+	//ERR_FAIL_COND( script.is_null() );
+
+	//for(Map<StringName,PropertyInfo>::Element *E=script->member_info.front(); E; E=E->next())
+	//{
+	//	const StringName& key = E->key();
+	//	Variant value;
+	//	if(instance->get(key, value))
+	//	{
+	//		p_members->push_back(key);
+	//		p_values->push_back(value);
+	//	}
+	//}
 }
 
 void LuaScriptLanguage::debug_get_globals(List<String> *p_locals, List<Variant> *p_values, int p_max_subitems,int p_max_depth) {
 
-    //no globals are really reachable in lua script
+	//no globals are really reachable in lua script
 }
 
 String LuaScriptLanguage::debug_parse_stack_level_expression(int p_level,const String& p_expression,int p_max_subitems,int p_max_depth,bool p_return) {
@@ -414,163 +416,158 @@ String LuaScriptLanguage::debug_parse_stack_level_expression(int p_level,const S
 	if (_debug_parse_err_line>=0)
 		return "";
 
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    char script[4096];
+	char script[4096];
 #if defined(_MSC_VER)
-    _snprintf(script, sizeof(script), "return %s", p_expression.utf8().get_data());
+	_snprintf(script, sizeof(script), "return %s", p_expression.utf8().get_data());
 #else
-    snprintf(script, sizeof(script), "return %s", p_expression.utf8().get_data());
+	snprintf(script, sizeof(script), "return %s", p_expression.utf8().get_data());
 #endif
-    if(luaL_loadbuffer(L, script, strlen(script), "=(debug command)") == 0)
-        lua_pcall(L, 0, 1, 0);
-    const char *ret = lua_tostring(L, -1);
-    if(ret == NULL)
-    {
-        lua_getglobal(L, "tostring");
-        lua_insert(L, -2);
-        lua_call(L, 1, 1);
-        ret = lua_tostring(L, -1);
-    }
-    lua_pop(L, 1);
-    return ret ? ret : "";
+	if(luaL_loadbuffer(L, script, strlen(script), "=(debug command)") == 0)
+		lua_pcall(L, 0, 1, 0);
+	const char *ret = lua_tostring(L, -1);
+	if(ret == NULL) {
+
+		lua_getglobal(L, "tostring");
+		lua_insert(L, -2);
+		lua_call(L, 1, 1);
+		ret = lua_tostring(L, -1);
+	}
+	lua_pop(L, 1);
+	return ret ? ret : "";
 }
 
 bool LuaScriptLanguage::hitBreakPoint(lua_State *L, lua_Debug *ar)
 {
-    LUA_MULTITHREAD_GUARD();
+	LUA_MULTITHREAD_GUARD();
 
-    ScriptDebugger *deb = ScriptDebugger::get_singleton();
-    if(deb == NULL || !deb->has_breakpoint())
-        return false;
+	ScriptDebugger *deb = ScriptDebugger::get_singleton();
+	if(deb == NULL || !deb->has_breakpoint())
+		return false;
 
-    lua_getinfo(L, "S", ar);
-    lua_getinfo(L, "l", ar);
+	lua_getinfo(L, "S", ar);
+	lua_getinfo(L, "l", ar);
 
-    return deb->is_breakpoint(ar->currentline, ar->source);
+	return deb->is_breakpoint(ar->currentline, ar->source);
 }
 
 void LuaScriptLanguage::onHook(lua_State *L, lua_Debug *ar)
 {
-    ScriptDebugger *deb = ScriptDebugger::get_singleton();
-    //mAr = ar;
-    bool hitbp = hitBreakPoint(L, ar);
-    if(L != this->L)
-    {
-        if(_debug_in_coroutine)
-            return;
+	ScriptDebugger *deb = ScriptDebugger::get_singleton();
+	//mAr = ar;
+	bool hitbp = hitBreakPoint(L, ar);
+	if(L != this->L) {
 
-        switch(ar->event)
-        {
-        case LUA_HOOKCALL:
-            if(_debug_break_level <= _debug_running_level)
-            {
-                _debug_in_coroutine = true;
-                return;
-            }
-        case LUA_HOOKRET:
-            {
-                this->L = L;
-                // step in
-                lua_sethook(L, hookRoutine, LUA_MASKLINE | LUA_MASKCALL | LUA_MASKRET, 0);
-                _debug_running_level = debug_get_stack_level_count();
-                _debug_break_level = INT_MAX;
-            }
-            break;
-        default:
-            printf("Invalid hook event %d when switching coroutine.\n", ar->event);
-            return;
-        }
-        if(!hitbp)
-            return;
-    }
-    else
-    {
-        if(_debug_break_level != -1)
-        {
-            switch(ar->event)
-            {
-            case LUA_HOOKCALL:
-                //_debug_running_level = lua_get_stackdepth(L);
-                //if(_debug_break_level < _debug_running_level)
-                //    //lua_sethook(L, HookRoutine, LUA_MASKCALL | LUA_MASKRET | (hasBreakPoint() ? LUA_MASKLINE : 0), 0);
-                //    lua_sethook(L, HookRoutine, LUA_MASKCALL | LUA_MASKRET | LUA_MASKLINE, 0);
-                return;
-            case LUA_HOOKRET:
-                if(_debug_in_coroutine)
-                    _debug_in_coroutine = false;
-                //_debug_running_level = lua_get_stackdepth(L) - 1;
-                //if(_debug_break_level >= _debug_running_level)
-                //    lua_sethook(L, HookRoutine, LUA_MASKCALL | LUA_MASKRET | LUA_MASKLINE, 0);
-                return;
-            case LUA_HOOKTAILRET:
-            case LUA_HOOKLINE:
-                deb->line_poll();
-                break;
-            default:
-                printf("Invalid event %d when hook line.\n", ar->event);
-                return;
-            }
-            _debug_running_level = debug_get_stack_level_count();
+		if(_debug_in_coroutine)
+			return;
 
-            if(!hitbp && (_debug_break_level >= 0) && (_debug_break_level < _debug_running_level))
-                return;
+		switch(ar->event) {
+		case LUA_HOOKCALL:
+			if(_debug_break_level <= _debug_running_level)
+			{
+				_debug_in_coroutine = true;
+				return;
+			}
+		case LUA_HOOKRET:{
 
-            _debug_running_level = _debug_break_level = -1;
-        }
-        else
-        {
-            if(!hitbp || ar->event != LUA_HOOKLINE)
-                return;
-        }
-    }
+				this->L = L;
+				// step in
+				lua_sethook(L, hookRoutine, LUA_MASKLINE | LUA_MASKCALL | LUA_MASKRET, 0);
+				_debug_running_level = debug_get_stack_level_count();
+				_debug_break_level = INT_MAX;
+			}
+			break;
+		default:
+			printf("Invalid hook event %d when switching coroutine.\n", ar->event);
+			return;
+		}
+		if(!hitbp)
+			return;
+	} else {
 
-    if(!deb->has_breakpoint())
-        lua_sethook(L, hookRoutine, 0, 0);
+		if(_debug_break_level != -1) {
 
-    debug_break("Breakpoint",true);
+			switch(ar->event) {
+			case LUA_HOOKCALL:
+				//_debug_running_level = lua_get_stackdepth(L);
+				//if(_debug_break_level < _debug_running_level)
+				//	//lua_sethook(L, HookRoutine, LUA_MASKCALL | LUA_MASKRET | (hasBreakPoint() ? LUA_MASKLINE : 0), 0);
+				//	lua_sethook(L, HookRoutine, LUA_MASKCALL | LUA_MASKRET | LUA_MASKLINE, 0);
+				return;
+			case LUA_HOOKRET:
+				if(_debug_in_coroutine)
+					_debug_in_coroutine = false;
+				//_debug_running_level = lua_get_stackdepth(L) - 1;
+				//if(_debug_break_level >= _debug_running_level)
+				//	lua_sethook(L, HookRoutine, LUA_MASKCALL | LUA_MASKRET | LUA_MASKLINE, 0);
+				return;
+			case LUA_HOOKTAILRET:
+			case LUA_HOOKLINE:
+				deb->line_poll();
+				break;
+			default:
+				printf("Invalid event %d when hook line.\n", ar->event);
+				return;
+			}
+			_debug_running_level = debug_get_stack_level_count();
+
+			if(!hitbp && (_debug_break_level >= 0) && (_debug_break_level < _debug_running_level))
+				return;
+
+			_debug_running_level = _debug_break_level = -1;
+		} else {
+
+			if(!hitbp || ar->event != LUA_HOOKLINE)
+				return;
+		}
+	}
+
+	if(!deb->has_breakpoint())
+		lua_sethook(L, hookRoutine, 0, 0);
+
+	debug_break("Breakpoint",true);
 }
 
 void LuaScriptLanguage::hookRoutine(lua_State *L, lua_Debug *ar)
 {
-    LuaScriptLanguage::get_singleton()->onHook(L, ar);
+	LuaScriptLanguage::get_singleton()->onHook(L, ar);
 }
 
 void LuaScriptLanguage::debug_status_changed()
 {
-    ScriptDebugger *deb = ScriptDebugger::get_singleton();
-    if(deb == NULL)
-        return;
+	ScriptDebugger *deb = ScriptDebugger::get_singleton();
+	if(deb == NULL)
+		return;
 
-    if(deb->get_lines_left() == 1)
-    {
-        if(deb->get_depth() == -1)
-        {
-            // step in
-            lua_sethook(L, hookRoutine, LUA_MASKLINE | LUA_MASKCALL | LUA_MASKRET, 0);
-            _debug_running_level = debug_get_stack_level_count();
-            _debug_break_level = INT_MAX;
-        }
-        else if(deb->get_depth() == 0)
-        {
-            // next
-            lua_sethook(L, hookRoutine, LUA_MASKLINE | LUA_MASKCALL | LUA_MASKRET, 0);
-            _debug_running_level = debug_get_stack_level_count();
-            _debug_break_level = _debug_running_level;
-        }
-    }
-    else if(deb->has_breakpoint())
-    {
-        lua_sethook(L, hookRoutine, LUA_MASKLINE | LUA_MASKRET | LUA_MASKLINE, 0);
-    }
-    else
-    {
-        lua_sethook(L, hookRoutine, 0, 0);
+	if(deb->get_lines_left() == 1)
+	{
+		if(deb->get_depth() == -1) {
 
-        _debug_in_coroutine = false;
-        _debug_running_level = -1;
-        _debug_break_level = -1;
-    }
+			// step in
+			lua_sethook(L, hookRoutine, LUA_MASKLINE | LUA_MASKCALL | LUA_MASKRET, 0);
+			_debug_running_level = debug_get_stack_level_count();
+			_debug_break_level = INT_MAX;
+		}
+		else if(deb->get_depth() == 0) {
+
+			// next
+			lua_sethook(L, hookRoutine, LUA_MASKLINE | LUA_MASKCALL | LUA_MASKRET, 0);
+			_debug_running_level = debug_get_stack_level_count();
+			_debug_break_level = _debug_running_level;
+		}
+	}
+	else if(deb->has_breakpoint()) {
+
+		lua_sethook(L, hookRoutine, LUA_MASKLINE | LUA_MASKRET | LUA_MASKLINE, 0);
+	} else {
+
+		lua_sethook(L, hookRoutine, 0, 0);
+
+		_debug_in_coroutine = false;
+		_debug_running_level = -1;
+		_debug_break_level = -1;
+	}
 }
 
 void LuaScriptLanguage::get_recognized_extensions(List<String> *p_extensions) const {
@@ -598,7 +595,7 @@ void LuaScriptLanguage::get_public_constants(List<Pair<String,Variant> > *p_cons
 
 String LuaScriptLanguage::make_function(const String& p_class,const String& p_name,const StringArray& p_args) const {
 
-    String s="function node:"+p_name+"(";
+	String s="function node:"+p_name+"(";
 	if (p_args.size()) {
 		s+=" ";
 		for(int i=0;i<p_args.size();i++) {
