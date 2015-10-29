@@ -15,7 +15,7 @@
 
 #include "theme_data.h"
 #include "os/os.h"
-
+#include "os/file_access.h"
 
 #include "normal_font.inc"
 #include "bold_font.inc"
@@ -247,7 +247,10 @@ void make_default_theme() {
 
 	size_t font_size = 20;
     String font_path = config_path + "\\Godot\\editor.ttf";
-    Ref<TtfFont> ttf_font = ResourceLoader::load(font_path);
+	Ref<TtfFont> ttf_font;
+	if(FileAccess::exists(font_path))
+		ttf_font = ResourceLoader::load(font_path);
+
 	if(ttf_font.is_null())
 	{
 		font_path = "C:\\Windows\\Fonts\\msyh.ttf";
