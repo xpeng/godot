@@ -41,9 +41,8 @@
 //////////////////////////////
 
 
-static Object *luaL_checkobject(lua_State *L, int idx)
-{
-	LUA_MULTITHREAD_GUARD();
+static Object *luaL_checkobject(lua_State *L, int idx) {
+
 	size_t id = *(size_t *) luaL_checkudata(L, idx, "LuaObject");
 	return ObjectDB::get_instance(id);
 }
@@ -449,10 +448,10 @@ int LuaInstance::meta__gc(lua_State *L)
 	//	obj->set_script_instance(NULL);
 
 	// dec refcount if obj is resource
-	if(obj->is_type_ptr(Resource::get_type_ptr_static())) {
-		Resource *res = obj->cast_to<Resource>();
-		if(res->unreference())
-			memdelete(res);
+	if(obj->is_type_ptr(Reference::get_type_ptr_static())) {
+		Reference *ref = obj->cast_to<Reference>();
+		if(ref->unreference())
+			memdelete(ref);
 	}
 	lua_pushnil(L);
 	lua_setmetatable(L, 1);
@@ -663,7 +662,6 @@ void LuaInstance::setup()
 			{ "__newindex", meta_bultins__newindex },
 			{ "__tostring", meta_bultins__tostring },
 			{ "__pairs", meta_bultins__pairs },
-			{ "__ipairs", meta_bultins__ipairs },
 			{ NULL, NULL },
 		};
 		luaL_setfuncs(L, meta_methods, 0);
@@ -730,9 +728,9 @@ int LuaInstance::init(bool p_ref)
 		// value
 		size_t *ptr = (size_t *) lua_newuserdata(L, sizeof(size_t));
 		// add refcount if obj(self) is resource
-		if(obj->is_type_ptr(Resource::get_type_ptr_static())) {
-			Resource *res = obj->cast_to<Resource>();
-			res->reference();
+		if(obj->is_type_ptr(Reference::get_type_ptr_static())) {
+			Reference *ref = obj->cast_to<Reference>();
+			ref->reference();
 		}
 		*ptr = owner->get_instance_ID();
 		luaL_getmetatable(L, "LuaObject");
@@ -781,10 +779,10 @@ LuaInstance::~LuaInstance() {
 			lua_getfield(L, -1, ".c_instance");
 
 			Object *self = luaL_checkobject(L, -1);
-			if(self->is_type_ptr(Resource::get_type_ptr_static())) {
-				Resource *res = self->cast_to<Resource>();
-				if(res->unreference())
-					memdelete(res);
+			if(self->is_type_ptr(Reference::get_type_ptr_static())) {
+				Reference *ref = self->cast_to<Reference>();
+				if(ref->unreference())
+					memdelete(ref);
 			} else {
 				// delete userdata Variant
 				//memdelete(self);

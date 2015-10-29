@@ -37,7 +37,7 @@
 #include "os/file_access.h"
 
 //////////////////////////////
-//		 INSTANCE		 //
+//		 VARIANT            //
 //////////////////////////////
 
 typedef struct {
@@ -74,6 +74,13 @@ static BulitinTypes vtypes[] = {
 	{ "ColorArray", Variant::COLOR_ARRAY },
 };
 
+static Variant * luaL_checkvariant(lua_State *L, int idx) {
+
+	void *ptr = luaL_checkudata(L, idx, "LuaVariant");
+	return *((Variant **) ptr);
+}
+
+
 int LuaInstance::l_bultins_caller_wrapper(lua_State *L)
 {
 	LUA_MULTITHREAD_GUARD();
@@ -81,8 +88,7 @@ int LuaInstance::l_bultins_caller_wrapper(lua_State *L)
 	const char *key = luaL_checkstring(L, lua_upvalueindex(1));
 	int top = lua_gettop(L);
 
-	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
-	Variant* var = *((Variant **) ptr);
+	Variant* var = luaL_checkvariant(L, 1);
 	Variant::CallError err;
 	Variant ret;
 
@@ -234,8 +240,7 @@ int LuaInstance::meta_bultins__gc(lua_State *L)
 {
 	LUA_MULTITHREAD_GUARD();
 
-	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
-	Variant* var = *((Variant **) ptr);
+	Variant* var = luaL_checkvariant(L, 1);
 	memdelete(var);
 
 	lua_pushnil(L);
@@ -250,8 +255,7 @@ int LuaInstance::meta_bultins__evaluate(lua_State *L)
 
 	Variant::Operator op = (Variant::Operator) lua_tointeger(L, lua_upvalueindex(1));
 
-	void *ptr1 = luaL_checkudata(L, 1, "LuaVariant");
-	Variant* var1 = *((Variant **) ptr1);
+	Variant* var1 = luaL_checkvariant(L, 1);
 
 	Variant var2;
 	l_get_variant(L, 2, var2);
@@ -269,9 +273,8 @@ int LuaInstance::meta_bultins__evaluate(lua_State *L)
 
 static int l_builtins_iterator(lua_State *L) {
 
-	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
-	Variant& var = **((Variant **) ptr);
-
+	LUA_MULTITHREAD_GUARD();
+	Variant& var = *luaL_checkvariant(L, 1);
 	if(var.get_type() == Variant::DICTIONARY) {
 
 		Variant k;
@@ -306,9 +309,8 @@ static int l_builtins_iterator(lua_State *L) {
 
 int LuaInstance::meta_bultins__pairs(lua_State *L) {
 
-	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
-	Variant& var = **((Variant **) ptr);
-
+	LUA_MULTITHREAD_GUARD();
+	Variant& var = *luaL_checkvariant(L, 1);
 	Variant::Type vt = var.get_type();
 	switch(vt) {
 	case Variant::DICTIONARY:
@@ -331,40 +333,11 @@ int LuaInstance::meta_bultins__pairs(lua_State *L) {
 	return 0;
 }
 
-int LuaInstance::meta_bultins__ipairs(lua_State *L) {
-
-	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
-	Variant& var = **((Variant **) ptr);
-
-	Variant::Type vt = var.get_type();
-	switch(vt) {
-	case Variant::ARRAY:
-	case Variant::RAW_ARRAY:
-	case Variant::INT_ARRAY:
-	case Variant::REAL_ARRAY:
-	case Variant::STRING_ARRAY:
-	case Variant::VECTOR2_ARRAY:
-	case Variant::VECTOR3_ARRAY:
-	case Variant::COLOR_ARRAY: {
-
-		int idx = luaL_checkinteger(L, 2);
-		bool r_valid = false;
-		l_push_variant(L, var.get(idx, &r_valid));
-		return 1;
-	}
-	default:
-		luaL_error(L, "Cannot ipairs an %s value", var.get_type_name(var.get_type()));
-		break;
-	}
-	return 0;
-}
-
 int LuaInstance::meta_bultins__tostring(lua_State *L)
 {
 	LUA_MULTITHREAD_GUARD();
 
-	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
-	Variant* var = *((Variant **) ptr);
+	Variant* var = luaL_checkvariant(L, 1);
 
 	char buf[4096];
 	sprintf(buf, "%s[%s]", var->get_type_name(var->get_type()).utf8().get_data(), (var->operator String()).utf8().get_data());;
@@ -377,8 +350,7 @@ int LuaInstance::meta_bultins__index(lua_State *L)
 {
 	LUA_MULTITHREAD_GUARD();
 
-	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
-	Variant* var = *((Variant **) ptr);
+	Variant* var = luaL_checkvariant(L, 1);
 
 	Variant key;
 	l_get_variant(L, 2, key);
@@ -404,8 +376,7 @@ int LuaInstance::meta_bultins__newindex(lua_State *L)
 {
 	LUA_MULTITHREAD_GUARD();
 
-	void *ptr = luaL_checkudata(L, 1, "LuaVariant");
-	Variant* var = *((Variant **) ptr);
+	Variant* var = luaL_checkvariant(L, 1);
 
 	Variant key, value;
 	l_get_variant(L, 2, key);
@@ -476,9 +447,9 @@ void LuaInstance::l_get_variant(lua_State *L, int idx, Variant& var)
 						lua_pop(L, 2);
 						size_t id = *((size_t *) p);
 						Object *obj = ObjectDB::get_instance(id);
-						if(obj->is_type_ptr(Resource::get_type_ptr_static())) {
-							Resource *res = obj->cast_to<Resource>();
-							var = Ref<Resource>(res);
+						if(obj->is_type_ptr(Reference::get_type_ptr_static())) {
+							Reference *ref = obj->cast_to<Reference>();
+							var = Ref<Reference>(ref);
 						} else {
 							var = obj;
 						}
@@ -567,10 +538,9 @@ void LuaInstance::l_push_variant(lua_State *L, const Variant& var)
 
 				size_t* ptr = (size_t *) lua_newuserdata(L, sizeof(size_t));
 				// add refcount if obj is resource
-				if(obj->is_type_ptr(Resource::get_type_ptr_static())) {
-					Resource *res = obj->cast_to<Resource>();
-					ERR_FAIL_COND(res == NULL);
-					res->reference();
+				if(obj->is_type_ptr(Reference::get_type_ptr_static())) {
+					Reference *ref = obj->cast_to<Reference>();
+					ref->reference();
 				}
 				*ptr = obj->get_instance_ID();
 				luaL_getmetatable(L, "LuaObject");

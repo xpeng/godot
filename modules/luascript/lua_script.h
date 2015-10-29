@@ -224,7 +224,6 @@ friend class LuaScriptLanguage;
 	static int meta_bultins__newindex(lua_State *L);
 	static int meta_bultins__evaluate(lua_State *L);
 	static int meta_bultins__pairs(lua_State *L);
-	static int meta_bultins__ipairs(lua_State *L);
 
 public:
 
