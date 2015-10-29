@@ -431,7 +431,9 @@ void LuaInstance::l_get_variant(lua_State *L, int idx, Variant& var)
 		break;
 
 	case LUA_TSTRING:
-		var = lua_tostring(L, idx);
+		String str;
+		str.parse_utf8(lua_tostring(L, idx));
+		var = str;
 		break;
 
 	case LUA_TUSERDATA: {
